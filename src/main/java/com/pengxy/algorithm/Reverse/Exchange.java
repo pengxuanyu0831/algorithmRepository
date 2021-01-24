@@ -1,4 +1,4 @@
-package com.pengxy.algorithm;
+package com.pengxy.algorithm.Reverse;
 
 import java.util.Scanner;
 import java.util.Stack;
