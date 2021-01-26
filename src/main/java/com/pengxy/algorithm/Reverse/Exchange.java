@@ -18,6 +18,7 @@ public class Exchange{
         Stack<Character> stringStack = new Stack<>();
         // 把字符串转化成数组
         char[] arrary = str.toCharArray();
+        // 把数组推进栈中
         for(Character c:arrary){
             stringStack.push(c);
         }
