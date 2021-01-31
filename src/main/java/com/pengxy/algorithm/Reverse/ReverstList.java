@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @program algorithm
- * @description:
+ * @description: 指针反转的方法
  * @author: pengxuanyu
  * @create: 2021/01/24 22:06
  */
