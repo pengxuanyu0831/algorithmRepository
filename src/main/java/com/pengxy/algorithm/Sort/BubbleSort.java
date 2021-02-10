@@ -13,6 +13,7 @@ public class BubbleSort {
         for(int i = 0;i < size - 1 ;i++) {
             for (int j = 0; j < size - 1 - i; j++) {
                 if (datas[j] > datas[j + 1]) {
+                    // 如果左边小于右边，交换位置
                     temp = datas[j];
                     datas[j] = datas[j + 1];
                     datas[j + 1] = temp;
