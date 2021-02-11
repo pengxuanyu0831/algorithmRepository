@@ -11,20 +11,22 @@ public class SelectionSort {
         if(datas.length == 0){
             return datas;
         }
-        for(int i = 0;i < datas.length;i++){
-            // 当前最小值
-            int miniIndex = i;
-            for(int j = i;j < datas.length ;j++){
-                // 如果遍历后续的值，出现小于基准值
-                if(datas[j] < datas[miniIndex]){
-                    // 记录小于基准值的索引位置
-                    miniIndex = j;
+        for(int i = 0;i < datas.length; i++){
+            // 现在的i 是最小值的位置
+            int minIndex = i;
+            int min = datas[minIndex];
+            // j 从 i 开始遍历数组，找比 i 更小的数
+            for(int j = i ;i < datas.length; j++){
+                // 找比 i 更小的
+                if(datas[j] < datas[minIndex]){
+                    minIndex = j;
                 }
             }
-            // datas[miniIndex] 现在是最小的值
-            int temp = datas[miniIndex];
-            datas[miniIndex] = datas[i];
-            datas[i] = temp;
+            if(i != minIndex){
+                datas[minIndex] = datas[i];
+                datas[i] = min;
+            }
+
         }
         return datas;
     }
