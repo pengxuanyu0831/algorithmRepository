@@ -6,7 +6,7 @@ package com.pengxy.algorithm.Tree;
  * @author: pengxuanyu
  * @create: 2021/02/12 12:45
  */
-public class preorderTraversal {
+public class PreOrderTraversal {
     public static void preorderTraversal(TreeNode root){
         if(root == null){
             System.out.println("根节点为空");

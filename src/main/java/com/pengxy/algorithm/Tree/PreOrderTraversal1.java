@@ -8,7 +8,7 @@ import java.util.Stack;
  * @author: pengxuanyu
  * @create: 2021/02/12 12:50
  */
-public class preorderTraversal1 {
+public class PreOrderTraversal1 {
     public static void preorderTraversal1(TreeNode root){
         // 新建一个栈来缓存节点
         Stack<TreeNode> treeNodeStack = new Stack<TreeNode>();
