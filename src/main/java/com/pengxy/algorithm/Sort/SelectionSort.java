@@ -22,6 +22,7 @@ public class SelectionSort {
                     minIndex = j;
                 }
             }
+            // 如果i 不是当前找到最小的，就和最小的交换，始终保证i 是最小的
             if(i != minIndex){
                 datas[minIndex] = datas[i];
                 datas[i] = min;
