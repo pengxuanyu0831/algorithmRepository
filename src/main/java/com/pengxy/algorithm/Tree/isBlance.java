@@ -13,7 +13,9 @@ public class isBlance {
         if(root == null){
             return true;
         }else {
-            return Math.abs(height(root.left) - height(root.right)) <= 1 && isBlance(root.left) && isBlance(root.right);
+            return Math.abs(height(root.left) - height(root.right)) <= 1
+                    && isBlance(root.left)
+                    && isBlance(root.right);
         }
     }
 
