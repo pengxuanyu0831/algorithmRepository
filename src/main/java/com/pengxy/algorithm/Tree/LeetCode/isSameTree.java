@@ -1,4 +1,6 @@
-package com.pengxy.algorithm.Tree;
+package com.pengxy.algorithm.Tree.LeetCode;
+
+import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
 
 import java.util.ArrayList;
 

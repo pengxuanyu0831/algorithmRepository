@@ -1,4 +1,4 @@
-package com.pengxy.algorithm.Tree;
+package com.pengxy.algorithm.Tree.LeetCode;
 
 /**
  * @program algorithm
@@ -7,11 +7,11 @@ package com.pengxy.algorithm.Tree;
  * @create: 2021/02/02 22:17
  */
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode (int val ){
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode() {}
+    public TreeNode (int val ){
         this.val = val;
     }
 
