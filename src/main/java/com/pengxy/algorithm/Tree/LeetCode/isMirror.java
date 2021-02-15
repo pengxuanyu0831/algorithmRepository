@@ -15,7 +15,7 @@ public class isMirror {
         if(root == null){
             return true;
         }
-
+        // 利用队列FIFO性质，队尾添加节点，队首获取节点
         Queue<TreeNode> treeQueue = new LinkedList<>();
         treeQueue.offer(root.left);
         treeQueue.offer(root.right);
