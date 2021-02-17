@@ -18,6 +18,7 @@ public class PreOrderTraversal1 {
         TreeNode node = root;
         while (!treeNodeStack.isEmpty() || node != null){
             // 若当前节点非空，则输出这个节点
+            // 遍历所有节点的左子树，直到最左
             while (node != null){
                 System.out.println(node.val + " ");
                 treeNodeStack.push(node);
@@ -25,7 +26,9 @@ public class PreOrderTraversal1 {
             }
             // 当左子树为空时，开始遍历右子树
             // 如果栈为空，即所有节点都遍历完成了
+            // 走到这个判断时，栈顶元素为最左节点。然后递归返回
             if(!treeNodeStack.isEmpty()){
+                // 出栈，输出每个节点的右节点
                 node = treeNodeStack.pop();
                 node = node.right;
 
