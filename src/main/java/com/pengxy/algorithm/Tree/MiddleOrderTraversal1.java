@@ -12,6 +12,7 @@ import java.util.Stack;
  */
 public class MiddleOrderTraversal1 {
     public static void middleOrderTraversal1(TreeNode root){
+        // 栈，先进后出
         Stack<TreeNode> treeNodeStack = new Stack<TreeNode>();
         TreeNode node = root;
         while(node != null || !treeNodeStack.isEmpty()){
