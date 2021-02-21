@@ -10,6 +10,7 @@ import java.util.Stack;
  */
 public class MaxDepth {
     public int maxDepth(TreeNode root){
+        // 左右子树中更大的那个
         return root == null ? 0 : Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
     }
 }
