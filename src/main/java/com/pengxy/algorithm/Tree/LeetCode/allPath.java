@@ -22,6 +22,7 @@ public class allPath {
 
     public void resolve(TreeNode root,String str,List<String> list){
         if(root == null) return;
+        // 每个节点都要做一件事，就是打印自己的值，拼到str中
         str += root.val;
         // 走到底则将节点值放入List中
         if(root.right == null && root.left == null) {
