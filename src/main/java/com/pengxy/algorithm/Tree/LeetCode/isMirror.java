@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 /**
  * @program algorithm
- * @description: 判断一颗二叉树是不是堆成的   迭代的实现
+ * @description: 判断一颗二叉树是不是对称的   迭代的实现
  * @author: pengxuanyu
  * @create: 2021/02/14 16:03
  */
