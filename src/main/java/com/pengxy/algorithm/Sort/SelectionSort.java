@@ -17,7 +17,7 @@ public class SelectionSort {
             int min = datas[minIndex];
             // j 从 i 开始遍历数组，找比 i 更小的数
             for(int j = i ;i < datas.length; j++){
-                // 找比 i 更小的
+                // 找比 下标i 更小的
                 if(datas[j] < datas[minIndex]){
                     minIndex = j;
                 }
