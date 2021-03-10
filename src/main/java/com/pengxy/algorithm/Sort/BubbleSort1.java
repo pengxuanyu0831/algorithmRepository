@@ -15,8 +15,10 @@ public class BubbleSort1 {
     }
 
     static void sort(int[] array){
-        for (int j = 0; j < array.length - 1; j--) {
-            for (int i = 0; i < 10 - 1; i++) {
+        // 外层循环是未排序的子数组，故而越来越小
+        for (int j = array.length - 1; j > 0; j--) {
+            // 遍历未排序的数组
+            for (int i = 0; i < j; i++) {
                 if (array[i] > array[i + 1]) {
                     Method.swapArray(array, i, i + 1);
                 }
