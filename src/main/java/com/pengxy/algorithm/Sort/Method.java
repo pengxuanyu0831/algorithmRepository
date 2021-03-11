@@ -8,9 +8,11 @@ package com.pengxy.algorithm.Sort;
  */
 public class Method {
     static void printArray(int[] arrary) {
+        System.out.print("[ ");
         for (int j = 0; j < arrary.length; j++) {
-            System.out.print(arrary[j] + " ");
+            System.out.print(arrary[j] + ", ");
         }
+        System.out.println("]");
     }
 
     static void swapArray(int[] array,int i, int j){
