@@ -2,7 +2,7 @@ package com.pengxy.algorithm.Sort;
 
 /**
  * @program algorithm
- * @description:
+ * @description: 快速排序，找一个基准值，小的丢左边，大的丢右边
  * @author: pengxuanyu
  * @create: 2021/02/10 14:36
  */
