@@ -21,18 +21,18 @@ public class QuickSort1 {
     }
 
     static int partional(int[] array,int leftBound,int rightBound){
-        // 从数组中找出一个基准值，小于基准值得统统放左边，大于基准值的统统放左边，然后不断的递归
+        // 从数组中找出一个基准值，小于基准值得统统放左边，大于基准值的统统放右边，然后不断的递归
         // int bivot = (int) (leftBound + Math.random() * (rightBound - leftBound + 1));
-        int bivot = array[rightBound];
+        int pivot = array[rightBound];
         int left = leftBound;
         int right = rightBound - 1;
 
         while(left <= right){
             // 左指针小于基准值，一直向右移动
-            while(left <= right && array[left] <= bivot){
+            while(left <= right && array[left] <= pivot){
                 left++;
             }
-            while(left <= right && array[right] > bivot){
+            while(left <= right && array[right] > pivot){
                 right--;
             }
             if(left < right){
