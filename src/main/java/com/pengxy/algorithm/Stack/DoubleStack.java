@@ -32,5 +32,22 @@ public class DoubleStack {
         }
         return stack.isEmpty();
     }
+
+    public Boolean isDouble(String string) {
+        // 省略判空
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < string.length() - 1; i++) {
+            char c = string.charAt(i);
+            if (c == '(') {
+                stack.push(c);
+            }else if(c == ')'){
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
 }
 
