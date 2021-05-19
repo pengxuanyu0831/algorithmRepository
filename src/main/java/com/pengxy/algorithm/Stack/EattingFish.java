@@ -41,4 +41,27 @@ public class EattingFish {
         }
         return t.size();
     }
+
+    public int eating(int[] fishSize, int[] fishDir) {
+        // 0-left 1-right
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < fishSize.length - 1; i++) {
+            int target = stack.peek();
+            //stack.push(fishSize[i]);
+            if (target > fishSize[i]) {
+                if(fishDir[i-1]>fishDir[i]){
+                    continue;
+                }else {
+                    stack.push(fishSize[i]);
+                }
+            }else {
+                if(fishDir[i-1]>fishDir[i]){
+                    stack.pop();
+                    stack.push(fishSize[i]);
+                }
+            }
+        }
+        return stack.size();
+
+    }
 }
