@@ -2,11 +2,12 @@ package com.pengxy.algorithm.LRU;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 
 import java.util.Objects;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -30,6 +31,61 @@ public class LRUAbstractMap extends java.util.AbstractMap{
     private final static Integer MAX_SIZE = 1024;
 
     private final static ArrayBlockingQueue<Node> QUEUE = new ArrayBlockingQueue<>();
+
+    private final static int DEFAULT_ARRAY_SIZE = 1024;
+
+    private int arraySize;
+
+    private Object[] arrays;
+
+    private volatile boolean flag = false;
+
+    private final static Long EXPIRE_TIME = 60 * 60 * 1000L;
+
+    private volatile AtomicInteger size;
+
+    public LRUAbstractMap() {
+        arraySize = DEFAULT_ARRAY_SIZE;
+        arrays = new Object[arraySize];
+
+
+    }
+
+    private void execCheckTime() {
+        ThreadFactory factory = new CustomizableThreadFactory("DameThread-pool-");
+
+        executorService = new ThreadPoolExecutor(1,
+                1,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<>(1),
+                factory,
+                new ThreadPoolExecutor.AbortPolicy());
+        executorService.execute(new CheckTimeThread());
+    }
+
+    private class CheckTimeThread implements Runnable {
+        @Override
+        public void run() {
+            while (flag) {
+                try {
+                    Node node = QUEUE.poll();
+                    if (node == null) {
+                        continue;
+                    }
+                    Long updateTime = node.updateTime;
+                    if ((updateTime - System.currentTimeMillis()) >= EXPIRE_TIME) {
+                        remove(node.key);
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("INNNNNNNn");
+                }
+            }
+        }
+    }
+
+
+
 
     private class Node{
         private Node next;
