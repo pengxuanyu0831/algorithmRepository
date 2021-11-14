@@ -1,6 +1,8 @@
 package com.pengxy.algorithm.array;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,11 +31,36 @@ public class array {
     }
 
 
+    public int removeDuplicates0026(int[] nums) {
+        int cur = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != nums[cur]) {
+                nums[cur + 1] = nums[i];
+                cur++;
+            }
+        }
+        return cur + 1;
+    }
+
+
+    public int removeElement0027(int[] nums,int target) {
+        int cur = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != target) {
+                nums[cur] = nums[i];
+                cur++;
+            }
+        }
+        return cur ;
+    }
+
+
+
     public static void main(String[] args) {
         Integer[] integers = {1, 2, 3, 5, 7, 8};
 
-        Integer[] integers1 = twoSum(integers, 9);
-        System.out.println(integers1);
+        // Integer[] integers1 = twoSum(integers, 9);
+
 
     }
 }
