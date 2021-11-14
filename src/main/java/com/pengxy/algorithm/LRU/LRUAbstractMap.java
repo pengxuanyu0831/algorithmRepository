@@ -1,3 +1,4 @@
+/*
 package com.pengxy.algorithm.LRU;
 
 import org.slf4j.Logger;
@@ -10,24 +11,30 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
+*/
 /**
  * @program algorithm
  * @description:
  * @author: pengxuanyu
  * @create: 2021/11/01 09:26
- */
+ *//*
+
 
 
 public class LRUAbstractMap extends java.util.AbstractMap{
     private final static Logger LOGGER = LoggerFactory.getLogger(LRUAbstractMap.class);
-    /**
+    */
+/**
      * 检查是否超期
-     */
+     *//*
+
     private ExecutorService executorService;
 
-    /**
+    */
+/**
      * Map最大size
-     */
+     *//*
+
     private final static Integer MAX_SIZE = 1024;
 
     private final static ArrayBlockingQueue<Node> QUEUE = new ArrayBlockingQueue<>();
@@ -103,3 +110,4 @@ public class LRUAbstractMap extends java.util.AbstractMap{
         }
     }
 }
+*/
