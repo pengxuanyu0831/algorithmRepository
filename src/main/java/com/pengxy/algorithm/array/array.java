@@ -55,6 +55,59 @@ public class array {
     }
 
 
+    public int searchInsert0035(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) {
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+    /**
+     * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+     * @param nums
+     * @return
+     * 动态规划最重要的思想就是**利用上一个状态**, 对于本题而言就是: **到底要不要加上上一个状态f(i-1)的信息**, 这完全取决于f(i-1)的**正负情况**, 这样我们就能得出了动态规划的递推公式: f(i)=max{f(i−1)+ai,ai}
+     */
+    public int maxSubArray0053(int[] nums) {
+        int sum = 0;
+        int res = nums[0];
+        for (int i : nums) {
+            if (sum > 0) {
+                sum = sum + i;
+            } else {
+                sum = i;
+            }
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+
+    /**
+     * 给定一个由 整数 组成的 非空 数组所表示的非负整数，在该数的基础上加一。
+     *
+     * 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+     *
+     * 你可以假设除了整数 0 之外，这个整数不会以零开头。
+     * @param digits
+     * @return
+     */
+    public int[] plusOne0066(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] != 9) {
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+
+        int[] temp = new int[digits.length + 1];
+        temp[0] = 1;
+        return temp;
+    }
+
+
 
     public static void main(String[] args) {
         Integer[] integers = {1, 2, 3, 5, 7, 8};
