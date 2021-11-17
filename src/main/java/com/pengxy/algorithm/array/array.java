@@ -185,6 +185,84 @@ public class array {
         return list;
     }
 
+    /**
+     * 给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+     *
+     * 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。
+     *
+     * 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        // 错误经验，值得记录一下，仅供参考和反思
+        if(prices.length <=1){
+            return 0;
+        }
+        if(prices.length == 2){
+            if(prices[1] > prices[0]){
+                return prices[1] - prices[0];
+            }else{
+                return 0;
+            }
+        }
+        int[] n1 = new int[2];
+        // 倒着找最小的
+        int cur = prices.length - 1;
+        for (int i = prices.length - 1; i >= 0; i--) {
+            if (prices[cur] > prices[i]) {
+                n1[0] = prices[i];
+                cur = i;
+            }
+        }
+        int min = cur;
+        System.out.println(cur + "pr[cur]:"+prices[cur]);
+        int temp = prices[cur];
+        for (int j = min; j < prices.length; j++) {
+            if (prices[min] < prices[j]) {
+                n1[1] = prices[j];
+                min = j;
+            }
+        }
+        System.out.println(min + "pr[min]:" + prices[min]);
+        if (min > cur) {
+            return n1[1] - n1[0];
+        } else {
+            return 0;
+        }
+
+    }
+
+
+    public int maxProfitTRUE(int[] prices) {
+        int low = Integer.MAX_VALUE;
+        int max = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            low = Math.min(low, prices[i]);
+            max = Math.max(max, prices[i] - prices[low]);
+        }
+        return max;
+    }
+
+
+    /**
+     * 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+     *
+     * 说明：
+     *
+     * 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+     * @param nums
+     * @return
+     */
+    public int singleNumber(int[] nums) {
+        // 异或
+        int cur = nums[0];
+        for (int i = 1; i < nums.length ; i++) {
+            cur ^= nums[i];
+        }
+        return cur;
+    }
+
 
 
     public static void main(String[] args) {
