@@ -34,6 +34,11 @@ public class array {
     }
 
 
+    /**
+     * 给定一个有序数组 nums，对数组中的元素进行去重，使得原数组中的每个元素只有一个。最后返回去重以后数组的长度值。
+     * @param nums
+     * @return
+     */
     public int removeDuplicates0026(int[] nums) {
         int cur = 0;
         for (int i = 0; i < nums.length; i++) {
