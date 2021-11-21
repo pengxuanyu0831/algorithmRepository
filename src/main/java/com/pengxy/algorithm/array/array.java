@@ -1,12 +1,10 @@
 package com.pengxy.algorithm.array;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import apple.laf.JRSUIUtils;
 import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
+import com.sun.tools.classfile.ConstantPool;
 
 /**
  * @program algorithm
@@ -267,6 +265,79 @@ public class array {
         }
         return cur;
     }
+
+
+    /**
+     * 给定一个已按照 非递减顺序排列 的整数数组numbers ，请你从数组中找出两个数满足相加之和等于目标数target 。
+     *
+     * 函数应该以长度为 2 的整数数组的形式返回这两个数的下标值。numbers 的下标 从 1 开始计数 ，所以答案数组应当满足 1 <= answer[0] < answer[1] <= numbers.length 。
+     *
+     * 你可以假设每个输入 只对应唯一的答案 ，而且你 不可以 重复使用相同的元素。
+     * @param numbers
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int j = numbers.length - 1;
+        for (int i = 0;i < j ;) {
+            int sum = numbers[i] + numbers[j];
+            System.out.println("j="+j+"sum="+sum);
+            if (sum == target) {
+                return new int[]{i + 1, j + 1};
+            } else if (sum > target) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于⌊ n/2 ⌋的元素。
+     *
+     * 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+     * 参考资料 摩尔算法：https://www.zhihu.com/question/49973163/answer/235921864
+     * @param nums
+     * @return
+     */
+    public int majorityElement0169(int[] nums) {
+        int count = 1;
+        int major = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == major) {
+                count++;
+            }else{
+                count--;
+            }
+            if (count == 0) {
+                major = nums[i];
+                count = 1;
+            }
+        }
+        return major;
+    }
+
+
+    /**
+     * 给定一个整数数组，判断是否存在重复元素。
+     *
+     * 如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元素都不相同，则返回 false
+     * @param nums
+     * @return
+     */
+    public boolean containsDuplicate0217(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
+        }
+        if (set.size() == nums.length) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 
