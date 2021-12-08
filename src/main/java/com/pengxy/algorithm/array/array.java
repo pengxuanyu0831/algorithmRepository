@@ -1,5 +1,6 @@
 package com.pengxy.algorithm.array;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import apple.laf.JRSUIUtils;
@@ -357,6 +358,31 @@ public class array {
             map.put(nums[i], i);
         }
         return false;
+    }
+
+
+    public List<String> summaryRanges(int[] nums) {
+        int[] numss = Arrays.copyOf(nums, nums.length + 1);
+        numss[numss.length - 1] = numss[numss.length -2] + 1;
+        List<String> list = new ArrayList<String>();
+        int j = numss[0];
+        int start = numss[0];
+        for (int i = 0; i < numss.length; i++) {
+            if (numss[i] == j) {
+                j++;
+            } else {
+                System.out.println("===="+"j:"+j + "start:"+start+"i:"+i);
+                if (start == numss[i - 1]) {
+                    list.add(start + "");
+                } else {
+                    list.add(start + "->" + numss[i-1]);
+                }
+                start = numss[i];
+                j = numss[i] + 1;
+                System.out.println("j:"+j + "start:"+start+"i:"+i);
+            }
+        }
+        return list;
     }
 
 
