@@ -398,9 +398,17 @@ public class array {
     }
 
 
-    // #283
+    // #283  不用排序的沃日
     public void moveZeroes(int[] nums) {
-
+        int current = 0;
+        for(int i = 0;i < nums.length;i++){
+            if(nums[i] != 0){
+                nums[current] = nums[i];
+                if(current++ != i){
+                    nums[i] = 0;
+                }
+            }
+        }
     }
 
 
