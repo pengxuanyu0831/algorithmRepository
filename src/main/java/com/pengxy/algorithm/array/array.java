@@ -387,6 +387,24 @@ public class array {
 
 
 
+    // #268
+    public int missingNumber(int[] nums) {
+        int result = nums.length;
+        for (int i = 0; i < nums.length; i++) {
+            result ^= nums[i];
+            result ^= i;
+        }
+        return result;
+    }
+
+
+    // #283
+    public void moveZeroes(int[] nums) {
+
+    }
+
+
+
 
     public static void main(String[] args) {
         Integer[] integers = {1, 2, 3, 5, 7, 8};
