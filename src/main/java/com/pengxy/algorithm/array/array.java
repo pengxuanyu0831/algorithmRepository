@@ -413,6 +413,56 @@ public class array {
 
 
 
+    // #349
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet set1 = new HashSet();
+        HashSet result = new HashSet();
+        for (int i = 0; i < nums1.length; i++) {
+            set1.add(nums1[i]);
+        }
+
+        for (int j = 0; j < nums2.length; j++) {
+            if (set1.contains(nums2[j])) {
+                result.add(nums2[j]);
+            }
+        }
+
+        int[] resultArr = new int[result.size()];
+        int index = 0;
+        for (int k = 0;k < result.size();k++) {
+            resultArr[index++] = k;
+        }
+
+        return resultArr;
+
+    }
+
+
+
+    // #350
+    public int[] intersect(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+
+        for (int i : nums1) {
+            map1.put(i, map1.getOrDefault(i, 0) + 1);
+        }
+
+        int index = 0;
+        for (int i : nums2) {
+            int temp = map1.getOrDefault(i, 0);
+            if (temp > 0) {
+                // 之所以要覆盖，是因为已经有了才去覆盖，如果没有
+                nums1[index++] = i;
+                map1.replace(i, temp - 1);
+            }
+        }
+
+        int[] res = new int[nums1.length];
+        System.arraycopy(nums1,0,res,0,index);
+        return res;
+    }
+
+
 
     public static void main(String[] args) {
         Integer[] integers = {1, 2, 3, 5, 7, 8};
