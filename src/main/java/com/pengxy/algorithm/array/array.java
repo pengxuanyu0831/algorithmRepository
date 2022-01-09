@@ -464,10 +464,77 @@ public class array {
 
 
 
-    public static void main(String[] args) {
-        Integer[] integers = {1, 2, 3, 5, 7, 8};
+    // #414
+    //执行用时：
+    //5 ms
+    //在所有 Java 提交中击败了
+    //24.88%
+    //的用户
+    //内存消耗：
+    //38.1 MB
+    //, 在所有 Java 提交中击败了
+    //82.28%
+    //的用户
+    //通过测试用例：
+    //31 / 31
+    public static int thirdMax(int[] nums) {
+        TreeSet<Integer> treeSet = (TreeSet<Integer>) new TreeSet<Integer>().descendingSet();
 
-        // Integer[] integers1 = twoSum(integers, 9);
+        for (int i = 0; i < nums.length; i++) {
+            treeSet.add(nums[i]);
+
+/*            if (nums[i] > mid) {
+                if (nums[i] > max) {
+
+                    min = mid;
+                    mid = max;
+                    max = nums[i];
+                } else  {
+
+                    min = mid;
+                    mid = nums[i];
+                }
+
+            } else if (nums[i] == mid) {
+                mid = nums[i];
+
+            } else {
+                min = nums[i];
+
+            }*/
+        }
+
+
+        Iterator<Integer> iterator = treeSet.iterator();
+        int i = iterator.next();
+
+
+        if (treeSet.size() == 1) {
+
+            return treeSet.first();
+        }
+        int j = iterator.next();
+
+        if (treeSet.size() == 2) {
+
+            if (i > j) {
+                return i;
+            } else {
+                return j;
+            }
+        }
+
+        int k = iterator.next();
+        return i ;
+    }
+
+
+
+    public static void main(String[] args) {
+        int[] integers = {1, 2, 3, 5, 7, 8};
+        int i = thirdMax(integers);
+        System.out.println(i);
+
 
 
     }
