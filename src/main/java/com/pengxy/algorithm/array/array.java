@@ -574,8 +574,20 @@ public class array {
 
 
 
-    // #455
+    // #455 贪心算法
     public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int index = 0;
+        int count = 0;
+        // 用最多的饼干满足最多的小孩，所以遍历饼干而不是小孩
+        for (int i = 0; i < s.length && index < g.length; i++) {
+            if (s[i] >= g[index]) {
+                index++;
+                count++;
+            }
+        }
+        return count;
 
     }
 
