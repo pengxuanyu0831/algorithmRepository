@@ -574,6 +574,13 @@ public class array {
 
 
 
+    // #455
+    public int findContentChildren(int[] g, int[] s) {
+
+    }
+
+
+
     public static void main(String[] args) {
         int[] integers = {1, 2, 3, 5, 7, 8};
         int i = thirdMax(integers);
