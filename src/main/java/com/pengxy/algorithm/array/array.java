@@ -482,26 +482,6 @@ public class array {
 
         for (int i = 0; i < nums.length; i++) {
             treeSet.add(nums[i]);
-
-/*            if (nums[i] > mid) {
-                if (nums[i] > max) {
-
-                    min = mid;
-                    mid = max;
-                    max = nums[i];
-                } else  {
-
-                    min = mid;
-                    mid = nums[i];
-                }
-
-            } else if (nums[i] == mid) {
-                mid = nums[i];
-
-            } else {
-                min = nums[i];
-
-            }*/
         }
 
 
