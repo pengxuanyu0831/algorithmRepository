@@ -568,8 +568,5 @@ public class array {
             }
         }
         return count;
-
     }
-
-
 }
