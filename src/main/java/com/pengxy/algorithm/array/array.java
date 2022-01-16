@@ -572,13 +572,4 @@ public class array {
     }
 
 
-
-    public static void main(String[] args) {
-        int[] integers = {1, 2, 3, 5, 7, 8};
-        int i = thirdMax(integers);
-        System.out.println(i);
-
-
-
-    }
 }
