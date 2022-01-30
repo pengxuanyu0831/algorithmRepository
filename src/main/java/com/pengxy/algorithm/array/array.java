@@ -569,4 +569,38 @@ public class array {
         }
         return count;
     }
+
+
+
+    // #485  soluation1
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int count = 0;
+        int target = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                target++;
+                if (target > count) {
+                    count = target;
+                }
+            } else {
+                target = 0;
+            }
+        }
+        return count;
+    }
+
+
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        int res = 0;
+        int temp = timeSeries[0];
+        for (int i = 0; i < timeSeries.length; i++) {
+            if (timeSeries[i] - temp <= duration) {
+                res += timeSeries[i] - temp;
+            } else {
+                res += duration;
+            }
+            temp = timeSeries[i];
+        }
+        return res + duration;
+    }
 }
