@@ -70,8 +70,10 @@ public class DynamicProgramming {
         dp[0] = cost[0];
         dp[1] = cost[1];
         for (int i = 2; i < cost.length; i++) {
+            // 第i阶的花销 = cost[i]的花销 + 第i阶前两阶中较小的那个
             dp[i] = cost[i] + Math.min(dp[i - 1], dp[i - 2]);
         }
+        // 可以视为到最后一阶台阶就完成了，不需要花费了，所以这里取倒数最后两步中较小的那个
         return Math.min(dp[cost.length - 1], dp[cost.length - 2]);
     }
 
@@ -79,6 +81,7 @@ public class DynamicProgramming {
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
-        System.out.println(dynamicProgramming.steps(5));
+        int[] a = {1, 1, 1, 100, 3, 9, 10, 1, 2, 3};
+        System.out.println(dynamicProgramming.climb(a));
     }
 }
