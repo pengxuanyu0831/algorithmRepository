@@ -60,16 +60,19 @@ public class DynamicProgramming {
      * @param cost
      * @return
      * no.1 dp[i] 最小开销 i -> 第i个台阶
-     * no.2 找关系 确定dp[i] 的最小值，其实就是确定do[i-1] dp[i-2]的最小值  >>>> dp[i] = dp[i-1] + dp[i-2]
+     * no.2 找关系 确定dp[i] 的最小值，其实就是确定do[i-1] dp[i-2]的最小值  >>>> dp[i] = min(dp[i-1],dp[i-2])
      * no.3 确定初始值 dp[1]
      * no.4 确定顺序 递增
-     * no.5 写公式
+     * no.5 写公式 返回倒数最后两个中，较小的那个
      */
     public int climb(int[] cost) {
-
-        if (cost[0] > cost[1]) {
-
+        int[] dp = new int[cost.length];
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for (int i = 2; i < cost.length; i++) {
+            dp[i] = cost[i] + Math.min(dp[i - 1], dp[i - 2]);
         }
+        return Math.min(dp[cost.length - 1], dp[cost.length - 2]);
     }
 
 
