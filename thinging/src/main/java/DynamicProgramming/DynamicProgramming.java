@@ -89,7 +89,12 @@ public class DynamicProgramming {
     public int paths(int high, int weight) {
         // 二维数组
         int[][] dp = new int[high][weight];
-        // 初始化
+/**         初始化 即到dp[i][0] 的路程只有1中走法，所以 1 1 1 1 ... weight
+ *                                                  1
+ *                                                  1
+ *                                                 ...
+ *                                                 high
+ */
         for (int i = 0; i < high; i++) {
             dp[i][0] = 1;
         }
