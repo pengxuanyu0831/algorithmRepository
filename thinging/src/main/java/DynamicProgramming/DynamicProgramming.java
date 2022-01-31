@@ -78,6 +78,38 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     *
+     * @param high
+     * @param weight
+     * @return
+     * dp数组 表示从（0，0）开始，到(i,j)有dp[i][j]种走法
+     * d[i][j] = dp[i-1][j] + dp[i][j-1] 要么从上面下来，要么从左边过来
+     */
+    public int paths(int high, int weight) {
+        // 二维数组
+        int[][] dp = new int[high][weight];
+        // 初始化
+        for (int i = 0; i < high; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 0; j < weight; j++) {
+            dp[0][j] = 1;
+        }
+        // 循环嵌套
+        for (int i = 1; i < high; i++) {
+            for (int j = 1; j < weight; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[weight - 1][high - 1];
+
+
+
+
+    }
+
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
