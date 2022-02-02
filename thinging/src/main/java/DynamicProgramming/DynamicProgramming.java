@@ -146,11 +146,29 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * i ->> 数字 dp[i] ->>拆分后最大的乘积
+     * 最大值dp[i] ->> 假定
+     * @param n
+     * @return
+     */
+    public int integerBreak(int n) {
+        int[] dp = new int[n + 1];
+        dp[2] = 1;
+        // 假定i + j = n
+        for (int i = 3; i < n; i++) {
+            for (int j = 1; j < i - 1; j++) {
+                dp[i] = Math.max(dp[i], Math.max(j * (i - j), dp[i - j] * j));
+            }
+        }
+        return dp[n];
+    }
+
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
         int[] a = {1, 1, 1, 100, 3, 9, 10, 1, 2, 3};
-        System.out.println(dynamicProgramming.climb(a));
         System.out.println(dynamicProgramming.climb(a));
     }
 }
