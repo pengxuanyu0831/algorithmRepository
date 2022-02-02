@@ -79,7 +79,7 @@ public class DynamicProgramming {
 
 
     /**
-     *
+     * #62
      * @param high
      * @param weight
      * @return
@@ -108,10 +108,41 @@ public class DynamicProgramming {
             }
         }
         return dp[weight - 1][high - 1];
+    }
 
+    /**
+     * 有路障的话 ob[i][j] == 1 意味着路障后边的dp[i][j]都是0
+     * @param obstacleGrid
+     * @return
+     */
+    public int path2(int[][] obstacleGrid) {
+        int n = obstacleGrid.length;
+        int m = obstacleGrid[0].length;
 
+        int[][] dp = new int[n][m];
 
+        for (int i = 1; i < n; i++) {
+            if (obstacleGrid[i][0] == 0 && dp[i - 1][0] == 1) {
+                dp[i][0] = 1;
+            }
+        }
+        for (int j = 1; j < m; j++) {
+            if (obstacleGrid[0][j] == 0 && dp[0][j - 1] == 1) {
+                dp[0][j] = 1;
+            }
+        }
 
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                // 如果出现路障
+                if (obstacleGrid[i][j] == 1) {
+                    continue;
+                } else {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                }
+            }
+        }
+        return dp[n - 1][m - 1];
     }
 
 
@@ -119,6 +150,7 @@ public class DynamicProgramming {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
         int[] a = {1, 1, 1, 100, 3, 9, 10, 1, 2, 3};
+        System.out.println(dynamicProgramming.climb(a));
         System.out.println(dynamicProgramming.climb(a));
     }
 }
