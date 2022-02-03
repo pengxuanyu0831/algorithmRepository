@@ -168,7 +168,5 @@ public class DynamicProgramming {
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
-        int[] a = {1, 1, 1, 100, 3, 9, 10, 1, 2, 3};
-        System.out.println(dynamicProgramming.climb(a));
     }
 }
