@@ -177,6 +177,37 @@ public class DynamicProgramming {
         return dp[n];
     }
 
+    public void bagProblem1() {
+        // 物品重量
+        int[] weight = {1, 3, 4};
+        // 物品价值
+        int[] value = {15, 20, 30};
+        // 背包最大重量
+        int maxWeight = 4;
+
+        // 数组 dp[i][j] --->>> 从下标 0-i 取物，放入容量为j的背包，【总价值】为dp[i][j]
+        int[][] dp = new int[weight.length + 1][value.length + 1];
+
+        // 初始化
+        for (int j = maxWeight; j >= weight[0]; j--) {
+            dp[0][j] = dp[0][j - weight[0] + value[0]];
+        }
+        // 遍历物品
+        for (int i = 0; i < weight.length; i++) {
+            // 遍历容量
+            for (int j = 0; j < maxWeight; j++) {
+                // 当物品重量大于背包重量时
+                if (j < weight[i]) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i] + value[i]]);
+                }
+            }
+        }
+
+
+    }
+
 
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
