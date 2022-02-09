@@ -239,6 +239,7 @@ public class DynamicProgramming {
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
         }
+        // 取余
         if (sum % 2 == 1) {
             return false;
         }
@@ -249,11 +250,7 @@ public class DynamicProgramming {
                 dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
             }
         }
-        if (dp[target] == target) {
-            return true;
-        } else {
-            return false;
-        }
+        return dp[target] == target;
     }
 
 
