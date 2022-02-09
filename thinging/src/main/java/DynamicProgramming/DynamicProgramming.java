@@ -193,15 +193,14 @@ public class DynamicProgramming {
             dp[0][j] = dp[0][j - weight[0] + value[0]];
         }
         // 遍历物品
-        for (int i = 1; i < weight.length; i++) {
+        for (int i = 0; i < weight.length; i++) {
             // 遍历容量
             for (int j = 0; j < maxWeight; j++) {
                 // 当物品重量大于背包重量时
                 if (j < weight[i]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
-                    // 如果第i个物品超出了总量，那么dp[i][j] 就是dp[i-1][j]，所以这里需要比较最大值
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i] + value[i]]);
                 }
             }
         }
