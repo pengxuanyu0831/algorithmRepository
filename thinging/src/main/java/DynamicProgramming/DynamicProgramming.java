@@ -193,20 +193,71 @@ public class DynamicProgramming {
             dp[0][j] = dp[0][j - weight[0] + value[0]];
         }
         // 遍历物品
-        for (int i = 0; i < weight.length; i++) {
+        for (int i = 1; i < weight.length; i++) {
             // 遍历容量
             for (int j = 0; j < maxWeight; j++) {
                 // 当物品重量大于背包重量时
                 if (j < weight[i]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i] + value[i]]);
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
                 }
             }
         }
-
-
     }
+
+
+    public void bagProblems2() {
+        // 物品重量
+        int[] weight = {1, 3, 4};
+        // 物品价值
+        int[] value = {15, 20, 30};
+        // 背包最大重量
+        int maxWeight = 4;
+
+        int[] dp = new int[weight.length + 1];
+
+        dp[0] = 0;
+
+        for (int i = 0; i < weight.length; i++) {
+            // 这里倒序遍历是为了防止东西被放进去两次 【打个草稿就知道了】
+            for (int j = maxWeight; j >= weight[i]; j++) {
+                dp[j] = Math.max(dp[j], dp[j - weight[i] + value[i]]);
+            }
+        }
+    }
+
+    /**
+     * #416
+     * @param nums
+     * @return
+     */
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        int[] dp = new int[10001];
+        // 先算出总和
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        if (sum % 2 == 1) {
+            return false;
+        }
+        int target = sum / 2;
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = target; j >= nums[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+            }
+        }
+        if (dp[target] == target) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 
 
     public static void main(String[] args) {
