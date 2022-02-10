@@ -254,6 +254,31 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #1049
+     * @param stones
+     * @return
+     */
+    public int lastStoneWeightII(int[] stones) {
+        int sum = 0;
+        int[] dp = new int[1501];
+        for (int i = 0; i < stones.length; i++) {
+            sum += stones[i];
+        }
+        int target = sum /2;
+        dp[0] = 0;
+
+        // 遍历物品
+        for (int i = 0; i < stones.length; i++) {
+            // 遍历背包
+            for (int j = 1500; j >= stones[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i]);
+            }
+        }
+        return sum - dp[target] - dp[target];
+    }
+
+
 
 
 
