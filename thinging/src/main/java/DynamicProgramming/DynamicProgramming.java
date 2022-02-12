@@ -279,8 +279,36 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #494
+     * @param nums
+     * @param target
+     * @return
+     * 有i中方法，使得累加和为dp[i]
+     */
+    public int findTargetSumWays(int[] nums, int target) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        int x = (sum + target) / 2;
+        if ((sum + target) % 2 != 0) {
+            return 0;
+        }
 
+        if(x < 0){
+            x = -x;
+        }
+        int[] dp = new int[x + 1];
+        dp[0] = 1;
+        for (int num : nums) {
+            for (int j = x; j >= num; j--) {
+                dp[j] += dp[j - num];
+            }
+        }
+        return dp[x];
 
+    }
 
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
