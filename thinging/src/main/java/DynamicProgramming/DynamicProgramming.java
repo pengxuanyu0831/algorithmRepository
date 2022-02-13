@@ -310,6 +310,43 @@ public class DynamicProgramming {
 
     }
 
+
+    /**
+     * #474
+     * @param strs
+     * @param m
+     * @param n
+     * @return
+     * 01背包问题，有i个0 j个1的最大子集数为dp[i][j]
+     */
+    public int findMaxForm(String[] strs, int m, int n) {
+        if (strs.length == 0) {
+            return 0;
+        }
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (String s : strs) {
+            int oneNum = 0;
+            int zeroNum = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '0') {
+                    zeroNum++;
+                } else {
+                    oneNum++;
+                }
+            }
+
+            for (int i = m; i >= zeroNum; i--) {
+                for (int j = n; j >= oneNum; j--) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - zeroNum][j - oneNum] + 1);
+                }
+            }
+
+        }
+
+        return dp[m][n];
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
 
