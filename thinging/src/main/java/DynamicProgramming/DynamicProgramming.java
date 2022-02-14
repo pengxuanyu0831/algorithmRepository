@@ -341,10 +341,29 @@ public class DynamicProgramming {
                     dp[i][j] = Math.max(dp[i][j], dp[i - zeroNum][j - oneNum] + 1);
                 }
             }
-
         }
-
         return dp[m][n];
+    }
+
+
+    /**
+     * #518
+     * @param amount
+     * @param coins
+     * @return
+     * dp数组的意义 求总和为i的组合种数有dp[i]种
+     */
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        // 遍历物品
+        for (int t = 0; t < coins.length; t++) {
+            // 遍历背包
+            for (int i = coins[t]; i <= amount; i++) {
+                dp[i] += dp[i - coins[t]];
+            }
+        }
+        return dp[amount];
     }
 
     public static void main(String[] args) {
