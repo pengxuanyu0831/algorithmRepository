@@ -380,17 +380,15 @@ public class DynamicProgramming {
         dp[0] = 1;
 
         // 求排列，先遍历背包
-        for (int i = 0; i < target; i++) {
+        for (int i = 0; i <= target; i++) {
             for (int j = 0; j < nums.length; j++) {
                 if (i >= nums[j]) {
-                    System.out.println("i="+i+" j="+j+" dp[i]="+dp[i]);
                     dp[i] += dp[i - nums[j]];
+                    System.out.println("i="+i+" j="+j+" dp[i]="+dp[i]);
                 }
             }
         }
         return dp[target];
-
-
     }
 
     public static void main(String[] args) {
