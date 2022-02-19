@@ -1,11 +1,14 @@
 package DynamicProgramming;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @program algorithm
  * @description:
  * @author: pengxuanyu
  * @create: 2022/01/31 15:25
  */
+@Slf4j
 public class DynamicProgramming {
     // # 第0个动态规划的题目 ----实现斐波那契数列
     public int fibonacci(int number) {
@@ -366,8 +369,34 @@ public class DynamicProgramming {
         return dp[amount];
     }
 
+    /**
+     * #377
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int combinationSum4(int[] nums, int target) {
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+
+        // 求排列，先遍历背包
+        for (int i = 0; i < target; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (i >= nums[j]) {
+                    System.out.println("i="+i+" j="+j+" dp[i]="+dp[i]);
+                    dp[i] += dp[i - nums[j]];
+                }
+            }
+        }
+        return dp[target];
+
+
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
+        int[] dp = {1, 2, 3};
+        dynamicProgramming.combinationSum4(dp, 4);
 
     }
 }
