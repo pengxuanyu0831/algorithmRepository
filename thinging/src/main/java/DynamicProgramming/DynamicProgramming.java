@@ -391,10 +391,57 @@ public class DynamicProgramming {
         return dp[target];
     }
 
+
+    /**
+     * #70
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        int[] dp = new int[n + 1];
+        // i--->第i层，dp[i]--->走到第i层有几种方法
+        dp[0] = 1;
+
+        // 这是完全背包问题，求排列
+        // 所以先遍历背包（目标层数）
+        for (int i = 0; i <= n; i++) {
+            // 再遍历物品(每一层可以选择走几层)
+            for (int j = 1; j <= 2; j++) {
+                if (i >= j) {
+                    dp[i] += dp[i - j];
+                }
+            }
+        }
+        return dp[n];
+    }
+
+
+    /**
+     * #279
+     * @param n
+     * @return
+     */
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        // 和为i的最少数量为dp[i]
+        for (int j = 0; j <= n; j++) {
+            dp[j] = Integer.MAX_VALUE;
+        }
+        dp[0] = 0;
+        // 这里的物品实际上就是{1*1, 2*2,3*3,......n*n}
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j * j <= i; j++) {
+                dp[i] = Math.min(dp[i - j * j] + 1, dp[i]);
+                //log.info("i={} j={} dp[i]={}", i, j, dp[i]);
+            }
+        }
+        return dp[n];
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {1, 2, 3};
-        dynamicProgramming.combinationSum4(dp, 4);
+        dynamicProgramming.numSquares(12);
 
     }
 }
