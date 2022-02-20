@@ -2,6 +2,9 @@ package DynamicProgramming;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @program algorithm
  * @description:
@@ -426,22 +429,59 @@ public class DynamicProgramming {
         // 和为i的最少数量为dp[i]
         for (int j = 0; j <= n; j++) {
             dp[j] = Integer.MAX_VALUE;
+            log.info("dp[{}]={}",j,dp[j]);
         }
+
         dp[0] = 0;
         // 这里的物品实际上就是{1*1, 2*2,3*3,......n*n}
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j * j <= i; j++) {
                 dp[i] = Math.min(dp[i - j * j] + 1, dp[i]);
-                //log.info("i={} j={} dp[i]={}", i, j, dp[i]);
+                log.info("i={} j={} dp[i]={}", i, j, dp[i]);
             }
         }
         return dp[n];
     }
 
+
+    /**
+     * #139
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public boolean wordBreak(String s, List<String> wordDict) {
+        log.info(wordDict.toString());
+        // i--->第i个单词    dp[i] 从1-i能否拼成s
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+
+        // 目标字符串--背包  字典--物品
+        // 先遍历背包
+        for (int i = 0; i <= s.length(); i++) {
+            // 再遍历字典
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    log.info("j = {} i = {} dp[{}] = {}",j,i,i,dp[i]);
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {1, 2, 3};
-        dynamicProgramming.numSquares(12);
+
+        List<String> list = new ArrayList<>();
+        list.add("leet");
+        list.add("Code");
+        //log.info(list.toString());
+
+        boolean b = dynamicProgramming.wordBreak("leetCode", list);
+        System.out.println(b);;
+
 
     }
 }
