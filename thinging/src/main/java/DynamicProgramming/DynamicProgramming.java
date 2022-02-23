@@ -13,18 +13,15 @@ import java.util.List;
  */
 @Slf4j
 public class DynamicProgramming {
-    // # 第0个动态规划的题目 ----实现斐波那契数列
-    public int fibonacci(int number) {
-        if (number <= 1) {
-            return number;
+    // # 第0个动态规划的题目 ----实现斐波那契数列  #509
+    public int fib(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        int[] dp = {0,1};
-        for (int i = 2; i <= number; i++) {
-            int sum = dp[0] + dp[1];
-            dp[0] = dp[1];
-            dp[1] = sum;
-        }
-        return dp[1];
+        return dp[n];
     }
 
     // 递归
@@ -479,8 +476,9 @@ public class DynamicProgramming {
         list.add("Code");
         //log.info(list.toString());
 
-        boolean b = dynamicProgramming.wordBreak("leetCode", list);
-        System.out.println(b);;
+        //boolean b = dynamicProgramming.wordBreak("leetCode", list);
+        // System.out.println(b);;
+        System.out.println(dynamicProgramming.fib(0));
 
 
     }
