@@ -195,6 +195,7 @@ public class DynamicProgramming {
         for (int j = maxWeight; j >= weight[0]; j--) {
             dp[0][j] = dp[0][j - weight[0] + value[0]];
         }
+        // 这一个场景下，先遍历容量，在遍历背包也是可以的
         // 遍历物品
         for (int i = 1; i < weight.length; i++) {
             // 遍历容量
