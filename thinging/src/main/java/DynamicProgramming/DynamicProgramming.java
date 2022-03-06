@@ -200,7 +200,7 @@ public class DynamicProgramming {
         for (int i = 1; i < weight.length; i++) {
             // 遍历容量
             for (int j = 0; j < maxWeight; j++) {
-                // 当物品重量大于背包重量时
+                // 当物品重量大于背包重量时，取前一个物品的重量
                 if (j < weight[i]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
@@ -466,6 +466,72 @@ public class DynamicProgramming {
             }
         }
         return dp[s.length()];
+    }
+
+
+    /**
+     * 进阶：多重背包 有N种物品，需要装满V的背包，第N个物品有In的个数，请问哪种方式装的最多？
+     *
+     * @param
+     *
+     */
+
+
+    /**
+     * #198
+     * @param nums
+     * @return
+     */
+    public int rob(int[] nums) {
+        // 从0--i的房间里，偷得最多的金额
+        int[] dp = new int[nums.length + 1];
+
+        if (nums.length < 2) {
+            return nums[0];
+        }
+
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+        }
+        return dp[nums.length - 1];
+    }
+
+
+    /**
+     * #213
+     * @param nums
+     */
+    public int rob213(int[] nums) {
+        int result = this.robRange(nums, 0, nums.length - 2);
+        int result2 = this.robRange(nums, 1, nums.length - 1);
+        return Math.max(result, result2);
+    }
+
+    private int robRange(int[] nums, int begin, int end) {
+        int[] dp = new int[nums.length + 1];
+        if (begin == end) {
+            return nums[begin];
+        }
+
+        if (nums.length  == 0) {
+            return 0;
+        }
+
+        if (nums.length  == 1) {
+            return nums[0];
+        }
+
+        dp[begin] = nums[begin];
+        dp[begin + 1] = Math.max(nums[begin], nums[begin + 1]);
+
+        for (int i = begin + 2 ; i <= end; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+
+        return dp[end];
     }
 
     public static void main(String[] args) {
