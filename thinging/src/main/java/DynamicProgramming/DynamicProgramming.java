@@ -562,6 +562,23 @@ public class DynamicProgramming {
         }
     }
 
+    public List<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        this.preOrder(root, list);
+        return list;
+    }
+
+    void preOrder(TreeNode root, ArrayList<Integer> list) {
+        if (null == root) {
+            return;
+        } else {
+            list.add(root.val);
+            this.preOrder(root.left,list);
+            this.preOrder(root.right, list);
+        }
+
+    }
+
     /**
      * 二叉树 -中序遍历-递归
      * @param args
