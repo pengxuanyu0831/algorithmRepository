@@ -41,6 +41,39 @@ public class BinaryTree {
         return result;
     }
 
+
+    /**
+     * 迭代实现中序遍历
+     * 首先依次将左子节点全部加入栈中，所以第一个while循环后栈顶元素对应一个子树的最左子节点，然后将该元素出栈加入list，并判断该元素的遍历该节点的右子树
+     *
+     * @param list
+     * @return
+     */
+    List<Integer> midOrder(TreeNode root) {
+        if (null == root) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> result = new ArrayList<>();
+        do {
+            // 先将左子节点全部压入栈，
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+
+            if (!stack.isEmpty()) {
+                root = stack.pop();
+                result.add(root.val);
+                root = root.right;
+            }
+        } while (null != root || !stack.isEmpty());
+        return result;
+
+    }
+
+
+
     public TreeNode createBinaryTree(LinkedList<Integer> list) {
         TreeNode node = new TreeNode();
         if (list.isEmpty()) {
