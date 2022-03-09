@@ -536,62 +536,6 @@ public class DynamicProgramming {
         return dp[end];
     }
 
-    public TreeNode createBinaryTree(LinkedList<Integer> list) {
-        TreeNode node = new TreeNode();
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            Integer data = list.removeFirst();
-            if (data != null) {
-                node = new TreeNode(data);
-                node.left = createBinaryTree(list);
-                node.right = createBinaryTree(list);
-            }
-        }
-        return node;
-    }
-
-    /**
-     * 二叉树 -先序遍历-递归
-     */
-    public void preOrderTreeNode(TreeNode root) {
-        if (Objects.nonNull(root)) {
-            log.info("value is {}", root.val);
-            preOrderTreeNode(root.left);
-            preOrderTreeNode(root.right);
-        }
-    }
-
-    public List<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> list = new ArrayList<>();
-        this.preOrder(root, list);
-        return list;
-    }
-
-    void preOrder(TreeNode root, ArrayList<Integer> list) {
-        if (null == root) {
-            return;
-        } else {
-            list.add(root.val);
-            this.preOrder(root.left,list);
-            this.preOrder(root.right, list);
-        }
-
-    }
-
-    /**
-     * 二叉树 -中序遍历-递归
-     * @param args
-     */
-    public void midOrderTreeNode(TreeNode root) {
-        if (Objects.nonNull(root)) {
-
-            preOrderTreeNode(root.left);
-            log.info("value is {}", root.val);
-            preOrderTreeNode(root.right);
-        }
-    }
-
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {1, 2, 3};
@@ -605,25 +549,7 @@ public class DynamicProgramming {
         // System.out.println(b);;
         // System.out.println(dynamicProgramming.fib(0));
 
-        LinkedList list = new LinkedList();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(null);
-        list.add(null);
-        list.add(4);
-        list.add(5);
-        list.add(null);
-        list.add(6);
-        list.add(null);
-        list.add(null);
-        list.add(7);
 
-        TreeNode node = dynamicProgramming.createBinaryTree(list);
-        System.out.println("前序遍历");
-        dynamicProgramming.preOrderTreeNode(node);
-        System.out.println("中序遍历");
-        dynamicProgramming.midOrderTreeNode(node);
 
     }
 }
