@@ -62,6 +62,7 @@ public class BinaryTree {
                 root = root.left;
             }
 
+            // 建议画个图，就很清晰了
             if (!stack.isEmpty()) {
                 root = stack.pop();
                 result.add(root.val);
@@ -70,6 +71,34 @@ public class BinaryTree {
         } while (null != root || !stack.isEmpty());
         return result;
 
+    }
+
+
+    /**
+     * 后序遍历，感觉就是跟前序遍历反过来
+     * @param root
+     * @return
+     */
+    List<Integer> afterOrder(TreeNode root) {
+        if (null == root) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> result = new ArrayList<>();
+        // 先把根节点压栈
+        stack.push(root);
+        if (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+
+            if (null != node.right) {
+                stack.push(node.right);
+            }
+            if (null != node.left) {
+                stack.push(node.left);
+            }
+            result.add(0,node.val);
+        }
+        return result;
     }
 
 
