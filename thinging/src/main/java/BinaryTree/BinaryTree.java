@@ -161,6 +161,37 @@ public class BinaryTree {
         }
     }
 
+
+    /**
+     * #107
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        if(root == null) return result;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            // 每次大循环时，这个值才会变化
+            int count = queue.size();
+            for (int i = 0; i < count; i++) {
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if (node.left != null ) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            result.addFirst(list);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         LinkedList list = new LinkedList();
