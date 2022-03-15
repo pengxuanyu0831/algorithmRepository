@@ -163,7 +163,7 @@ public class BinaryTree {
 
 
     /**
-     * #107
+     * #107 二叉树层序遍历
      * @param root
      * @return
      */
@@ -188,6 +188,39 @@ public class BinaryTree {
                 }
             }
             result.addFirst(list);
+        }
+        return result;
+    }
+
+
+    /**
+     * #109
+     * @param root
+     * @return
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (null == root) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                // 将每一层最后一个元素放入结果集中
+                if (i == size - 1) {
+                    result.add(node.val);
+                }
+                if (node.left != null ) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+
+            }
         }
         return result;
     }
