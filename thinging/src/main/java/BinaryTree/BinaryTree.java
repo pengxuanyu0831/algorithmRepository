@@ -219,7 +219,6 @@ public class BinaryTree {
                 if (node.right != null) {
                     queue.add(node.right);
                 }
-
             }
         }
         return result;
@@ -238,17 +237,18 @@ public class BinaryTree {
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        while (0 != queue.size()) {
-            double size = queue.size();
+        while (!queue.isEmpty()) {
+            int size = queue.size();
             double sum = 0;
-            for (double i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
-                sum += (double) node.val;
-                if (root.right != null) {
-                    queue.add(root.right);
+                sum += node.val;
+                System.out.println("node值为" + node.val + "层和为" + sum + "平均数为" + (double)sum / size);
+                if (node.right != null) {
+                    queue.add(node.right);
                 }
-                if (root.left != null) {
-                    queue.add(root.left);
+                if (node.left != null) {
+                    queue.add(node.left);
                 }
             }
             result.add(sum / size);
