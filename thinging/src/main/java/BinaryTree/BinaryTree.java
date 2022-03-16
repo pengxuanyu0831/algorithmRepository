@@ -209,7 +209,7 @@ public class BinaryTree {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
-                // 将每一层最后一个元素放入结果集中
+                // 是否遍历到单层最后面的元素
                 if (i == size - 1) {
                     result.add(node.val);
                 }
@@ -221,6 +221,37 @@ public class BinaryTree {
                 }
 
             }
+        }
+        return result;
+    }
+
+
+    /**
+     * 637
+     * @param root
+     * @return
+     */
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> result = new ArrayList<>();
+        if (null == root) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (0 != queue.size()) {
+            double size = queue.size();
+            double sum = 0;
+            for (double i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                sum += (double) node.val;
+                if (root.right != null) {
+                    queue.add(root.right);
+                }
+                if (root.left != null) {
+                    queue.add(root.left);
+                }
+            }
+            result.add(sum / size);
         }
         return result;
     }
