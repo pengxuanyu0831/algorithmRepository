@@ -1,5 +1,7 @@
 package BinaryTree;
 
+import DynamicProgramming.Node;
+import DynamicProgramming.PrefectNode;
 import DynamicProgramming.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,6 +78,7 @@ public class BinaryTree {
 
     /**
      * 后序遍历，感觉就是跟前序遍历反过来
+     *
      * @param root
      * @return
      */
@@ -96,11 +99,10 @@ public class BinaryTree {
             if (null != node.left) {
                 stack.push(node.left);
             }
-            result.add(0,node.val);
+            result.add(0, node.val);
         }
         return result;
     }
-
 
 
     public TreeNode createBinaryTree(LinkedList<Integer> list) {
@@ -130,7 +132,6 @@ public class BinaryTree {
     }
 
 
-
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
         this.preOrder(root, list);
@@ -142,7 +143,7 @@ public class BinaryTree {
             return;
         } else {
             list.add(root.val);
-            this.preOrder(root.left,list);
+            this.preOrder(root.left, list);
             this.preOrder(root.right, list);
         }
 
@@ -150,6 +151,7 @@ public class BinaryTree {
 
     /**
      * 二叉树 -中序遍历-递归
+     *
      * @param args
      */
     public void midOrderTreeNode(TreeNode root) {
@@ -164,12 +166,13 @@ public class BinaryTree {
 
     /**
      * #107 二叉树层序遍历
+     *
      * @param root
      * @return
      */
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         LinkedList<List<Integer>> result = new LinkedList<>();
-        if(root == null) return result;
+        if (root == null) return result;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
@@ -180,7 +183,7 @@ public class BinaryTree {
             for (int i = 0; i < count; i++) {
                 TreeNode node = queue.poll();
                 list.add(node.val);
-                if (node.left != null ) {
+                if (node.left != null) {
                     queue.add(node.left);
                 }
                 if (node.right != null) {
@@ -195,6 +198,7 @@ public class BinaryTree {
 
     /**
      * #109
+     *
      * @param root
      * @return
      */
@@ -213,7 +217,7 @@ public class BinaryTree {
                 if (i == size - 1) {
                     result.add(node.val);
                 }
-                if (node.left != null ) {
+                if (node.left != null) {
                     queue.add(node.left);
                 }
                 if (node.right != null) {
@@ -227,6 +231,7 @@ public class BinaryTree {
 
     /**
      * 637
+     *
      * @param root
      * @return
      */
@@ -243,7 +248,7 @@ public class BinaryTree {
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 sum += node.val;
-                System.out.println("node值为" + node.val + "层和为" + sum + "平均数为" + (double)sum / size);
+                System.out.println("node值为" + node.val + "层和为" + sum + "平均数为" + (double) sum / size);
                 if (node.right != null) {
                     queue.add(node.right);
                 }
@@ -254,6 +259,102 @@ public class BinaryTree {
             result.add(sum / size);
         }
         return result;
+    }
+
+    /**
+     * #429
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (null == root) return result;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> value = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node node = queue.poll();
+                if (node.children.size() > 0) {
+                    queue.addAll(node.children);
+                }
+                value.add(node.val);
+            }
+            result.add(value);
+        }
+        return result;
+    }
+
+
+    /**
+     * #515
+     * @param root
+     * @return
+     */
+    public List<Integer> largestValues(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            // 精髓
+            int max = queue.peek().val;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.val > max) {
+                    max = node.val;
+                }
+                if (node.right != null ) {
+                    queue.add(node.right);
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+            }
+            result.add(max);
+        }
+        return result;
+    }
+
+
+    /**
+     * #116
+     * @param args
+     * 此题有递归解法
+     */
+    public PrefectNode connect(PrefectNode root) {
+        PrefectNode pNode = new PrefectNode();
+        if (root == null) {
+            return null;
+        }
+        Queue<PrefectNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            // 本层的头部节点
+            PrefectNode header = null;
+            for (int i = 0; i < size; i++) {
+                PrefectNode node = queue.poll();
+                if (header != null) {
+                    header.next = node;
+                }
+
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null ) {
+                    queue.add(node.right);
+                }
+                header = node;
+            }
+        }
+        return root;
     }
 
     public static void main(String[] args) {
