@@ -357,6 +357,57 @@ public class BinaryTree {
         return root;
     }
 
+    /**
+     * 翻转二叉树 递归写法
+     * 交换每个节点的左右子树即可实现翻转二叉树
+     * @param args
+     */
+    public TreeNode invertTree(TreeNode root) {
+        if (null == root) {
+            return root;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        root.right = left;
+        root.left = right;
+        this.invertTree(root.left);
+        this.invertTree(root.right);
+
+        return root;
+    }
+
+
+    /**
+     * 递归写法 翻转二叉树 深度优先遍历 层序遍历
+     *
+     * @param args
+     */
+    public TreeNode invertTree1(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            TreeNode left = root.left;
+            TreeNode right = root.right;
+
+            root.right = left;
+            root.left = right;
+
+            if (root.right != null) {
+                stack.push(root.right);
+            }
+
+            if (root.left != null) {
+                stack.push(root.left);
+            }
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         LinkedList list = new LinkedList();
