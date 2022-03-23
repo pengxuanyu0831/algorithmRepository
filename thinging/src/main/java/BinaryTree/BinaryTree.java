@@ -379,7 +379,7 @@ public class BinaryTree {
 
 
     /**
-     * 递归写法 翻转二叉树 深度优先遍历 层序遍历
+     * 递归写法 翻转二叉树 深度优先遍历
      *
      * @param args
      */
@@ -403,6 +403,40 @@ public class BinaryTree {
 
             if (root.left != null) {
                 stack.push(root.left);
+            }
+        }
+        return root;
+    }
+
+
+    /**
+     * 递归写法 广度优先遍历 层序遍历
+     *
+     * @param args
+     */
+    public TreeNode invertTree2(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Queue<TreeNode> stack = new LinkedList<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            int size = stack.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = stack.poll();
+                TreeNode left = root.left;
+                TreeNode right = root.right;
+
+                root.right = left;
+                root.left = right;
+
+                if (root.left != null) {
+                    stack.add(root.left);
+                }
+
+                if (root.right != null) {
+                    stack.add(root.right);
+                }
             }
         }
         return root;
