@@ -442,6 +442,137 @@ public class BinaryTree {
         return root;
     }
 
+
+    /**
+     * #101
+     * 对称的递归写法
+     * @param args
+     */
+    public boolean isSymmetric(TreeNode root){
+        if (null == root) {
+            return true;
+        }
+        return cmp(root.left, root.right);
+    }
+
+    public boolean cmp(TreeNode node1, TreeNode node2) {
+        // 相比较的两个节点如果都为空则为T
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+
+        if(node1 == null || node2 == null || node1.val != node2.val){
+            return false;
+        }
+        return cmp(node1.left , node2.right) && cmp(node1.right ,node2.left);
+    }
+
+    /**
+     * #101 的遍历写法
+     *
+     * @param args
+     */
+    public boolean isSymmetric1(TreeNode root) {
+        if (null == root) {
+            return true;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+
+        while (!queue.isEmpty()) {
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (null == node1 && null == node2) {
+                continue;
+            }
+            if(node1 == null || node2 == null || node1.val != node2.val){
+                return false;
+            }
+            // 这里是对应的
+            queue.add(node1.left);
+            queue.add(node2.right);
+
+            queue.add(node1.right);
+            queue.add(node2.left);
+
+        }
+        return true;
+    }
+
+    /**
+     * #104
+     * 递归法
+     * @param args
+     */
+    public int maxDepth(TreeNode root) {
+        return root == null? 0 : Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
+    }
+
+    /**
+     * #104迭代法
+     * @param root
+     * @return
+     */
+    public int maxDepth1(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int depth = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+        return depth;
+    }
+
+
+    /**
+     * #559
+     * N叉树
+     * @param root
+     * @return
+     */
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        int depth = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
+            for (int i = 0; i < size; i++) {
+                Node node = queue.poll();
+                for (int j = 0; j < node.children.size(); j++) {
+                    if (node.children.get(j) != null) {
+                        queue.add(node.children.get(j));
+                    }
+                }
+            }
+        }
+        return depth;
+    }
+
+
+
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         LinkedList list = new LinkedList();
