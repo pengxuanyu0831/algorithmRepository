@@ -163,6 +163,7 @@ public class DynamicProgramming {
         // 假定i + j = n
         for (int i = 3; i < n; i++) {
             for (int j = 1; j < i - 1; j++) {
+                // 这里两个max是为什么
                 dp[i] = Math.max(dp[i], Math.max(j * (i - j), dp[i - j] * j));
             }
         }
