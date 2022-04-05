@@ -572,6 +572,99 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #111
+     * @param root
+     * @return
+     * 层序遍历
+     */
+    public int minDepth(TreeNode root) {
+        if (null == root) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int depth = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+
+                if (node.right == null && node.left == null) {
+                    return depth;
+                }
+            }
+        }
+        return depth;
+    }
+
+
+    /**
+     * #222
+     * @param root
+     * @return
+     */
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int count = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                count++;
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+        return count;
+    }
+
+    public int countDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        int leftCount = 0;
+        int rightCount = 0;
+
+        while (left != null) {
+            leftCount++;
+            left = left.left;
+        }
+        while (right != null) {
+            rightCount++;
+            right = right.right;
+        }
+
+        if (rightCount == leftCount) {
+            return (int)Math.pow(2, rightCount)  - 1;
+        }
+        return this.countDepth(root.left) + this.countDepth(root.left) + 1;
+    }
+
+
 
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
