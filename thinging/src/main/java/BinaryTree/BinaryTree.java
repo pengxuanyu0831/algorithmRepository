@@ -665,6 +665,73 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #110
+     * @param root
+     * @return
+     */
+    public boolean isBalanced(TreeNode root){
+        if(root == null){
+            return true;
+        }else{
+            return Math.abs(height(root.left) - height(root.right)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+        }
+    }
+
+    public int height(TreeNode root){
+        if(root == null){
+            return 0;
+        }else{
+            return Math.max(height(root.left),height(root.right)) + 1;
+        }
+    }
+
+
+    /**
+     * #257
+     * @param root
+     * @return
+     */
+    public List<String> binaryTreePaths(TreeNode root){
+        List<String> reslut = new ArrayList<>();
+        if (root == null) {
+            return reslut;
+        }
+        List<Integer> paths = new ArrayList<>();
+        this.doBinaryTreePaths(root, paths, reslut);
+        return reslut;
+    }
+
+    public void doBinaryTreePaths(TreeNode root, List<Integer> paths, List<String> reslut) {
+        paths.add(root.val);
+        // 终止判断
+        if (root.right == null && root.left == null) {
+            StringBuffer sb = new StringBuffer();
+            for (Integer i : paths) {
+                sb.append(i).append("->");
+            }
+            sb.append(paths.get(paths.size() - 1));
+            reslut.add(sb.toString());
+        }
+
+        if (root.left != null) {
+            this.doBinaryTreePaths(root,paths,reslut);
+            // 回溯
+            paths.remove(paths.get(paths.size() - 1));
+        }
+
+        if (root.right != null) {
+            this.doBinaryTreePaths(root,paths,reslut);
+            // 回溯
+            paths.remove(paths.get(paths.size() - 1));
+        }
+
+
+    }
+
+
+
+
 
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
