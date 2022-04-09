@@ -507,7 +507,7 @@ public class BinaryTree {
      * @param args
      */
     public int maxDepth(TreeNode root) {
-        return root == null? 0 : Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
+        return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
     /**
@@ -728,6 +728,36 @@ public class BinaryTree {
 
 
     }
+
+
+    /**
+     * #572
+     * @param root
+     * @param subRoot
+     * @return
+     */
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null) {
+            return false;
+        }
+        // subRoot要么是root的左子树，要么是右子树 ，要么就是自己
+        return this.isSubtree(root.left, subRoot) || this.isSubtree(root.right,subRoot) || this.isTheSame(root,subRoot);
+
+    }
+
+    boolean isTheSame(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+        if (node1 == null || node2 == null || node1.val != node2.val) {
+            return false;
+        }
+        return isTheSame(node1.left, node2.left) && isTheSame(node1.right , node2.right);
+    }
+
 
 
 
