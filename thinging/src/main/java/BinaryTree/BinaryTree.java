@@ -93,12 +93,13 @@ public class BinaryTree {
         if (!stack.isEmpty()) {
             TreeNode node = stack.pop();
 
-            if (null != node.right) {
-                stack.push(node.right);
-            }
             if (null != node.left) {
                 stack.push(node.left);
             }
+            if (null != node.right) {
+                stack.push(node.right);
+            }
+
             result.add(0, node.val);
         }
         return result;
@@ -599,7 +600,7 @@ public class BinaryTree {
                 if (node.right != null) {
                     queue.add(node.right);
                 }
-
+                // 最小深度---到叶子节点---左右子树都为空就是叶子节点
                 if (node.right == null && node.left == null) {
                     return depth;
                 }
@@ -756,6 +757,66 @@ public class BinaryTree {
             return false;
         }
         return isTheSame(node1.left, node2.left) && isTheSame(node1.right , node2.right);
+    }
+
+
+    /**
+     * #404
+     * @param root
+     * @return
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int result = 0;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            // 左叶子节点的判定：父节点不为空 且 某个子节点的左右子树均为空 ，则为左叶子
+            if (node.left != null && node.left.left == null && node.left.right == null) {
+                result += node.left.val;
+            }
+            if (node.left != null) {
+                stack.add(node.left);
+            }
+
+            if (node.right != null) {
+                stack.add(node.right);
+            }
+        }
+        return result;
+    }
+
+
+    public int findBottomLeftValue(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int result = 0;
+
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (i == 0) {
+                    result = node.val;
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+        return result;
     }
 
 
