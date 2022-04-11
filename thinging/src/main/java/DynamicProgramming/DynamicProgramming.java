@@ -537,6 +537,27 @@ public class DynamicProgramming {
         return dp[end];
     }
 
+    /**
+     * #357
+     * @param n
+     * @return
+     */
+    public int countNumbersWithUniqueDigits(int n) {
+        // dp[n] -->> 10的n次方，有dp[n]个各个位均不同的数字
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 10;
+        for (int i = 2; i <= n; i++) {
+            /**
+             * dp[i-1] --> 比如 n = 3 时 , 0 ~ 999 可以分开看成0 ~ 99 + 100 ~ 999 --> 0~99 正是dp[i-1]
+             * (dp[i - 1] - dp[i - 2]) --> 这里找100 ~ 999 的不重复，那么是不是只能由 10 ~ 99 的不重复数去组成 比如 12 组成 120 123 124 125 126 127 128 129 。而10 ~ 99的不重复数--> dp[2] - dp[1]
+             * (10 - (i - 1))  --> 若n=3 （3位数）要组成不同的数字，那么只能从 12x  13x 来组成 那么可选的数字就会越来越少，当n=2时，1 后面只能跟0 2 3...9 当n=3时，12x只能从 0 3 4 5...9 越来越少，所以10-(i-1)
+             */
+            dp[i] = dp[i - 1] + (dp[i - 1] - dp[i - 2]) * (10 - (i - 1));
+        }
+        return dp[n];
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {1, 2, 3};
