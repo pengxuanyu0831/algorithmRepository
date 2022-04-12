@@ -820,6 +820,40 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #113
+     * @param root
+     * @param targetSum
+     * @return
+     */
+    LinkedList<Integer> path = new LinkedList<>();
+    List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+
+        if (root == null) {
+            return result;
+        }
+        this.subPathSum(root, targetSum);
+        return result;
+    }
+
+    void subPathSum(TreeNode node, int targetSum) {
+        if (node == null) {
+            return;
+        }
+        path.add(node.val);
+        targetSum -= node.val;
+        // 走到低了
+        if (node.left == null && node.right == null && targetSum == 0) {
+            result.add(new LinkedList<>(path));
+        }
+        this.subPathSum(node.left, targetSum);
+        this.subPathSum(node.right, targetSum);
+        // 回溯， 删去不符合要求的路径
+        path.removeLast();
+    }
+
+
 
 
 
