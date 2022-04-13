@@ -60,4 +60,48 @@ public class Ordinary {
         }
         return result.size();
     }
+
+
+    /**
+     * 每日一题  #380
+     * HashSet 空间复杂度太高，排名太后
+     */
+    private static class RandomizedSet{
+
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        Random random = new Random();
+        public RandomizedSet() {
+        }
+
+        public boolean insert(int val) {
+            if (map.containsKey(val)) {
+                return false;
+            } else {
+                list.add(val);
+                map.put(val, list.size() - 1);
+
+                return true;
+            }
+        }
+
+        public boolean remove(int val) {
+            if (map.containsKey(val)) {
+                int index = map.get(val);
+                int last = list.get(list.size() - 1);
+                list.set(index, last);
+                list.remove(list.size() - 1);
+                map.put(last, index);
+                map.remove(val);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public int getRandom() {
+            return list.get(random.nextInt(list.size() - 1));
+        }
+
+    }
 }
