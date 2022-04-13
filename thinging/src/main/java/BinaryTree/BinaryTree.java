@@ -5,6 +5,7 @@ import DynamicProgramming.PrefectNode;
 import DynamicProgramming.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -851,6 +852,39 @@ public class BinaryTree {
         this.subPathSum(node.right, targetSum);
         // 回溯， 删去不符合要求的路径
         path.removeLast();
+    }
+
+
+    TreeNode init(int[] inorder, int[] postorder) {
+        if (postorder.length == 0) {
+            return null;
+        }
+        // 第一步，从后续数组最后一个作为分割点，分割中序数组
+        int point = postorder[postorder.length - 1];
+        TreeNode node = new TreeNode(point);
+
+        if (postorder.length == 1) {
+            return node;
+        }
+        // 第二步，找到了分割点，拿到分割点的下标，再去切割后续数组
+        int split = 0;
+        for (int i = 0; i < inorder.length ;i++) {
+            if (inorder[i] == point) {
+                split = point;
+                break;
+            }
+        }
+
+        // 切分中序数组，左闭右开
+        int[] leftMid = Arrays.copyOfRange(inorder, 0, split);
+        int[] leftBehind = Arrays.copyOfRange(postorder, 0, split);
+        node.left = this.init(leftMid, leftBehind);
+
+        int[] rightMid = Arrays.copyOfRange(inorder, split + 1, inorder.length);
+        int[] rightBegind = Arrays.copyOfRange(postorder, split, postorder.length - 1);
+        node.right = this.init(rightMid, rightBegind);
+
+        return node;
     }
 
 
