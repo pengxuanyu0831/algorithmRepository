@@ -887,6 +887,56 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #105
+     * @param preorder
+     * @param inorder
+     * @return
+     *    简洁进阶版  参考
+     *         if(preorder.length = = 0 | | inorder.length = = 0){
+     *             return null;
+     *         }
+     *         TreeNode root=new TreeNode (preorder[0]);
+     *         for(int i=0;i<preorder.length;i++){
+     *             if(preorder[0]==inorder[i]){
+     *                 root.left=buildTree(Arrays.copyOfRange(preorder,1,i+1),Arrays.copyOfRange(inorder,0,i));
+     *                 root.right=buildTree(Arrays.copyOfRange(preorder,i+1,preorder.length),Arrays.copyOfRange(inorder,i+1,inorder.length));
+     *                 break;
+     *             }
+     *         }
+     *         return root;
+     */
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int preOrderLength = preorder.length;
+        int inOrderLength = inorder.length;
+        if (preOrderLength == 0 || inOrderLength == 0) {
+            return null;
+        }
+
+        // 前序遍历的第一个就是根节点
+        int value = preorder[0];
+        TreeNode root = new TreeNode(value);
+
+        int split = 0;
+        for (int limit = 0; limit < inOrderLength; limit++) {
+            if (inorder[limit] == root.val) {
+                split = limit;
+                break;
+            }
+        }
+        // 开始构造左右子树
+        int[] leftTree = Arrays.copyOfRange(inorder, 0, split);
+        int[] rightTree = Arrays.copyOfRange(inorder, split + 1, inOrderLength);
+
+        int[] leftPreOrderTree = Arrays.copyOfRange(preorder, 1, split + 1);
+        int[] rightPreOrderTree = Arrays.copyOfRange(preorder, split + 1, preOrderLength);
+        root.right = this.buildTree(rightTree, rightPreOrderTree);
+        root.left = this.buildTree(leftTree, leftPreOrderTree);
+
+        return root;
+    }
+
+
 
 
 
@@ -894,7 +944,7 @@ public class BinaryTree {
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         LinkedList list = new LinkedList();
-        list.add(1);
+/*        list.add(1);
         list.add(2);
         list.add(3);
         list.add(null);
@@ -911,6 +961,12 @@ public class BinaryTree {
         System.out.println("前序遍历");
         bt.preOrderTreeNode(node);
         System.out.println("中序遍历");
-        bt.midOrderTreeNode(node);
+        bt.midOrderTreeNode(node);*/
+
+
+        int[] pre = new int[]{3, 9, 20, 15, 7};
+        int[] mid = new int[]{9, 3, 15, 20, 7};
+        TreeNode treeNode = bt.buildTree(pre, mid);
+        System.out.println(treeNode);
     }
 }
