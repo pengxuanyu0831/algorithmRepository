@@ -856,21 +856,20 @@ public class BinaryTree {
 
 
     TreeNode init(int[] inorder, int[] postorder) {
-        if (postorder.length == 0) {
+        int inOrderLength = inorder.length;
+        int postOrderLength = postorder.length;
+        if (postOrderLength == 0 || inOrderLength == 0) {
             return null;
         }
         // 第一步，从后续数组最后一个作为分割点，分割中序数组
-        int point = postorder[postorder.length - 1];
+        int point = postorder[postOrderLength - 1];
         TreeNode node = new TreeNode(point);
 
-        if (postorder.length == 1) {
-            return node;
-        }
         // 第二步，找到了分割点，拿到分割点的下标，再去切割后续数组
         int split = 0;
-        for (int i = 0; i < inorder.length ;i++) {
+        for (int i = 0; i < inOrderLength ;i++) {
             if (inorder[i] == point) {
-                split = point;
+                split = i;
                 break;
             }
         }
@@ -880,8 +879,8 @@ public class BinaryTree {
         int[] leftBehind = Arrays.copyOfRange(postorder, 0, split);
         node.left = this.init(leftMid, leftBehind);
 
-        int[] rightMid = Arrays.copyOfRange(inorder, split + 1, inorder.length);
-        int[] rightBegind = Arrays.copyOfRange(postorder, split, postorder.length - 1);
+        int[] rightMid = Arrays.copyOfRange(inorder, split + 1, inOrderLength);
+        int[] rightBegind = Arrays.copyOfRange(postorder, split, postOrderLength - 1);
         node.right = this.init(rightMid, rightBegind);
 
         return node;
