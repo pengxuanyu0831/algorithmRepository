@@ -937,6 +937,35 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #654
+     * @param nums
+     * @return
+     */
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        if (nums.length == 0) {
+            return null;
+        }
+        int maxValue = 0;
+        int maxValueIndex = 0;
+        // 先找到最大的值
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > maxValue) {
+                maxValue = nums[i];
+                maxValueIndex = i;
+            }
+        }
+        // 构建根节点
+        TreeNode root = new TreeNode(maxValue);
+        // 参照题目，递归左侧数组构造左子树，递归右侧数组构造右子树
+        int[] leftTree = Arrays.copyOfRange(nums, 0, maxValueIndex);
+        int[] rightTree = Arrays.copyOfRange(nums, maxValueIndex + 1, nums.length);
+        root.left = this.constructMaximumBinaryTree(leftTree);
+        root.right = this.constructMaximumBinaryTree(rightTree);
+        return root;
+    }
+
+
 
 
 
