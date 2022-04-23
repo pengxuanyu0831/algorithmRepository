@@ -23,6 +23,9 @@ public class BackTracking {
     List<List<Integer>> result = new ArrayList<>();
 
 
+
+
+
     public List<List<Integer>> combine(int n, int k) {
         this.combineBackTracking(n, k, 1);
         return result;
@@ -182,6 +185,64 @@ public class BackTracking {
     boolean isBack(char[] chars, int index, int end) {
         for (int i = index, j = end; i < j; i++, j--) {
             if (chars[i] != chars[j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * #93
+     *
+     * @param s
+     * @return
+     */
+    List<String> resultStr = new ArrayList<>();
+    public List<String> restoreIpAddresses(String s) {
+        this.doRestoreIpAddresses(s, 0, 0);
+        return resultStr;
+    }
+
+    public void doRestoreIpAddresses(String s, int index,int pointNum) {
+        // 终止条件
+        if (pointNum == 3) {
+            if (this.isIpAddress(s, index, s.length() - 1)) {
+                resultStr.add(s);
+            }
+            return;
+        }
+        for (int i = index; i < s.length(); i++) {
+            // index -> i，判断[index,i]这个区间的ip是否合法
+            if (this.isIpAddress(s, index, i)) {
+                s = s.substring(0, i + 1) + "." + s.substring(i + 1);
+                pointNum++;
+                doRestoreIpAddresses(s, i + 2, pointNum);
+                // 回溯
+                pointNum--;
+                s = s.substring(0, i + 1) + s.substring(i + 2);
+            } else {
+                break;
+            }
+        }
+
+    }
+    // 判断是否为合法的ip
+    private boolean isIpAddress(String s, int index, int end) {
+        if (index > end) {
+            return false;
+        }
+        // 如果开头为0，非法
+        if (s.charAt(index) == '0' && index != end) {
+            return false;
+        }
+        int num = 0;
+        for (int i = index; i <= end; i++) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') { // 遇到⾮数字字符不合法
+                return false;
+            }
+            num = num * 10 + (s.charAt(i) - '0');
+            if (num > 255) { // 如果⼤于255了不合法
                 return false;
             }
         }
