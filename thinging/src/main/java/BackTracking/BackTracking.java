@@ -3,6 +3,8 @@ package BackTracking;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @program algorithm
@@ -248,4 +250,140 @@ public class BackTracking {
         }
         return true;
     }
+
+
+    /**
+     * #78
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        this.doSubSets(nums, 0);
+        return result;
+    }
+
+    public void doSubSets(int[] nums, int index) {
+        result.add(new ArrayList<>(path));
+        // 如果起始下标大于等于传入的数组长度，则视为完成一次遍历（一棵树走到底了）
+        if (index >= nums.length) {
+            return;
+        }
+        for (int i = index; i < nums.length; i++) {
+            path.add(nums[i]);
+            // 不允许复用自己，不允许重复
+            this.doSubSets(nums, i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+
+
+    /**
+     * #491
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        this.doFindSubsequences(nums, 0);
+        return result;
+    }
+
+    public void doFindSubsequences(int[] nums, int index) {
+        // 递增子序列长度至少为2 ，且不要return，因为要取所有节点的数据
+        if (path.size() >= 2) {
+            result.add(new ArrayList<>(path));
+        }
+        int[] used = new int[201];
+        for (int i = index; i < nums.length; i++) {
+            if (used[nums[i] + 100] == 1 || path.size() > 0 && path.get(path.size() - 1) > nums[i]) {
+                continue;
+            }
+
+            path.add(nums[i]);
+            // 记录一下用过的数字
+            used[nums[i] + 100] = 1;
+            this.doFindSubsequences(nums, i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+
+
+    /**
+     * #46
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        boolean[] used = new boolean[nums.length];
+        this.doPermute(nums, used);
+        return result;
+    }
+
+    public void doPermute(int[] nums, boolean[] used) {
+        // 终止条件肯定没错
+        if (path.size() == nums.length) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            used[i] = true;
+            path.add(nums[i]);
+            this.doPermute(nums, used);
+            // 所有地方都要回溯到
+            path.remove(path.size() - 1);
+            used[i] = false;
+        }
+    }
+
+
+    /**
+     * #47
+     * @param
+     * @desc 47题取巧方式:直接返回时用流去重
+     *         下面是非取巧的方法
+     */
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        nums = Arrays.stream(nums).sorted().toArray();
+        boolean[] used = new boolean[nums.length];
+        this.doPermuteDict(nums, used);
+        return result;
+    }
+
+    // 非取巧方法
+    public void doPermuteDict(int[] nums, boolean[] used) {
+        // 终止条件肯定没错
+        if (path.size() == nums.length) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+
+            // 去重
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+                continue;
+            }
+            if (used[i]) {
+                continue;
+            }
+            used[i] = true;
+            path.add(nums[i]);
+            this.doPermuteDict(nums, used);
+            // 所有地方都要回溯到
+            path.remove(path.size() - 1);
+            used[i] = false;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        int[] ints = new int[]{3,3,0,3};
+        BackTracking backTracking = new BackTracking();
+        System.out.println(backTracking.permuteUnique(ints));
+    }
+
+
 }
