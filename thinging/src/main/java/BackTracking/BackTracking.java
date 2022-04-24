@@ -1,8 +1,6 @@
 package BackTracking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -379,10 +377,39 @@ public class BackTracking {
     }
 
 
+    /**
+     * #90
+     *
+     * @param nums
+     * @return
+     */
+    Set<Integer> used ;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        nums = Arrays.stream(nums).sorted().toArray();
+        this.doSubSetWithoutDup(nums,0, used);
+        return result;
+    }
+
+    public void doSubSetWithoutDup(int[] nums,int index, Set<Integer> used) {
+        result.add(new ArrayList<>(path));
+        // 每次进来新建一个set是为了控制某一节点下的同一层，如果是全局变量，就变成了控制整棵树不允许重复
+        used = new HashSet<>();
+        for (int i = index; i < nums.length; i++) {
+            if (used.contains(nums[i])) {
+                continue;
+            }
+            used.add(nums[i]);
+            path.add(nums[i]);
+            this.doSubSetWithoutDup(nums, i + 1, used);
+            path.remove(path.size() - 1);
+        }
+    }
+
+
     public static void main(String[] args) {
-        int[] ints = new int[]{3,3,0,3};
+        int[] ints = new int[]{4,4,4,1,4};
         BackTracking backTracking = new BackTracking();
-        System.out.println(backTracking.permuteUnique(ints));
+        System.out.println(backTracking.subsetsWithDup(ints));
     }
 
 
