@@ -406,10 +406,80 @@ public class BackTracking {
     }
 
 
+    /**
+     * #3
+     *
+     * @param
+     * @return
+     */
+
+    public List<List<String>> solveNQueens(int n) {
+        // 初始化棋盘
+        char[][] chars = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                chars[i][j] = '.';
+            }
+        }
+        this.doSolveNQueens(chars, 0);
+        return resultString;
+    }
+
+    // t->棋盘的大小 ，row记录每次遍历的行数
+    public void doSolveNQueens(char[][] chars,int index) {
+        // 终止条件：当遍历完每行的最后一格时结束
+        if (index == chars.length) {
+            pathString = new ArrayList<>();
+            for (int i = 0; i < chars.length; i++) {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < chars.length; j++) {
+                    sb.append(chars[i][j]);
+                }
+                pathString.add(sb.toString());
+            }
+            resultString.add(new ArrayList<>(pathString));
+            return;
+        }
+
+        for (int k = 0; k < chars.length; k++) {
+            if (isLocation(index, k, chars)) {
+                chars[index][k] = 'Q';
+                this.doSolveNQueens(chars, index + 1);
+                // 回溯
+                chars[index][k] = '.';
+            }
+        }
+    }
+    // col -> 行位置 row -> 列位置
+    boolean isLocation(int row ,int col,char[][] chars) {
+        // 先判断当前列是否有Q
+        for (int i = 0; i < row; i++) {
+            if (chars[i][col] == 'Q') {
+                return false;
+            }
+        }
+        // 判断右上角 ： 行++ 列--
+        for (int j = row - 1, k = col + 1; j >= 0 && k < chars.length; j--, k++) {
+            if (chars[j][k] == 'Q') {
+                return false;
+            }
+        }
+
+        // 判断左上角
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (chars[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     public static void main(String[] args) {
         int[] ints = new int[]{4,4,4,1,4};
         BackTracking backTracking = new BackTracking();
-        System.out.println(backTracking.subsetsWithDup(ints));
+        System.out.println(backTracking.solveNQueens(4));
     }
 
 
