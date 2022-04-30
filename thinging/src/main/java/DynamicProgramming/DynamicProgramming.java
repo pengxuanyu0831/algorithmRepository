@@ -558,9 +558,33 @@ public class DynamicProgramming {
         return dp[n];
     }
 
+
+    /**
+     * #53
+     * @param nums
+     * @deprecated 贪心也可解此题
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        // dp[i] -> 到i的最大子序和
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        int result = 0;
+        for (int i = 1; i < nums.length; i++) {
+            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+            if (dp[i] > result) {
+                result = dp[i];
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
-        int[] dp = {1, 2, 3};
+        int[] dp = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
         //List<String> list = new ArrayList<>();
         // list.add("leet");
@@ -569,7 +593,7 @@ public class DynamicProgramming {
 
         //boolean b = dynamicProgramming.wordBreak("leetCode", list);
         // System.out.println(b);;
-        // System.out.println(dynamicProgramming.fib(0));
+        System.out.println(dynamicProgramming.maxSubArray(dp));
 
 
 

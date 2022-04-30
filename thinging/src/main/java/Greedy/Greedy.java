@@ -54,11 +54,34 @@ public class Greedy {
         return count;
     }
 
+    /**
+     * #53 dp可解此题
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int result = Integer.MIN_VALUE;
+        int count = 0;
+        for (int num : nums) {
+            // 这里算总和
+            count += num;
+            // 跟随每次遍历，给结果赋值
+            if (count >= result) {
+                result = count;
+            }
+            // 当累计和小于0时，则重新计数
+            if (count <= 0) {
+                count = 0;
+            }
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
         Greedy g = new Greedy();
-        int[] ins = new int[]{1, 7, 4, 9, 2, 5};
+        int[] ins = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         int i = g.wiggleMaxLength(ins);
-        System.out.println(i);
+        System.out.println(g.maxSubArray(ins));
     }
 }
