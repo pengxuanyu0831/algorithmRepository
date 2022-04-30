@@ -127,10 +127,35 @@ public class Greedy {
     }
 
 
+    /**
+     * #45
+     * @param nums
+     * @return
+     */
+    public int jump(int[] nums) {
+        if (nums.length == 1) {
+            return 1;
+        }
+
+        int steps = 0;
+        int curr = 0;
+        int next = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            // 里面的next -> 下一步最远距离，其实是前一个下标的最远距离，一直在比较，看看当前下标是否能大于前一个下标的最远距离
+            next = Math.max(next, i + nums[i]);
+            if (i == curr) {
+                curr = next;
+                steps++;
+            }
+        }
+        return steps;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{2,3,1,1,4};
         int i = g.wiggleMaxLength(ins);
-        System.out.println(g.canJump(ins));
+        System.out.println(g.jump(ins));
     }
 }
