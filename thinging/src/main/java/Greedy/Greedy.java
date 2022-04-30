@@ -152,10 +152,37 @@ public class Greedy {
     }
 
 
+    /**
+     * 409
+     * @param s
+     * @return
+     */
+    public int longestPalindrome(String s) {
+        int[] in = new int[128];
+        int result = 0;
+        for (char ss : s.toCharArray()) {
+            in[ss]++;
+            // 如果出现偶数次的字母
+            if (in[ss] % 2 == 0) {
+                result += 2;
+            }
+        }
+        for (char a = 'A'; a < 'z'; a++) {
+            if ((in[a] % 2) == 1) {
+                result++;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{2,3,1,1,4};
         int i = g.wiggleMaxLength(ins);
-        System.out.println(g.jump(ins));
+        //System.out.println(g.jump(ins));
+        System.out.println(g.longestPalindrome("abb"));
     }
 }
