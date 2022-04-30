@@ -78,10 +78,59 @@ public class Greedy {
     }
 
 
+    /**
+     * #122
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        int result = 0;
+        for (int i = 1; i < prices.length; i++) {
+            result += Math.max(prices[i] - prices[i - 1], 0);
+        }
+        return result;
+
+        // 解法2 这个用时更短
+        // 构造一个利润数组
+/*        int[] made = new int[prices.length - 1];
+        for (int i = 1; i < prices.length; i++) {
+            made[i - 1] = prices[i] - prices[i - 1];
+        }
+
+        int count = 0;
+        for (int k = 0; k < made.length; k++) {
+            if (made[k] > 0) {
+                count += made[k];
+            }
+        }
+        return count;*/
+    }
+
+
+    /**
+     * #55
+     * @param nums
+     * @return
+     */
+    public boolean canJump(int[] nums) {
+        if (nums.length == 1) {
+            return true;
+        }
+        int steps = 0;
+        for (int i = 0; i <= steps; i++) {
+            steps = Math.max(i + nums[i], steps);
+            if (steps >= nums.length - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
-        int[] ins = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] ins = new int[]{2,3,1,1,4};
         int i = g.wiggleMaxLength(ins);
-        System.out.println(g.maxSubArray(ins));
+        System.out.println(g.canJump(ins));
     }
 }
