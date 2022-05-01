@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @program algorithm
@@ -75,6 +74,71 @@ public class Draft {
 
         return true;
     }
+
+
+    public List<Integer> findDisappearedNumbers(int[] nums){
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            set.add(i+1);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (set.contains(nums[i])) {
+                set.remove(nums[i]);
+            }
+        }
+        return new ArrayList<>(set);
+/*
+        for (int i = 0; i < nums.length; i++) {
+
+            // Math.abs() -> 求绝对值  将下标置为负数，则正数的下标就是确实的位置
+            if (nums[Math.abs(nums[i] ) - 1] > 0) {
+                nums[Math.abs(nums[i] ) - 1] = - nums[Math.abs(nums[i] ) - 1];
+            }
+        }
+        List<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                list.add(i + 1);
+            }
+        }
+        return list;*/
+    }
+
+
+    /**
+     * #179
+     * @param nums
+     * @return
+     */
+    public String largestNumber(int[] nums) {
+        String[] chars = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            chars[i] = String.valueOf(nums[i]);
+        }
+
+        Arrays.sort(chars, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < chars.length; k++) {
+            sb.append(chars[k]);
+        }
+        if (sb.charAt(0) == '0') {
+            return "0";
+        }
+
+        return sb.toString();
+    }
+
+
+    public static void main(String[] args) {
+        Draft draft = new Draft();
+        int[] ints = new int[]{1,1};
+        List<Integer> numbers = draft.findDisappearedNumbers(ints);
+        System.out.println(numbers);
+    }
+
+
 
 
 }
