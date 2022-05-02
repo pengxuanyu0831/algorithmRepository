@@ -1,6 +1,8 @@
 package Greedy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @program algorithm
@@ -13,6 +15,7 @@ public class Greedy {
 
     /**
      * #455
+     *
      * @param g -> 小朋友
      * @param s -> 饼干
      * @return
@@ -35,6 +38,7 @@ public class Greedy {
 
     /**
      * #376
+     *
      * @param nums
      * @return
      */
@@ -56,6 +60,7 @@ public class Greedy {
 
     /**
      * #53 dp可解此题
+     *
      * @param nums
      * @return
      */
@@ -80,6 +85,7 @@ public class Greedy {
 
     /**
      * #122
+     *
      * @param prices
      * @return
      */
@@ -109,6 +115,7 @@ public class Greedy {
 
     /**
      * #55
+     *
      * @param nums
      * @return
      */
@@ -129,6 +136,7 @@ public class Greedy {
 
     /**
      * #45
+     *
      * @param nums
      * @return
      */
@@ -154,6 +162,7 @@ public class Greedy {
 
     /**
      * 409
+     *
      * @param s
      * @return
      */
@@ -178,11 +187,138 @@ public class Greedy {
     }
 
 
+    /**
+     * #1005
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int min = Integer.MAX_VALUE;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (k > 0 && nums[i] < 0) {
+                k--;
+                nums[i] = -nums[i];
+            }
+            sum += nums[i];
+            min = Math.min(min, nums[i]);
+        }
+
+        if (k % 2 != 0 && k > 0) {
+            sum = sum - 2 * min;
+        }
+        return sum;
+    }
+
+
+    /**
+     * #134
+     *
+     * @param gas
+     * @param cost
+     * @return
+     */
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        // 需要的油量
+        int need = 0;
+        // 起始的下标
+        int start = 0;
+        // 剩余的油量
+        int have = 0;
+        for (int i = 0; i < cost.length; i++) {
+            // 这里起始抽象成了两个站点，总的所需油量，必须大于等于提供的油量，start -> k 如果所需油量不足，则应当将起始位置设为k+1
+            need += gas[i] - cost[i];
+            have += gas[i] - cost[i];
+            if (need < 0) {
+                start = i + 1;
+                need = 0;
+            }
+        }
+        return have < 0 ? -1 : start;
+    }
+
+
+    /**
+     * #135
+     *
+     * @param ratings
+     * @return
+     */
+    public int candy(int[] ratings) {
+        int[] candys = new int[ratings.length];
+        Arrays.fill(candys, 1);
+        // 先 从左往右
+        for (int i = 1; i < ratings.length; i++) {
+            // 当右边评分高于左边时
+            if (ratings[i] > ratings[i - 1]) {
+                candys[i] = candys[i - 1] + 1;
+            }
+        }
+        // 再返过来遍历当左边评分大于右边时
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if (ratings[i + 1] < ratings[i]) {
+                candys[i] = Math.max(candys[i], candys[i + 1] + 1);
+            }
+        }
+
+        int sum = 0;
+        for (int i = 0; i < candys.length; i++) {
+            System.out.println(candys[i]);
+            sum += candys[i];
+        }
+
+        return sum;
+    }
+
+
+    /**
+     *
+     * @param bills
+     * @return
+     */
+    public boolean lemonadeChange(int[] bills) {
+        int five = 0;
+        int ten = 0;
+        int tw = 0;
+        for (int i : bills) {
+            switch (i) {
+                case 5:
+                    five++;
+                    break;
+                case 10:
+                    if (five <= 0) {
+                        return false;
+                    }
+                    five--;
+                    ten++;
+                    break;
+                case 20:
+                    // 当收入20时，优先支付10元+5元，再支付3张5元
+                    if (five > 0 && ten > 0) {
+                        tw++;
+                        five--;
+                        ten--;
+                        break;
+                    }
+                    five = five - 3;
+                    if (five < 0) {
+                        return false;
+                    }
+            }
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
-        int[] ins = new int[]{2,3,1,1,4};
+        int[] ins = new int[]{1, 2, 2};
+        int[] ins2 = new int[]{3, 4, 3};
         int i = g.wiggleMaxLength(ins);
         //System.out.println(g.jump(ins));
-        System.out.println(g.longestPalindrome("abb"));
+        System.out.println(g.candy(ins));
     }
 }
