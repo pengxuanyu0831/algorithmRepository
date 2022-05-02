@@ -1,8 +1,8 @@
 package Greedy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.*;
 
 /**
  * @program algorithm
@@ -10,6 +10,7 @@ import java.util.List;
  * @author: pengxuanyu
  * @create: 2022/04/26 22:24
  */
+@Slf4j
 public class Greedy {
 
 
@@ -275,8 +276,9 @@ public class Greedy {
 
 
     /**
-     *
+     * #860
      * @param bills
+     * 当解题没有思路时，可以从各种情况的角度开始分析，比如本题，只可能会收到3种钱，那么分别处理即可。
      * @return
      */
     public boolean lemonadeChange(int[] bills) {
@@ -312,13 +314,40 @@ public class Greedy {
         return true;
     }
 
+    /**
+     * #406
+     * @param people
+     * @return
+     */
+    public int[][] reconstructQueue(int[][] people) {
+        // 按身高排序，相同身高再按k小的站前面
+        Arrays.sort(people, (a, b) ->{
+            log.info("a->{} b->{}",a,b);
+            if (a[0] == b[0]) {
+                return a[1] - b[1];
+            } else {
+                return b[0] - a[0];
+            }
+        });
+        LinkedList<int[]> qu = new LinkedList<>();
+        log.info("people{}", (Object) people);
+        for (int[] person : people) {
+            int pos = person[1];
+            qu.add(pos, person);
+        }
+        return qu.toArray(new int[people.length][]);
+    }
+
 
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1, 2, 2};
         int[] ins2 = new int[]{3, 4, 3};
+        int[][] people1 = new int[][]{{7, 0}, {5, 0}, {4, 3}, {5, 2}, {7, 1}, {6, 1}};
         int i = g.wiggleMaxLength(ins);
+
         //System.out.println(g.jump(ins));
-        System.out.println(g.candy(ins));
+        System.out.println();
+        log.info("{}", (Object) g.reconstructQueue(people1));
     }
 }
