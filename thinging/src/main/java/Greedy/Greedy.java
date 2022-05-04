@@ -357,15 +357,50 @@ public class Greedy {
     }
 
 
+    /**
+     * #11
+     * @param height
+     * @return
+     * 傻屌测试用例 双指针嵌套循环必超时，弃用
+     */
+    public int maxArea(int[] height) {
+        int maxS = 0;
+        if (height.length == 2) {
+            return Math.min(height[0], height[1]);
+        }
+        // 双指针遍历 --超时
+/*        for (int i = 0; i < height.length; i++) {
+            for (int k = height.length - 1; k > i; k--) {
+                maxS = Math.max(maxS, (k - i) * Math.min(height[i], height[k]));
+            }
+        }*/
+
+        // 面积最大 -> 尽量长且尽量高，先从尽量长开始
+        int close = 0;
+        int far = height.length - 1;
+        while (close <= far) {
+            if (height[close] <= height[far]) {
+                maxS = Math.max(maxS, (far - close) * height[close]);
+                close++;
+            } else {
+                maxS = Math.max(maxS, (far - close) * height[far]);
+                far--;
+            }
+        }
+        return maxS;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
-        int[] ins = new int[]{1, 2, 2};
+        int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
         int[] ins2 = new int[]{3, 4, 3};
         int[][] people1 = new int[][]{{7, 0}, {5, 0}, {4, 3}, {5, 2}, {7, 1}, {6, 1}};
         int i = g.wiggleMaxLength(ins);
 
         //System.out.println(g.jump(ins));
         System.out.println();
-        log.info("{}", (Object) g.reconstructQueue(people1));
+        // log.info("{}", (Object) g.reconstructQueue(people1));
+        log.info("{}组成的最大面积为{}", ins, g.maxArea(ins));
     }
 }
