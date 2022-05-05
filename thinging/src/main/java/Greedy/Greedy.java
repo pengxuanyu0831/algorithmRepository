@@ -417,6 +417,33 @@ public class Greedy {
     }
 
 
+    /**
+     * #435
+     * @param intervals
+     * @return
+     */
+    public int eraseOverlapIntervals(int[][] intervals) {
+        // 按照右边界排序
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] - o2[1];
+            }
+        });
+        int count = 1;
+        // 这里相当于 第一个元素的y值作为分割点
+        int end = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++) {
+            // 反过来想，找到所有不重叠的区间，用总长减去不重叠的就是重叠的
+            if (end <= intervals[i][0]) {
+                end = intervals[i][1];
+                count++;
+            }
+        }
+        return intervals.length - count;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
@@ -424,6 +451,6 @@ public class Greedy {
         int[][] people1 = new int[][]{{10, 16}, {2, 8}, {1, 6}, {7, 12}};
         //int i = g.wiggleMaxLength(ins);
         // log.info("{}", (Object) g.reconstructQueue(people1));
-        log.info("{}+++{}", people1, g.findMinArrowShots(people1));
+        log.info("{}+++{}", people1, g.eraseOverlapIntervals(people1));
     }
 }
