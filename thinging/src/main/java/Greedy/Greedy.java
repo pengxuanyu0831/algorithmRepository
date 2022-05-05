@@ -391,16 +391,39 @@ public class Greedy {
     }
 
 
+    /**
+     * #452
+     * @param points
+     * @return
+     */
+    public int findMinArrowShots(int[][] points) {
+        Arrays.sort(points, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] < o2[1] ? -1 : 1;
+            }
+        });
+        int arr = 1;
+        for (int i = 1; i < points.length; i++) {
+            // 气球i 和 气球i-1 是否挨着 -> i的左边界，和i-1的右边界比较
+            if (points[i][0] > points[i - 1][1]) {
+                arr++;
+            } else {
+                // 更新重叠气球的最小右边界
+                points[i][1] = Math.min(points[i][1], points[i - 1][1]);
+            }
+        }
+        return arr;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
         int[] ins2 = new int[]{3, 4, 3};
-        int[][] people1 = new int[][]{{7, 0}, {5, 0}, {4, 3}, {5, 2}, {7, 1}, {6, 1}};
-        int i = g.wiggleMaxLength(ins);
-
-        //System.out.println(g.jump(ins));
-        System.out.println();
+        int[][] people1 = new int[][]{{10, 16}, {2, 8}, {1, 6}, {7, 12}};
+        //int i = g.wiggleMaxLength(ins);
         // log.info("{}", (Object) g.reconstructQueue(people1));
-        log.info("{}组成的最大面积为{}", ins, g.maxArea(ins));
+        log.info("{}+++{}", people1, g.findMinArrowShots(people1));
     }
 }
