@@ -444,6 +444,35 @@ public class Greedy {
     }
 
 
+    /**
+     * #763
+     * @param s
+     * @return
+     */
+    public List<Integer> partitionLabels(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        // 找到每个字母初始位置和最远位置
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), i);
+        }
+
+        int end = 0;
+        int start = 0;
+        for (int k = 0; k < s.length(); k++) {
+            // 这是最远距离
+            end = Math.max(map.get(s.charAt(k)), end);
+            // 找到最远
+            if (k == end) {
+                list.add(end - start + 1);
+                // 这里意思是 一个字母的最远位置已经找到了，可以找下一个了
+                start = k + 1;
+            }
+        }
+        return list;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
