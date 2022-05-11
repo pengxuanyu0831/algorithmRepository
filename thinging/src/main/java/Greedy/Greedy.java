@@ -473,13 +473,41 @@ public class Greedy {
     }
 
 
+    /**
+     * #56
+     * @param intervals
+     * 这题有点像射箭那题
+     * @return
+     */
+    public int[][] merge(int[][] intervals) {
+        List<int[]> result = new ArrayList<>();
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+        for (int i = 0; i < intervals.length - 1; i++) {
+            int left = intervals[i][0];
+            int right = intervals[i][1];
+            if (intervals[i + 1][0] <= right ) {
+                right = Math.max(right, intervals[i + 1][1]);
+            }
+            log.info("第{}个 加入 {}",i,new int[]{left, right});
+            result.add(new int[]{left, right});
+        }
+        return result.toArray(new int[result.size()][2]);
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
         int[] ins2 = new int[]{3, 4, 3};
-        int[][] people1 = new int[][]{{10, 16}, {2, 8}, {1, 6}, {7, 12}};
-        //int i = g.wiggleMaxLength(ins);
+        int[][] people1 = new int[][]{{1, 3}, {2, 6}, {8,10}, {15, 18}};
+        int[][] merge = g.merge(people1);
+        log.info("{}",merge);
         // log.info("{}", (Object) g.reconstructQueue(people1));
-        log.info("{}+++{}", people1, g.eraseOverlapIntervals(people1));
+        // log.info("{}+++{}", people1, g.eraseOverlapIntervals(people1));
     }
 }
