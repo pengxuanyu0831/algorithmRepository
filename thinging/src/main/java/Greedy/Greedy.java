@@ -1,6 +1,7 @@
 package Greedy;
 
 import lombok.extern.slf4j.Slf4j;
+import netscape.javascript.JSObject;
 
 import java.util.*;
 
@@ -487,14 +488,20 @@ public class Greedy {
                 return o1[0] - o2[0];
             }
         });
-        for (int i = 0; i < intervals.length - 1; i++) {
-            int left = intervals[i][0];
-            int right = intervals[i][1];
-            if (intervals[i + 1][0] <= right ) {
-                right = Math.max(right, intervals[i + 1][1]);
+        int left = intervals[0][0];
+        int right = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] <= right ) {
+                right = Math.max(right, intervals[i][1]);
             }
-            log.info("第{}个 加入 {}",i,new int[]{left, right});
+            int[] record = new int[2];
+            record[0] = left;
+            record[1] = right;
             result.add(new int[]{left, right});
+            right = intervals[i][1];
+            left = intervals[i][0];
+            log.info("第{}个 加入 {}",i,new int[]{left, right});
+
         }
         return result.toArray(new int[result.size()][2]);
     }
@@ -506,7 +513,7 @@ public class Greedy {
         int[] ins2 = new int[]{3, 4, 3};
         int[][] people1 = new int[][]{{1, 3}, {2, 6}, {8,10}, {15, 18}};
         int[][] merge = g.merge(people1);
-        log.info("{}",merge);
+        log.info("{}", Arrays.stream(merge).toArray());
         // log.info("{}", (Object) g.reconstructQueue(people1));
         // log.info("{}+++{}", people1, g.eraseOverlapIntervals(people1));
     }
