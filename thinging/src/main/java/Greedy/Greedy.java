@@ -491,18 +491,16 @@ public class Greedy {
         int left = intervals[0][0];
         int right = intervals[0][1];
         for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] <= right ) {
+            if (intervals[i][0] <= right) {
                 right = Math.max(right, intervals[i][1]);
+            } else {
+                log.info("第{}个 加入 {}",i,new int[]{left, right});
+                result.add(new int[]{left, right});
+                left = intervals[i][0];
+                right = intervals[i][1];
             }
-            int[] record = new int[2];
-            record[0] = left;
-            record[1] = right;
-            result.add(new int[]{left, right});
-            right = intervals[i][1];
-            left = intervals[i][0];
-            log.info("第{}个 加入 {}",i,new int[]{left, right});
-
         }
+        result.add(new int[]{left, right});
         return result.toArray(new int[result.size()][2]);
     }
 
