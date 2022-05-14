@@ -582,6 +582,35 @@ public class DynamicProgramming {
         return result;
     }
 
+
+    /**
+     * #64
+     * @param grid
+     * @return
+     */
+    public int minPathSum(int[][] grid) {
+        // no1 到i j  最短的长度为dp[i][j]
+        int high = grid[0].length;
+        int weith = grid.length;
+
+        // 初始化数据
+        // 高度
+        for (int i = 1; i < high; i++) {
+            grid[0][i] += grid[0][i - 1];
+        }
+        // 宽度
+        for (int i = 1; i < weith; i++) {
+            grid[i][0] += grid[i - 1][0];
+        }
+
+        for (int i = 1 ;i < weith; i++) {
+            for (int k = 1; k < high; k++) {
+                grid[i][k] = Math.min(grid[i - 1][k], grid[i][k - 1]);
+            }
+        }
+        return grid[weith - 1][high - 1];
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {-2, 1, -3, 4, -1, 2, 1, -5, 4};

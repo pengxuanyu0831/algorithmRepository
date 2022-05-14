@@ -966,6 +966,27 @@ public class BinaryTree {
     }
 
 
+    /**
+     * #98
+     *
+     * @param root
+     * @return
+     */
+
+    TreeNode pre = new TreeNode();
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return false;
+        }
+        boolean b = this.isValidBST(root.left);
+        if (pre != null && pre.val > root.val) {
+            return false;
+        }
+        pre = root;
+        return b  && this.isValidBST(root.right);
+    }
+
+
 
 
 

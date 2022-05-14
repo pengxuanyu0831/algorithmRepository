@@ -505,6 +505,34 @@ public class Greedy {
     }
 
 
+    /**
+     *
+     * @param s
+     * @return
+     */
+    public String removeDuplicateLetters(String s) {
+        char[] chars = s.toCharArray();
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < chars.length; i++) {
+
+            if (stack.contains(chars[i])) {
+                continue;
+            } else {
+                // String.indexOf --->从i开始查询是否存在该字符，不存在返回-1
+                while (!stack.isEmpty() && stack.peek() > chars[i] && s.indexOf(stack.peek(), i) != -1) {
+                    stack.pop();
+                }
+                stack.push(chars[i]);
+            }
+        }
+        char[] result = new char[stack.size()];
+        for (int i = 0; i < stack.size(); i++) {
+            result[i] = stack.get(i);
+        }
+        return new String(result);
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
