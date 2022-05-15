@@ -611,6 +611,16 @@ public class DynamicProgramming {
         return grid[weith - 1][high - 1];
     }
 
+
+    /**
+     * #96
+     * @param n
+     * @return
+     */
+    public int numTrees(int n) {
+
+    }
+
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
