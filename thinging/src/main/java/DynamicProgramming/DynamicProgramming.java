@@ -170,17 +170,37 @@ public class DynamicProgramming {
         return dp[n];
     }
 
-
+    /**
+     * #96
+     * @param n
+     * @return
+     */
     public int numTrees(int n) {
         int[] dp = new int[n + 1];
         dp[0] = 1;
+        // dp[i] += 已i为头结点的左子树的数量 * 已i为头结点右子树的数量
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
-                // 数量 dp[3] =
+                // 数量 i = 1  -->  dp[3] = dp[1-1] *
+                // !!!!排列组合，所以这里是乘法!!!!
                 dp[i] += dp[j - 1] * dp[i - j];
             }
         }
         return dp[n];
+    }
+
+
+    /**
+     * #95
+     * @param n
+     * @return
+     */
+    public List<TreeNode> generateTrees(int n) {
+        List<TreeNode> result = new ArrayList<TreeNode>();
+        if (n == 1) {
+            result.add(new TreeNode(n));
+            return result;
+        }
     }
 
     public void bagProblem1() {
@@ -612,14 +632,8 @@ public class DynamicProgramming {
     }
 
 
-    /**
-     * #96
-     * @param n
-     * @return
-     */
-    public int numTrees(int n) {
 
-    }
+
 
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
