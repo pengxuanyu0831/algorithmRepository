@@ -191,16 +191,29 @@ public class DynamicProgramming {
 
 
     /**
-     * #95
+     * #118
      * @param n
      * @return
      */
-    public List<TreeNode> generateTrees(int n) {
-        List<TreeNode> result = new ArrayList<TreeNode>();
-        if (n == 1) {
-            result.add(new TreeNode(n));
-            return result;
+    public List<List<Integer>> generate(int numRows) {
+        List<Integer> num = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+
+        num.add(1);
+        result.add(num);
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> list = result.get(i - 1);
+            List<Integer> current = new ArrayList<>();
+            current.add(1);
+            for (int k = 1; k < i; k++) {
+                current.add(list.get(k) + list.get(k - 1));
+            }
+            current.add(1);
+            result.add(current);
+
         }
+        return result;
+
     }
 
     public void bagProblem1() {
