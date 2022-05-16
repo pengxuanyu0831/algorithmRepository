@@ -216,6 +216,29 @@ public class DynamicProgramming {
 
     }
 
+
+    /**
+     * #120
+     * @param triangle
+     * @return
+     */
+    public int minimumTotal(List<List<Integer>> triangle) {
+        if (triangle.size() == 1) {
+            return triangle.get(0).get(0);
+        }
+        // 走到
+        int[] dp = new int[triangle.size() + 1];
+        dp[0] = triangle.get(0).get(0);
+
+        for (int i = triangle.size() - 1; i >= 0; i--) {
+            List<Integer> currList = triangle.get(i);
+            for (int k = 0; k < currList.size(); k++) {
+                dp[k] = Math.min(dp[k], dp[k + 1]) + currList.get(k);
+            }
+        }
+        return dp[triangle.size() - 1];
+    }
+
     public void bagProblem1() {
         // 物品重量
         int[] weight = {1, 3, 4};
