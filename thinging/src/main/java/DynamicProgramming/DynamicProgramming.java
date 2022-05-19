@@ -2,10 +2,7 @@ package DynamicProgramming;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @program algorithm
@@ -696,6 +693,40 @@ public class DynamicProgramming {
             }
         }
         return res;
+    }
+
+
+    /**
+     * #132 ****
+     * @param s
+     * @return
+     * 如果从分割字符串的角度考虑这个问题的话，对于一个区间内的字符串来说，每一个位置都将是可能的分割点，
+     * 可以用暴力递归的方式找出答案，但是时间复杂度太高，加上预处理回文数组能勉强通过。
+     * 换个角度想想，当切割次数最少使得切割后的所有字符串都是回文时，也正是这些回文子串最长的时候，那么如果说能找到以每个字符为中心的最长回文串，实际上就已经找到了答案
+     */
+    public int minCut(String s) {
+        if (s.length() == 1) {
+            return 0;
+        }
+        int res = 0;
+        // i -> 下标 dp[i] -> 以i下标对应的字符为中心的最长回文串
+        int[] dp = new int[s.length()];
+        Arrays.fill(dp, s.length() - 1);
+
+        for (int i = 0; i < s.length(); i++) {
+            this.doCut(s,i,i,dp);
+            this.doCut(s,i,i+1,dp);
+        }
+        return dp[s.length() - 1];
+    }
+
+    private void doCut(String s, int i, int j, int[] dp) {
+        //以每个字符为中心的最长回文串
+        while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+            dp[j] = Math.min(dp[j], (i == 0 ? -1 : dp[i - 1]) + 1);
+            i++;
+            j--;
+        }
     }
 
 
