@@ -668,6 +668,37 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #647
+     * 双指针法
+     * @param s
+     * @return
+     */
+    public int countSubstrings(String s) {
+        int res = 0;
+        // 表示 i-j区间 是否为回文串
+        boolean[][] ans = new boolean[s.length()][s.length()];
+
+        for (int i = s.length(); i >=0 ; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    // 1 双指针同时指向一个字符，必是回文
+                    // 2 双指针相邻
+                    if (j - i <= 1) {
+                        res++;
+                        ans[i][j] = true;
+                        // 3 双指针距离超过1时，就看中间的字符串是不是回文即可
+                    } else if (ans[i + 1][j - 1]) {
+                        res++;
+                        ans[i][j] = true;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+
 
 
 
