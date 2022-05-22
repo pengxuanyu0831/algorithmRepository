@@ -3,8 +3,6 @@ package Sort;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @program algorithm
@@ -13,7 +11,7 @@ import java.util.stream.Stream;
  * @create: 2022/05/22 23:45
  */
 @Slf4j
-public class sort {
+public class Sort {
     /**
      * #242
      * @param s
@@ -78,7 +76,7 @@ public class sort {
 
     public static void main(String[] args) {
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
-        sort sort = new sort();
+        Sort sort = new Sort();
         int[] ints = sort.topKFrequent(ins, 2);
         log.info("{}",ints);
 
