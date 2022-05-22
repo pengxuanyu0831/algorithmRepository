@@ -164,7 +164,7 @@ public class Greedy {
 
     /**
      * 409
-     *
+     * 构造最长回文串--->如果某个字母出现偶数次，则一定在最长串中
      * @param s
      * @return
      */
