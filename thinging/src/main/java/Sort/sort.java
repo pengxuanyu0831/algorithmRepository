@@ -1,8 +1,10 @@
 package Sort;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @program algorithm
@@ -10,6 +12,7 @@ import java.util.Map;
  * @author: pengxuanyu
  * @create: 2022/05/22 23:45
  */
+@Slf4j
 public class sort {
     /**
      * #242
@@ -37,6 +40,48 @@ public class sort {
             }
         }
         return true;
+    }
+
+
+    /**
+     * #347
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                map.put(nums[i], map.get(nums[i]) + 1);
+            } else {
+                map.put(nums[i], 1);
+            }
+
+        }
+        // 按value排序
+        int[] result = new int[k];
+        // 但是最后取得是key
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+        PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>((o1, o2) -> o1.getValue() - o2.getValue());
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            queue.offer(entry);
+            if (queue.size() > k) {
+                queue.poll();
+            }
+        }
+        for (int i = k - 1; i >= 0; i--) {
+            result[i] = queue.poll().getKey();
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
+        sort sort = new sort();
+        int[] ints = sort.topKFrequent(ins, 2);
+        log.info("{}",ints);
+
     }
 
 }
