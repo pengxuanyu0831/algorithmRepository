@@ -142,6 +142,47 @@ public class Sort {
     }
 
 
+    /**
+     * #295
+     * 这题得画图，把两个栈画出来就懂了
+     */
+    class MedianFinder {
+        PriorityQueue<Integer> max;
+        PriorityQueue<Integer> min;
+        public MedianFinder() {
+            max = new PriorityQueue<Integer>(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o2 - o1;
+                }
+            });
+            min = new PriorityQueue<Integer>();
+        }
+
+        public void addNum(int num) {
+            // 这里只能加给max，否则如果这个num是最小的，会被min。remove出来
+            max.add(num);
+            min.add(max.remove());
+            if (min.size() > max.size()) {
+                max.add(min.remove());
+            }
+        }
+
+        public double findMedian() {
+            if (max.size() == min.size()) {
+                return (max.peek() + min.peek()) / 2.0;
+            } else {
+                return max.peek();
+            }
+        }
+
+
+
+    }
+
+
+
+
 
 
     public static void main(String[] args) {
