@@ -3,6 +3,7 @@ package Sort;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @program algorithm
@@ -146,7 +147,7 @@ public class Sort {
      * #295
      * 这题得画图，把两个栈画出来就懂了
      */
-    class MedianFinder {
+    static class MedianFinder {
         PriorityQueue<Integer> max;
         PriorityQueue<Integer> min;
         public MedianFinder() {
@@ -181,15 +182,46 @@ public class Sort {
     }
 
 
+    /**
+     * #658
+     * @param arr
+     * @param k
+     * @param x
+     * @return
+     * 滑动窗口
+     */
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int lo = 0;
+        int hi = arr.length - 1;
+        while (hi - lo >= k) {
+            if (x - arr[lo] > arr[hi] - x) {
+                lo++;
+            }else {
+                hi--;
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+        for (; lo <= hi ; lo++) {
+            result.add(arr[lo]);
+        }
+        return result;
+    }
+
+
 
 
 
 
     public static void main(String[] args) {
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};
+        int[] arr = new int[]{1,2,3,4,5};
+        int[] arr1 = new int[]{1,1,1,10,10,10};
         Sort sort = new Sort();
-        int[] ints = sort.topKFrequent(ins, 2);
-        log.info("{}",ints);
+        // int[] ints = sort.topKFrequent(ins, 2);
+        // log.info("{}",ints);
+        List<Integer> closestElements = sort.findClosestElements(arr1, 1, 9);
+        log.info("closestElements {}",closestElements);
 
     }
 
