@@ -216,7 +216,26 @@ public class Sort {
      * @return
      */
     public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < words.length; i++) {
+            map.put(words[i], map.getOrDefault(words[i], 0) + 1);
+        }
+        // 前K个要用
+        PriorityQueue<String> queue = new PriorityQueue<>((o1, o2) -> map.get(o1) - map.get(o2));
+        for (String s : map.keySet()) {
+            if (queue.size() < k) {
+                queue.offer(s);
+            }else if (map.get(queue.peek()) < map.get(s)) {
+                queue.poll();
+                queue.offer(s);
+            }
 
+        }
+        List<String> result = new ArrayList<>();
+        for (String s : queue) {
+            result.add(s);
+        }
+        return result;
     }
 
 
