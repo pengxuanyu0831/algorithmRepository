@@ -235,7 +235,18 @@ public class Sort {
         for (String s : queue) {
             result.add(s);
         }
-        return result;
+        return result.stream().sorted(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                int i1 = map.get(o1);
+                int i2 = map.get(o2);
+                if (i1 != i2) {
+                    return i2 - i1;
+                } else {
+                    return o1.compareTo(o2);
+                }
+            }
+        }).collect(Collectors.toList());
     }
 
 
