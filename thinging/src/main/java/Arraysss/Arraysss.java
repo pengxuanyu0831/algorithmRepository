@@ -47,7 +47,27 @@ public class Arraysss {
             }
         }
         return slow;
+    }
 
+
+    /**
+     * #26
+     * @param nums
+     * @return
+     */
+    public int removeDuplicates(int[] nums) {
+        int fast = 1;
+        int slow = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != nums[slow]) {
+                slow++;
+                nums[slow] = nums[fast];
+                fast++;
+            } else {
+                fast++;
+            }
+        }
+        return slow + 1;
     }
 
 }
