@@ -1,5 +1,7 @@
 package Arraysss;
 
+import java.util.Arrays;
+
 /**
  * @program algorithm
  * @description:
@@ -98,22 +100,50 @@ public class Arraysss {
      * @param s
      * @param t
      * @return
+     * 画图 画图 画图
      */
     public boolean backspaceCompare(String s, String t) {
-        int fast = 1;
-        int slow;
-        char[] chars = new char[s.length()];
-        char[] chart = new char[t.length()];
-        for (slow = 0; fast < s.toCharArray().length; fast++) {
-            if ('#' == s.charAt(fast)) {
-                fast++;
-                slow++;
-            } else {
-                chars[fast] = s.charAt(fast);
-                slow++;
+        StringBuilder ssb = new StringBuilder();
+        StringBuilder sst = new StringBuilder();
+        for (char ss : s.toCharArray()) {
+            if (ss != '#') {
+                ssb.append(ss);
+            } else if (ssb.length() > 0) {
+                ssb.deleteCharAt(ssb.length() - 1);
             }
         }
 
+        for (char tt : t.toCharArray()) {
+            if (tt != '#') {
+                sst.append(tt);
+            } else if (sst.length() > 0) {
+                sst.deleteCharAt(sst.length() - 1);
+            }
+        }
+        return sst.toString().equals(ssb.toString());
+    }
+
+
+    /**
+     * #977
+     * @param nums
+     * @return
+     */
+    public int[] sortedSquares(int[] nums) {
+        int slow = 0;
+        int fast = nums.length - 1;
+        int[] result = new int[nums.length];
+        int j = nums.length - 1;
+        while (slow <= fast) {
+            if (nums[slow] * nums[slow] < nums[fast] * nums[fast]) {
+                result[j--] = nums[slow] * nums[slow];
+                slow++;
+            } else {
+                result[j--] = nums[fast] * nums[fast];
+                fast--;
+            }
+        }
+        return result;
     }
 
 }
