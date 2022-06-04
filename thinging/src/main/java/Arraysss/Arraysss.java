@@ -1,6 +1,9 @@
 package Arraysss;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * @program algorithm
@@ -144,6 +147,89 @@ public class Arraysss {
             }
         }
         return result;
+    }
+
+    /**
+     * #209
+     * @param target
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int target, int[] nums) {
+        int result = Integer.MAX_VALUE;
+        int start = 0;
+        int end;
+        int sum = 0;
+        // 右端点一直在动
+        for (end = 0; end < nums.length; end++) {
+            sum += nums[end];
+            // 当总和大于或等于目标值时
+            while (sum >= target) {
+                result = Math.min(result, end - start + 1);
+                sum -= nums[start];
+                // 移动左端点
+                start++;
+            }
+        }
+        return result == Integer.MAX_VALUE ? 0 : result;
+    }
+
+
+    /**
+     * #904
+     * @param fruits
+     * @return
+     * 滑动窗口
+     */
+    public int totalFruit(int[] fruits) {
+        int left = 0;
+        int i = 0;
+        int basket1 = fruits[0];
+        int basket2 = fruits[1];
+        int result = 0;
+        for (i = 0; i < fruits.length; i++) {
+            if (fruits[i] == basket1 || fruits[i] == basket2) {
+                result = Math.max(result, i - left + 1);
+            } else {
+                left = i - 1;
+                basket1 = fruits[left];
+                // left 要把前面的都清零
+                while (left >= 1 && fruits[left] == basket1) {
+                    left--;
+                }
+                basket2 = fruits[i];
+                result = Math.max(result, i - left + 1);
+            }
+        }
+        return result;
+    }
+    //
+    public int totalFruitTwo(int[] fruits) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int l = 0;
+        int r = 0;
+        int result = Integer.MIN_VALUE;
+        for (r = 0; r < fruits.length; r++) {
+            map.put(fruits[r], map.getOrDefault(fruits[r], 0) + 1);
+            while (map.size() > 2) {
+                Integer integer = map.get(fruits[l]);
+                integer--;
+                if (integer == 0) {
+                    map.remove(fruits[l]);
+                }
+                l++;
+            }
+            result = Math.max(result, r - l + 1);
+        }
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        int[] ints = new int[]{3,3,3,1,2,1,1,2,3,3,4};
+        Arraysss arraysss = new Arraysss();
+        int i = arraysss.totalFruitTwo(ints);
+        System.out.println(i);
     }
 
 }
