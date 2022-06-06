@@ -237,7 +237,7 @@ public class Arraysss {
         // 构建need字符集
         for (int i = 0; i < t.length(); i++) {
             char needChar = t.charAt(i);
-            need.put(needChar,need.getOrDefault(needChar,0)+1);
+            need.put(needChar, need.getOrDefault(needChar, 0) + 1);
         }
 
         int left = 0, right = 0, valid = 0;
@@ -271,7 +271,58 @@ public class Arraysss {
             }
         }
         // 如果最小覆盖字串的长度相对于定义时没变，则t不包含s中所有的字符，返回"",如果长度改变过，说明存在这样的最小覆盖字串，直接输出。
-        return len == Integer.MAX_VALUE?"":s.substring(start,start+len);
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
+
+
+    /**
+     * #59
+     * @param n
+     * @return
+     */
+    public int[][] generateMatrix(int n) {
+        int res[][] = new int[n][n];
+        int loop = n / 2;
+        int startX = 0;
+        int startY = 0;
+
+        // 偏移量
+        int offset = 1;
+        // 填充的数字
+        int num = 1;
+        while (loop > 0) {
+            int i = startX;
+            int j = startY;
+            // 每一次循环的结束都让出一位给下个循环
+            // 上横
+            for (; j < startY + n - offset; ++j) {
+                res[startY][j] = num++;
+            }
+            // 右竖
+            for (; i < startX + n - offset; ++i) {
+                res[i][j] = num++;
+            }
+            // 下横
+            for (; j > startY ; j--) {
+                res[i][j] = num++;
+            }
+
+            // 左竖
+            for (; i > startX; i--) {
+                res[i][j] = num++;
+            }
+
+            loop--;
+            startX += 1;
+            startY += 1;
+            // 这里偏移量需要画图理解
+            offset += 2;
+
+        }
+        if (n % 2 == 1) {
+            res[n / 2][n / 2] = num;
+        }
+        return res;
     }
 
 
