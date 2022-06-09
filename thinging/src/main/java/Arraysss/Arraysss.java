@@ -324,13 +324,38 @@ public class Arraysss {
 
 
     /**
+     * #35
+     * @param nums
+     * @param target
+     * @return
+     * 二分查找的循环中，坚持循环不变量的原则
+     */
+    public int searchInsert(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+        while (left < right) {
+            int mid = left + ((right - left) / 2);
+            // 目标值在右半区间
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid;
+            } else {
+                return mid;
+            }
+        }
+        return right;
+    }
+
+
+    /**
      * #54
      * @param matrix
      * @return
      */
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> result = new ArrayList<>();
-        int loop =Math.min( matrix.length,matrix[0].length )/ 2;
+        int loop = Math.min(matrix.length, matrix[0].length) / 2;
         int startX = 0;
         int startY = 0;
 
