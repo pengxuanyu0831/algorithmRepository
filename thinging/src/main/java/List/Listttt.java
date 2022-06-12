@@ -21,16 +21,13 @@ public class Listttt {
     public ListNode removeElements(ListNode head, int val) {
         ListNode temp = new ListNode();
         temp.next = head;
-        ListNode pre = temp;
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode tempNode = cur.next;
-            if (cur.val == val) {
-                pre.next = tempNode;
-                break;
+        ListNode cur = temp;
+        while (cur.next != null) {
+            if (cur.next.val == val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
             }
-            pre = cur;
-            cur = cur.next;
         }
         return temp.next;
 
