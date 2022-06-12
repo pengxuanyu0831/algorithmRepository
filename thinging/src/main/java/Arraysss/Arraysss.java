@@ -1,5 +1,7 @@
 package Arraysss;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
 /**
@@ -8,6 +10,7 @@ import java.util.*;
  * @author: pengxuanyu
  * @create: 2022/05/30 23:05
  */
+@Slf4j
 public class Arraysss {
     /**
      * #704
@@ -332,6 +335,8 @@ public class Arraysss {
      */
     public int searchInsert(int[] nums, int target) {
         int left = 0;
+        // 这里决定了target在什么区间中，right = nums.legth --> target在左闭右开区间
+        //                            right = nums.length - 1 -->target在左闭右区间
         int right = nums.length;
         while (left < right) {
             int mid = left + ((right - left) / 2);
@@ -407,11 +412,40 @@ public class Arraysss {
     }
 
 
+    /**
+     * #34
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] searchRange(int[] nums, int target) {
+        int left = 0;
+        int right;
+        int index = 0;
+        if (nums.length == 1 && nums[0] == target) {
+            return new int[]{0, 0};
+        }
+        List<Integer> result = new ArrayList<>();
+        for (right = 0; right < nums.length; right++) {
+            if (nums[right] == target) {
+                left = right;
+                log.info("left = {}",left);
+                result.add(left);
+                index += 1;
+            }
+        }
+        if (index != 0) {
+            return new int[]{result.get(0), result.get(result.size() - 1)};
+        }
+        return new int[]{-1, -1};
+    }
+
+
     public static void main(String[] args) {
-        int[] ints = new int[]{3,3,3,1,2,1,1,2,3,3,4};
+        int[] ints = new int[]{1,3};
         Arraysss arraysss = new Arraysss();
-        int i = arraysss.totalFruitTwo(ints);
-        System.out.println(i);
+        arraysss.searchRange(ints, 1);
+        System.out.println();
     }
 
 }
