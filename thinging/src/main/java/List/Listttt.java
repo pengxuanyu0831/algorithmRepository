@@ -100,4 +100,25 @@ public class Listttt {
             pre.next = pre.next.next;
         }
     }
+
+
+    /**
+     * 翻转链表  #206
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        // 创建一个临时节点
+        ListNode temp = new ListNode();
+        ListNode cur = head;
+        ListNode pre = null;
+        while (cur != null) {
+            temp = cur.next;
+            cur.next = pre;
+
+            pre = cur;
+            cur = temp;
+        }
+        return pre;
+        }
 }
