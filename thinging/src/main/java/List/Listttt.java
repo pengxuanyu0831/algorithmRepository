@@ -131,18 +131,17 @@ public class Listttt {
      */
     public ListNode swapPairs(ListNode head) {
         ListNode temp = new ListNode();
-        ListNode cur = head;
-        ListNode after = head.next;
-        ListNode pre = new ListNode();
-        pre.next = head;
-        while (cur != null) {
-            temp = head.next;
-            after = cur;
-            cur = temp;
-
-            cur = cur.next;
-            after = cur.next;
+        temp.next = head;
+        ListNode pre = temp;
+        while (head != null && head.next != null) {
+            ListNode node = head.next.next;
+            pre.next = head.next;
+            pre.next.next = head;
+            pre.next.next.next = node;
+            head = node;
+            pre = pre.next.next;
         }
-        return pre.next;
+        return temp.next;
+
     }
 }
