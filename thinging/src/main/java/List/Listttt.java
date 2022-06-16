@@ -108,17 +108,41 @@ public class Listttt {
      * @return
      */
     public ListNode reverseList(ListNode head) {
-        // 创建一个临时节点
         ListNode temp = new ListNode();
         ListNode cur = head;
         ListNode pre = null;
         while (cur != null) {
+            // 先保存cur的下一个
             temp = cur.next;
+            // 保存完cur的下一个，就直接换下一个的指向
             cur.next = pre;
-
+            // 双指针开始移动
             pre = cur;
             cur = temp;
         }
         return pre;
+    }
+
+
+    /**
+     * #24
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+        ListNode temp = new ListNode();
+        ListNode cur = head;
+        ListNode after = head.next;
+        ListNode pre = new ListNode();
+        pre.next = head;
+        while (cur != null) {
+            temp = head.next;
+            after = cur;
+            cur = temp;
+
+            cur = cur.next;
+            after = cur.next;
         }
+        return pre.next;
+    }
 }
