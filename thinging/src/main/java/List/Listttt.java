@@ -142,6 +142,35 @@ public class Listttt {
             pre = pre.next.next;
         }
         return temp.next;
+    }
 
+
+    /**
+     * #19
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // 双指针
+        ListNode slow = head;
+        ListNode fast = head;
+        while (n > 0) {
+            if (fast.next != null) {
+                fast = fast.next;
+                n -= 1;
+            }else{
+                return head.next;
+            }
+        }
+        // 需要再挪一位
+        fast = fast.next;
+
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
     }
 }
