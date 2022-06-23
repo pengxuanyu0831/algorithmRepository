@@ -173,4 +173,32 @@ public class Listttt {
         slow.next = slow.next.next;
         return head;
     }
+
+
+    /**
+     * #142
+     * @param head
+     * @return
+     * 环:快慢指针
+     */
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            // 当快慢指针相遇时，记录一个相遇点
+            // 从相遇点 和 头结点再次一步一步走，则再次相遇时，就是环的入口
+            if (fast == slow) {
+                ListNode fast1 = fast;
+                ListNode again = head;
+                while (fast1 != again) {
+                    fast1 = fast1.next;
+                    again = again.next;
+                }
+                return again;
+            }
+        }
+        return null;
+    }
 }
