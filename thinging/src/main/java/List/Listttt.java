@@ -52,11 +52,12 @@ public class Listttt {
             if (index < 0 || index > list.size) {
                 return -1;
             }
-            ListNode node = header;
+            // 这里之所以要建一个新的指针来指向头结点，是因为如果不新建一个临时指针，直接操作头结点的话，如果过程中头结点发生了变化，那么最终返回时，无法返回正确的头结点
+            ListNode temp = header;
             for (int i = 0; i <= index; i++) {
-                node = node.next;
+                temp = temp.next;
             }
-            return node.val;
+            return temp.val;
         }
 
         public void addAtHead(int val) {
