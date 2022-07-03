@@ -85,6 +85,7 @@ public class Listttt {
             }
             // 创建要添加的节点
             ListNode node = new ListNode(val);
+            // 这里要画图，先把待加入节点的.next指针指向目标位置的节点，再更新目标节点的上一个节点，指向新节点。否则目标节点会丢失，出现空指针
             node.next = pre.next;
             pre.next = node;
         }
