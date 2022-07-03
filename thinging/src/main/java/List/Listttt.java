@@ -90,6 +90,7 @@ public class Listttt {
             pre.next = node;
         }
 
+        // 删除节点：临时指针temp，比如删除第index个节点，需要保证temp.next = index，临时节点的下一节点是需要删除的目标节点
         public void deleteAtIndex(int index) {
             if (index < 0 || index >= size) {
                 return;
@@ -202,5 +203,52 @@ public class Listttt {
             }
         }
         return null;
+    }
+
+
+    /**
+     * #2
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // 结果链表，虚拟头结点
+        ListNode dummyNode = new ListNode();
+        //  临时指针指向新节点
+        ListNode temp = dummyNode;
+        // 进位标记
+        int flag = 0;
+        while (l1 != null || l2 != null) {
+            int x = l1 == null ? 0 : l1.val;
+            int y = l2 == null ? 0 : l2.val;
+
+            int sum = x + y + flag;
+
+            // 取余
+            flag = sum / 10;
+
+            // 取尾数
+            sum = sum % 10;
+
+            temp.next = new ListNode(sum);
+            temp = temp.next;
+
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+
+        }
+
+        if (flag == 1) {
+            temp.next = new ListNode(1);
+        }
+
+        return dummyNode.next;
+
     }
 }
