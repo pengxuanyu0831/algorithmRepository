@@ -170,6 +170,7 @@ public class Listttt {
         fast = fast.next;
 
         while (fast != null) {
+            // fast 走一步，slow也走一步，当fast走到null时，slow位置为n的前一位
             fast = fast.next;
             slow = slow.next;
         }
