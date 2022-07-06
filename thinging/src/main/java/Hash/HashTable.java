@@ -1,5 +1,7 @@
 package Hash;
 
+import java.util.*;
+
 /**
  * @program algorithm
  * @description:
@@ -28,5 +30,26 @@ public class HashTable {
             }
         }
         return true;
+    }
+
+
+    /**
+     * #49
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, ArrayList<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+
+            if (map.containsKey(String.valueOf(chars))) {
+                map.get(String.valueOf(chars)).add(s);
+            } else {
+                map.put(String.valueOf(chars), new ArrayList<>());
+            }
+        }
+        return new ArrayList<>(map.values());
     }
 }
