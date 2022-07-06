@@ -248,8 +248,63 @@ public class Listttt {
         if (flag == 1) {
             temp.next = new ListNode(1);
         }
-
         return dummyNode.next;
+    }
+
+
+    /**
+     * 面试 02-07
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode arrA = headA;
+        ListNode arrB = headB;
+
+        // 先算出链表的长度
+        int lenA = 0;
+        int lenB = 0;
+        while (arrA != null) {
+            lenA++;
+            arrA = arrA.next;
+        }
+
+        while (arrB != null) {
+            lenB++;
+            arrB = arrB.next;
+        }
+
+        arrA = headA;
+        arrB = headB;
+        // 此时需要保证arrA是两个之间较长的那个链表
+        if (lenB > lenA) {
+            int tempLen = lenA;
+            lenA = lenB;
+            lenB = tempLen;
+
+            ListNode tempNode = arrA;
+            arrA = arrB;
+            arrB = tempNode;
+        }
+
+        int gap = lenA - lenB;
+        // 将两个链表的尾端对齐-->arrA 和 arrB 在同一起始
+        // 这里解释一下，链表相交，意味着从某个节点之后，两个链表就【合并】成一个链表了，所以要尾端对齐，即假设尾端是同一链表，看是否有相交的指针。
+        while (gap > 0) {
+            arrA = arrA.next;
+            gap--;
+        }
+
+        // 遍历arrA  arrB 当两个值相等时，就是有相交，否则没有
+        while (arrA != null) {
+            if (arrA == arrB) {
+                return arrA;
+            }
+            arrA = arrA.next;
+            arrB = arrB.next;
+        }
+        return null;
 
     }
 }
