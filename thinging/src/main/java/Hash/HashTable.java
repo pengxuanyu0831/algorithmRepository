@@ -52,4 +52,34 @@ public class HashTable {
         }
         return new ArrayList<>(map.values());
     }
+
+
+    /**
+     * #438
+     * @param s
+     * @param p
+     * @return
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+        char[] charsA = new char[26];
+        char[] charsB = new char[26];
+        for (int i = 0 ; i < p.length();i++) {
+            charsA[p.charAt(i) - 'a']++;
+            charsB[s.charAt(i) - 'a']++;
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i <= s.length() - p.length(); i++) {
+            if (i > 0) {
+                int start = s.charAt(i - 1) - 'a';
+                int end = s.charAt(p.length() + i - 1) - 'a';
+                charsB[start]++;
+                charsB[end]--;
+            }
+            if (Arrays.equals(charsA, charsB)) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
 }
