@@ -730,6 +730,22 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #1480
+     * @param nums
+     * @return
+     */
+    public int[] runningSum(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = nums[0] + nums[1];
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = dp[i - 1] + nums[i];
+        }
+        return dp;
+    }
+
+
 
 
 
