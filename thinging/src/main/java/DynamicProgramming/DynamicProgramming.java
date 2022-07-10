@@ -746,12 +746,38 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #724
+     * @param nums
+     * @return
+     */
+    public int pivotIndex(int[] nums) {
+        int sumLeft = 0;
+        int sumRight = 0;
+        int sum = 0;
+        // 先求总和
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            sumLeft += nums[i];
+            sumRight = sum - sumLeft + nums[i];
+            if (sumLeft == sumRight) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+
 
 
 
     public static void main(String[] args) {
         DynamicProgramming dynamicProgramming = new DynamicProgramming();
         int[] dp = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] test = { 1, 7, 3, 6, 5, 6};
 
         //List<String> list = new ArrayList<>();
         // list.add("leet");
@@ -760,7 +786,7 @@ public class DynamicProgramming {
 
         //boolean b = dynamicProgramming.wordBreak("leetCode", list);
         // System.out.println(b);;
-        System.out.println(dynamicProgramming.maxSubArray(dp));
+        System.out.println(dynamicProgramming.pivotIndex(test));
 
 
 
