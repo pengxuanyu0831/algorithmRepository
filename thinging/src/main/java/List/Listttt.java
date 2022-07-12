@@ -307,4 +307,34 @@ public class Listttt {
         return null;
 
     }
+
+
+    /**
+     * #21
+     * @param header1
+     * @param header2
+     * @return
+     */
+    public ListNode mergeTwoLists(ListNode header1, ListNode header2) {
+        ListNode node = new ListNode(0);
+        ListNode temp = node;
+        while (header1 != null && header2 != null) {
+            if (header1.val > header2.val) {
+                // 保存小的那个节点
+                temp.next = header2;
+                temp = temp.next;
+                header2 = header2.next;
+            } else {
+                temp.next = header1;
+                temp = temp.next;
+                header1 = header1.next;
+            }
+        }
+        if (header1 == null) {
+            temp.next = header2;
+        } else {
+            temp.next = header1;
+        }
+        return node.next;
+        }
 }
