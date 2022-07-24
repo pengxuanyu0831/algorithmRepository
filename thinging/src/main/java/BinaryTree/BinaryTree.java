@@ -3,6 +3,8 @@ package BinaryTree;
 import DynamicProgramming.Node;
 import DynamicProgramming.PrefectNode;
 import DynamicProgramming.TreeNode;
+import apple.laf.JRSUIUtils;
+import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
@@ -984,6 +986,63 @@ public class BinaryTree {
         }
         pre = root;
         return b  && this.isValidBST(root.right);
+    }
+
+
+    /**
+     * #589
+     * @param root
+     * @return
+     */
+    public List<Integer> preorder(Node root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        // 要用栈
+        Stack<Node> queue = new Stack<>();
+        queue.push(root);
+        while (!queue.isEmpty()) {
+            Node node = queue.pop();
+            result.add(node.val);
+            for (int i = node.children.size() - 1; i >= 0 ; i--) {
+                queue.push(node.children.get(i));
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * #102
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> chi = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                chi.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            result.add(chi);
+        }
+
+        return result;
+
     }
 
 

@@ -104,4 +104,29 @@ public class Ordinary {
         }
 
     }
+
+
+    /**
+     * 278
+     * @param 
+     * @return
+     */
+
+    boolean isBadVersion(int version){
+        return true;
+    }
+
+    public int firstBadVersion(int n) {
+        int i = 1;
+        while (i < n) {
+            int mid = i + ((n - i) / 2);
+            // 如果第mid个版本为错误版本，要继续往前找
+            if (this.isBadVersion(mid)) {
+                n = mid;
+            } else {
+                i = mid + 1;
+            }
+        }
+        return n;
+    }
 }
