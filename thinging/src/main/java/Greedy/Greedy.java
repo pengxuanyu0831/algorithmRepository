@@ -533,6 +533,28 @@ public class Greedy {
     }
 
 
+
+
+    /**
+     * #121
+     * @param prices
+     * 向左取最小值，向右取最大值
+     * @return
+     */
+    public int maxProfit121(int[] prices) {
+        if (prices.length == 2 && prices[1] > prices[0]) {
+            return prices[1] - prices[0];
+        }
+        int buy = Integer.MAX_VALUE;
+        int result = 0;
+        for (int i = 1; i < prices.length; i++) {
+            buy = Math.min(prices[i], buy);
+            result = Math.max(result, prices[i] - buy);
+        }
+        return result;
+    }
+
+
     public static void main(String[] args) {
         Greedy g = new Greedy();
         int[] ins = new int[]{1,8,6,2,5,4,8,3,7};

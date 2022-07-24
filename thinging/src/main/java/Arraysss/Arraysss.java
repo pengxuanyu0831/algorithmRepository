@@ -441,6 +441,28 @@ public class Arraysss {
     }
 
 
+    /**
+     * #409
+     * @param s
+     * @return
+     */
+    public int longestPalindrome(String s) {
+        int[] ints = new int[128];
+        for (char c : s.toCharArray()) {
+            ints[c]++;
+        }
+        int result = 0;
+        for (int i : ints) {
+            // 偶数直接+1
+            result += i / 2 * 2;
+            if(i % 2 == 1 && result %2==0){
+                result += 1;
+            }
+        }
+        return result;
+    }
+
+
     public static void main(String[] args) {
         int[] ints = new int[]{1,3};
         Arraysss arraysss = new Arraysss();
