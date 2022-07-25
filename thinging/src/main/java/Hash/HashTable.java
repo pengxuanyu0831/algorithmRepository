@@ -63,6 +63,7 @@ public class HashTable {
      * @return
      */
     public List<Integer> findAnagrams(String s, String p) {
+        // 滑动窗口 + 数组 维护数组内各个元素的数量，和p比较
         List<Integer> result = new ArrayList<>();
         if(s.length() < p.length()){
             return result;
@@ -79,11 +80,13 @@ public class HashTable {
         }
         for (int i = p.length(); i < s.length(); i++) {
             int start = s.charAt(i) - 'a';
+            // 移动左指针，因为长度为length1
             int end = s.charAt(i - p.length()) - 'a';
             charsB[start]++;
             charsB[end]--;
             if (Arrays.equals(charsA, charsB)) {
-                result.add(i-p.length()+1);
+                //起始索引，左指针被抛弃了，所以起始索引+1
+                result.add(i - p.length() + 1);
             }
         }
         return result;
