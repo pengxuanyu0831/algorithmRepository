@@ -1,5 +1,7 @@
 package Hash;
 
+import org.junit.Test;
+
 import java.util.*;
 
 /**
@@ -61,25 +63,29 @@ public class HashTable {
      * @return
      */
     public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        if(s.length() < p.length()){
+            return result;
+        }
         char[] charsA = new char[26];
         char[] charsB = new char[26];
         for (int i = 0 ; i < p.length();i++) {
             charsA[p.charAt(i) - 'a']++;
             charsB[s.charAt(i) - 'a']++;
         }
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i <= s.length() - p.length(); i++) {
-            if (i > 0) {
-                int start = s.charAt(i - 1) - 'a';
-                int end = s.charAt(p.length() + i - 1) - 'a';
-                charsB[start]++;
-                charsB[end]--;
-            }
+
+        if (Arrays.equals(charsA,charsB)){
+            result.add(0);
+        }
+        for (int i = p.length(); i < s.length(); i++) {
+            int start = s.charAt(i) - 'a';
+            int end = s.charAt(i - p.length()) - 'a';
+            charsB[start]++;
+            charsB[end]--;
             if (Arrays.equals(charsA, charsB)) {
-                result.add(i);
+                result.add(i-p.length()+1);
             }
         }
-
         return result;
     }
 
