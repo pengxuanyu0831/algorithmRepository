@@ -2,6 +2,7 @@ package Hash;
 
 import org.junit.Test;
 
+import javax.management.StandardEmitterMBean;
 import java.util.*;
 
 /**
@@ -134,5 +135,94 @@ public class HashTable {
         }
 
         return true;
+    }
+
+
+    /**
+     * #349
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        for (int i : nums1) {
+            set1.add(i);
+        }
+
+        for (int i : nums2) {
+            if (set1.contains(i)) {
+                set2.add(i);
+            }
+        }
+
+        int[] result = new int[set2.size() + 1];
+        for (int i :set2) {
+            result[i++] = i;
+        }
+        return result;
+    }
+
+
+    /**
+     * #350
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>(nums1.length);
+        // 将 nums1 出现的数值及频次放入映射中
+        for (int num : nums1) {
+            Integer count = map.get(num);
+            if (count == null) {
+                map.put(num, 1);
+            } else {
+                map.put(num, ++count);
+            }
+        }
+        List<Integer> list = new ArrayList<>();
+        for (int num : nums2) {
+            // 获取映射中该数值出现的频次
+            Integer count = map.get(num);
+            if (count != null && count != 0) {
+                list.add(num);
+                // 注意每次匹配后，该数值的频次需要减 1（nums1 和 nums2 匹配的数值的频次要相同）
+                map.put(num, --count);
+            }
+        }
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+        return res;
+    }
+
+
+    /**
+     * #202
+     * @param n
+     * @return
+     */
+    public boolean isHappy(int n) {
+        Set<Integer> record = new HashSet<>();
+        while (n != 1 && !record.contains(n)) {
+            record.add(n);
+            n = getNextNumber(n);
+        }
+        return n == 1;
+    }
+
+    private int getNextNumber(int n) {
+        int res = 0;
+        while (n > 0) {
+            // 取余
+            int temp = n % 10;
+            res += temp * temp;
+            // 求商
+            n = n / 10;
+        }
+        return res;
     }
 }
