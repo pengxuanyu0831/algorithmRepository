@@ -225,4 +225,33 @@ public class HashTable {
         }
         return res;
     }
+
+
+    /**
+     * #1  噩梦开始的地方
+     * @param nums
+     * @param target
+     * 双指针法
+     * @return
+     */
+    public int[] twoSum(int[] nums, int target) {
+        int left = 0;
+        int right = 1;
+        int[] result = new int[2];
+        while (right > left && right < nums.length) {
+            if (nums[left] + nums[right] == target) {
+                result[0] = left;
+                result[1] = right;
+                return result;
+            } else {
+                if (right == nums.length - 1) {
+                    left++;
+                    right = left + 1;
+                } else {
+                    right++;
+                }
+            }
+        }
+        return result;
+    }
 }
