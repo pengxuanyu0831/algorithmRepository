@@ -129,4 +129,50 @@ public class Ordinary {
         }
         return n;
     }
+
+
+    /**
+     * #344
+     * @param s
+     */
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+        while (left < right) {
+            //a ^ b ^ b = a ^ 0 = a;
+            s[left] ^= s[right];
+            s[right] ^= s[left];
+            s[left] ^= s[right];
+            left++;
+            right--;
+        }
+    }
+
+
+    /**
+     * #541
+     * @param s
+     * @param k
+     * @return
+     */
+    public String reverseStr(String s, int k) {
+        StringBuffer result = new StringBuffer();
+        int start = 0;
+        while (start < s.length()) {
+            StringBuffer tempStr = new StringBuffer();
+            // 先处理额外情况
+            int firstK = (start + k) > s.length() ? s.length() : start + k;
+            int secondK = (start + k + k ) > s.length() ? s.length() : start + k + k;
+
+            // 无论k是多少，start至少翻转一次
+            tempStr.append(s.substring(start, firstK));
+            result.append(tempStr.reverse());
+
+            if (firstK < secondK) {
+                result.append(s.substring(firstK, secondK));
+            }
+            start += (2 * k);
+        }
+        return result.toString();
+    }
 }
