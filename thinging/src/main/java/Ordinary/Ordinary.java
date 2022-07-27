@@ -175,4 +175,20 @@ public class Ordinary {
         }
         return result.toString();
     }
+
+
+
+    public String replaceSpace(String s) {
+        // return s.replaceAll(" ", "%20");
+        StringBuffer sb = new StringBuffer();
+        for (char c : s.toCharArray()) {
+            if (" ".equals(String.valueOf(c))) {
+                sb.append("%20");
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+
+    }
 }
