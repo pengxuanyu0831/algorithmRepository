@@ -36,6 +36,7 @@ public class BinaryTree {
         if (!stack.isEmpty()) {
             TreeNode node = stack.pop();
             result.add(node.val);
+            // 前序遍历是中-->左-->右，但是这里压栈为什么是先压右子树？  栈的特性是后进先出，所以先压右子树，左子树后压栈，才能先出左子树
             if (null != root.right) {
                 stack.push(root.right);
             }
@@ -125,7 +126,7 @@ public class BinaryTree {
     }
 
     /**
-     * 二叉树 -先序遍历-递归
+     * 二叉树 -先序遍历-递归 #144
      */
     public void preOrderTreeNode(TreeNode root) {
         if (Objects.nonNull(root)) {
