@@ -159,13 +159,19 @@ public class BinaryTree {
      *
      * @param args
      */
-    public void midOrderTreeNode(TreeNode root) {
-        if (Objects.nonNull(root)) {
+    public List<Integer> midOrderTreeNode(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        this.doMidOrder(root, result);
+        return result;
+    }
 
-            preOrderTreeNode(root.left);
-            log.info("value is {}", root.val);
-            preOrderTreeNode(root.right);
+    private void doMidOrder(TreeNode node,List<Integer> list) {
+        if (node == null) {
+            return;
         }
+        this.doMidOrder(node.left, list);
+        list.add(node.val);
+        this.doMidOrder(node.right, list);
     }
 
 
