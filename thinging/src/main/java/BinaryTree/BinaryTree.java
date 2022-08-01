@@ -3,11 +3,8 @@ package BinaryTree;
 import DynamicProgramming.Node;
 import DynamicProgramming.PrefectNode;
 import DynamicProgramming.TreeNode;
-import apple.laf.JRSUIUtils;
-import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
 import java.util.*;
 
 /**
@@ -139,17 +136,17 @@ public class BinaryTree {
 
     public List<Integer> preorderTraversal(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
-        this.preOrder(root, list);
+        this.doPreOrder(root, list);
         return list;
     }
 
-    void preOrder(TreeNode root, ArrayList<Integer> list) {
+    private void doPreOrder(TreeNode root, ArrayList<Integer> list) {
         if (null == root) {
             return;
         } else {
             list.add(root.val);
-            this.preOrder(root.left, list);
-            this.preOrder(root.right, list);
+            this.doPreOrder(root.left, list);
+            this.doPreOrder(root.right, list);
         }
 
     }
