@@ -368,6 +368,7 @@ public class BinaryTree {
     /**
      * 翻转二叉树 递归写法
      * 交换每个节点的左右子树即可实现翻转二叉树
+     * #226
      * @param args
      */
     public TreeNode invertTree(TreeNode root) {
