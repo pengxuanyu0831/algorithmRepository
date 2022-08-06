@@ -389,7 +389,7 @@ public class BinaryTree {
 
     /**
      * 递归写法 翻转二叉树 深度优先遍历
-     *
+     * 前序遍历
      * @param args
      */
     public TreeNode invertTree1(TreeNode root) {
