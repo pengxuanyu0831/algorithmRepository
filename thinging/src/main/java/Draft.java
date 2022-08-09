@@ -131,11 +131,30 @@ public class Draft {
     }
 
 
+    /**
+     * #1413
+     * @param nums
+     * @return
+     */
+    public int minStartValue(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = nums[0] + nums[1];
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = dp[i - 1] + nums[i];
+        }
+        Arrays.sort(dp);
+        return dp[0] > 0 ? 1 : 0 - dp[0] + 1;
+    }
+
+
     public static void main(String[] args) {
         Draft draft = new Draft();
         int[] ints = new int[]{1,1};
+        int[] intttt = new int[]{-3,2,-3,4,2};
         List<Integer> numbers = draft.findDisappearedNumbers(ints);
-        System.out.println(numbers);
+        int i = draft.minStartValue(intttt);
+        System.out.println(i);
     }
 
 
