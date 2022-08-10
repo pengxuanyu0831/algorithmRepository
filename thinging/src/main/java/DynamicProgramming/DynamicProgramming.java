@@ -61,6 +61,7 @@ public class DynamicProgramming {
      *
      * @param cost
      * @return
+     * #746
      * no.1 dp[i] 最小开销 i -> 第i个台阶
      * no.2 找关系 确定dp[i] 的最小值，其实就是确定do[i-1] dp[i-2]的最小值  >>>> dp[i] = min(dp[i-1],dp[i-2])
      * no.3 确定初始值 dp[1]
@@ -113,6 +114,27 @@ public class DynamicProgramming {
     }
 
     /**
+     * #62的DFS深度优先搜索实现，leetcode会超时
+     * @param m
+     * @param n
+     * @return
+     */
+    public int pathsDfs(int m, int n) {
+        return doPathDfs(1, 1, m, n);
+    }
+
+    private int doPathDfs(int i, int j, int m, int n) {
+        // 越界
+        if (i > m || j > n) {
+            return 0;
+        }
+        if (i == m && j == n) {
+            return 1;
+        }
+        return this.doPathDfs(i + 1, j, m, n) + this.doPathDfs(i, j + 1, m, n);
+    }
+
+    /**
      * 有路障的话 ob[i][j] == 1 意味着路障后边的dp[i][j]都是0
      * @param obstacleGrid
      * @return
@@ -149,6 +171,7 @@ public class DynamicProgramming {
 
 
     /**
+     * #343
      * i ->> 数字 dp[i] ->>拆分后最大的乘积
      * 最大值dp[i] ->> 假定
      * @param n
@@ -158,7 +181,7 @@ public class DynamicProgramming {
         int[] dp = new int[n + 1];
         dp[2] = 1;
         // 假定i + j = n
-        for (int i = 3; i < n; i++) {
+        for (int i = 3; i <= n; i++) {
             for (int j = 1; j < i - 1; j++) {
                 // 这里两个max是为什么
                 dp[i] = Math.max(dp[i], Math.max(j * (i - j), dp[i - j] * j));
