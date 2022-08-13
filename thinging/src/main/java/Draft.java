@@ -163,7 +163,7 @@ public class Draft {
                 if (j < thingsWeight[i]) {
                     dp[i][j] = dp[i - 1][j];
                 } else {
-                    // 这里是当前背包容量j >=当前物品，但是当前物品不一定会放进背包里，因为有可能背包此时以及有的物品总和价值大于当前物品
+                    // 这里是当前背包容量j >=当前物品，但是当前物品不一定会放进背包里，因为有可能背包此时已经有的物品总和价值大于当前物品
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - thingsWeight[i]] + thingsValues[i]);
                 }
             }
