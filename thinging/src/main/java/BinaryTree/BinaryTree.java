@@ -1050,6 +1050,26 @@ public class BinaryTree {
 
     }
 
+    /**
+     * #700
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null || root.val == val) {
+            return root;
+        }
+        // 如果传入的值，比节点值小，说明需要找的目标节点，在传入节点的左边
+        if (root.val > val) {
+            return this.searchBST(root.left, val);
+        }
+        if (root.val < val) {
+            return this.searchBST(root.right, val);
+        }
+        return null;
+    }
+
 
 
 

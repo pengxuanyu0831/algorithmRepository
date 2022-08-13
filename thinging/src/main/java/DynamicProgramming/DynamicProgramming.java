@@ -203,6 +203,7 @@ public class DynamicProgramming {
             for (int j = 1; j <= i; j++) {
                 // 数量 i = 1  -->  dp[3] = dp[1-1] *
                 // !!!!排列组合，所以这里是乘法!!!!
+                // 左右子树一一配对，所以乘法
                 dp[i] += dp[j - 1] * dp[i - j];
             }
         }
