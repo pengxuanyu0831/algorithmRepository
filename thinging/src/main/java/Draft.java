@@ -148,6 +148,29 @@ public class Draft {
     }
 
 
+    public void bagDraft(int[] thingsValues,int[] thingsWeight,int maxWeight) {
+        // step1: 确定数组的意义,从0-i下标取物品，放到容量为j的包里，最大放置重量为dp[i][j]
+        int[][] dp = new int[thingsWeight.length + 1][maxWeight + 1];
+        // 初始化数据
+        for (int i = 0; i <= thingsWeight.length; i++) {
+            dp[i][0] = thingsValues[0];
+        }
+        // 先遍历物品
+        for (int i = 1; i <= thingsWeight.length; i++) {
+            // 再遍历背包
+            for (int j = 1; j <= maxWeight; j++) {
+                // 当背包容量小于当前遍历的物品时，最大容量是截止到前一个物品的总容量
+                if (j < thingsWeight[i]) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    // 这里是当前背包容量j >=当前物品，但是当前物品不一定会放进背包里，因为有可能背包此时以及有的物品总和价值大于当前物品
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - thingsWeight[i]] + thingsValues[i]);
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         Draft draft = new Draft();
         int[] ints = new int[]{1,1};
