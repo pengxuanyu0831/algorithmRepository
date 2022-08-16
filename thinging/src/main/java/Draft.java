@@ -177,6 +177,7 @@ public class Draft {
         // 先遍历物品的原因是，如果先遍历背包，物品会重复累计
         for (int i = 0; i < thingsWeight.length; i++) {
             for (int j = maxWeight; j >= thingsWeight[i]; j--) {
+                // 初始化完成时，整个dp数组都是0，这一行执行完才覆盖数据
                 dp[j] = Math.max(dp[j], dp[j - thingsWeight[i]] + thingsValues[i]);
             }
         }
