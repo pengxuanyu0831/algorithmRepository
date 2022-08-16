@@ -314,6 +314,7 @@ public class DynamicProgramming {
     /**
      * #416
      * @param nums
+     * 01背包问题
      * @return
      */
     public boolean canPartition(int[] nums) {

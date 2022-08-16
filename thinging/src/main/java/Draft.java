@@ -183,6 +183,19 @@ public class Draft {
         }
     }
 
+    public void interview(int[] force, int[] cost, int selectNum, int maxSize, int gold) {
+        // dp[i][j]:最大数量为i 对应的金币消耗为j时最大战力为dp[i][j]
+        int[][] dp = new int[maxSize + 1][gold + 1];
+        for (int j = 0; j < cost.length; j++) {
+            dp[0][j] = force[0];
+        }
+        for (int i = 1; i <= force.length; i++) {
+            for (int j = 0; j < maxSize; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - force[i]] + cost[i]);
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         Draft draft = new Draft();
