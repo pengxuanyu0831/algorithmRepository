@@ -746,6 +746,29 @@ public class DynamicProgramming {
 
 
     /**
+     * #300
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+        // dp[i] --- > 从 0-i之间最长子序列的长度
+        int[] dp = new int[nums.length];
+        int reslut = 0;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+        for (int i : dp) {
+            reslut = Math.max(reslut, i);
+        }
+        return reslut;
+    }
+
+
+    /**
      * #132 ****
      * @param s
      * @return
