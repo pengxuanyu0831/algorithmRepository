@@ -701,23 +701,47 @@ public class DynamicProgramming {
         // 表示 i-j区间 是否为回文串
         boolean[][] ans = new boolean[s.length()][s.length()];
 
-        for (int i = s.length(); i >=0 ; i--) {
+        for (int i = s.length(); i >= 0; i--) {
             for (int j = i; j < s.length(); j++) {
-                if (s.charAt(i) == s.charAt(j)) {
-                    // 1 双指针同时指向一个字符，必是回文
-                    // 2 双指针相邻
-                    if (j - i <= 1) {
-                        res++;
-                        ans[i][j] = true;
-                        // 3 双指针距离超过1时，就看中间的字符串是不是回文即可
-                    } else if (ans[i + 1][j - 1]) {
-                        res++;
-                        ans[i][j] = true;
-                    }
+                if (j - i <= 1) {
+                    res++;
+                    ans[i][j] = true;
+                } else if (ans[i + 1][j - 1]) {
+                    res++;
+                    ans[i][j] = true;
                 }
             }
         }
         return res;
+    }
+
+
+    /**
+     * #5
+     * @param s
+     * @return
+     */
+    public String longestPalindrome(String s) {
+        // dp[i][j] = i-j之间的回文为最长回文
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        int max = 0;
+        int left = 0;
+        int right = 0;
+        for (int i = s.length(); i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    if (j - i <= 1 || dp[i + 1][j - 1]) {
+                        dp[i][j] = true;
+                    }
+                }
+                if (dp[i][j] && j - i + 1 > max) {
+                    max = j - i + 1;
+                    left = i;
+                    right = j;
+                }
+            }
+        }
+        return s.substring(left, right + 1);
     }
 
 
