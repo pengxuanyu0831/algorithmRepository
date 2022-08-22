@@ -1,5 +1,6 @@
 package DynamicProgramming;
 
+import com.pengxy.algorithm.Tree.LeetCode.MaxDepth;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -579,6 +580,35 @@ public class DynamicProgramming {
             stack.add(i);
         }
         return ans;
+    }
+
+
+    /**
+     * #42的dp解法 https://leetcode.cn/problems/trapping-rain-water/solution/jie-yu-shui-by-leetcode/
+     * @param height
+     * @return
+     */
+    public int trapDP1(int[] height) {
+        int result = 0;
+        if (height.length < 3) {
+            return 0;
+        }
+        int[] leftMaxArr = new int[height.length];
+        int[] rightMaxArr = new int[height.length];
+        leftMaxArr[0] = height[0];
+        rightMaxArr[height.length - 1] = height[height.length - 1];
+        for (int i = 1; i < height.length; i++) {
+            leftMaxArr[i] = Math.max(leftMaxArr[i - 1], height[i]);
+        }
+        for (int i = height.length - 2; i >=0;i--) {
+            rightMaxArr[i] = Math.max(rightMaxArr[i + 1], height[i]);
+        }
+        for (int i = 0; i < height.length; i++) {
+            result += Math.min(leftMaxArr[i], rightMaxArr[i] - height[i]);
+        }
+        return result;
+
+
     }
 
 
