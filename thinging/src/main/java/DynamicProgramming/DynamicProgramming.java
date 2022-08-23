@@ -357,7 +357,7 @@ public class DynamicProgramming {
         // 遍历物品
         for (int i = 0; i < stones.length; i++) {
             // 遍历背包
-            for (int j = 1500; j >= stones[i]; j--) {
+            for (int j = target; j >= stones[i]; j--) {
                 dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i]);
             }
         }

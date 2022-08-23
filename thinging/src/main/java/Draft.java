@@ -197,6 +197,30 @@ public class Draft {
     }
 
 
+    /**
+     *
+     * @param x
+     * @return
+     */
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        Integer integer = x;
+        char[] chars = integer.toString().toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+        for (int i = 0; i < right; i++) {
+            if (chars[left] != chars[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         Draft draft = new Draft();
         int[] ints = new int[]{1,1};
