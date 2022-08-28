@@ -905,6 +905,83 @@ public class DynamicProgramming {
     }
 
 
+    /**
+     * #221
+     * @param matrix
+     * @return
+     */
+    public int maximalSquare(char[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+
+        // dp[i][j] ----> 横i 竖j 的棋盘最大的面积为dp[i][j]
+        int[][] dp = new int[n + 1][m + 1];
+        dp[0][0] = 0;
+        int maxL = 0;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (matrix[i - 1][j - 1] == '1') {
+                    dp[i][j] = Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1] + 1);
+                    maxL = Math.max(maxL, dp[i][j]);
+                }
+            }
+        }
+        return maxL * maxL;
+    }
+
+
+    /**
+     * #338
+     * @param n
+     * @return
+     */
+    public int[] countBits(int n) {
+        int[] result = new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            String s = Integer.toBinaryString(i);
+            result[i] = this.count(s);
+        }
+        return result;
+    }
+
+    private int count(String s) {
+        int count = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '1') {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+
+    /**
+     * #413
+     * @param nums
+     * @return
+     */
+    public int numberOfArithmeticSlices(int[] nums) {
+        if (nums.length < 3) {
+            return 0;
+        }
+        if (nums[2] - nums[1] == nums[1] - nums[0] && nums.length == 3) {
+            return 1;
+        }
+        // nums 下标从1-i 有dp[i]个等差数列
+        int[] dp = new int[nums.length + 1];
+        int count = 0;
+
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
+                dp[i] = dp[i - 1] + 1;
+                count += dp[i];
+            }
+        }
+        return count;
+    }
+
+
 
 
 
