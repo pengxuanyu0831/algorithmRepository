@@ -221,6 +221,32 @@ public class Draft {
     }
 
 
+    /**
+     *
+     * @param n
+     * @return
+     */
+
+    public List<String> generateParenthesis(int n) {
+        this.doGenerateParenthesis(n, n, "");
+        return path;
+    }
+
+    private void doGenerateParenthesis(int left,int right, String str) {
+        if (left == 0 && right == 0) {
+            path.add(str);
+            return;
+        }
+        if (left > 0) {
+            this.doGenerateParenthesis(left - 1, right, str+"(");
+        }
+        if (right > left) {
+            this.doGenerateParenthesis(left, right - 1, str+")");
+        }
+    }
+
+
+
     public static void main(String[] args) {
         Draft draft = new Draft();
         int[] ints = new int[]{1,1};
