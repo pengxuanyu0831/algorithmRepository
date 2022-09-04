@@ -238,10 +238,10 @@ public class Draft {
             return;
         }
         if (left > 0) {
-            this.doGenerateParenthesis(left - 1, right, str+"(");
+            this.doGenerateParenthesis(left - 1, right, str + "(");
         }
         if (right > left) {
-            this.doGenerateParenthesis(left, right - 1, str+")");
+            this.doGenerateParenthesis(left, right - 1, str + ")");
         }
     }
 
