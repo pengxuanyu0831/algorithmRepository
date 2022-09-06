@@ -1,8 +1,7 @@
 package BackTracking;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @program algorithm
@@ -10,6 +9,7 @@ import java.util.stream.IntStream;
  * @author: pengxuanyu
  * @create: 2022/04/18 22:56
  */
+@Slf4j
 public class BackTracking {
 
     /**
@@ -467,10 +467,45 @@ public class BackTracking {
     }
 
 
+    /**
+     * #17
+     * @param digits
+     * @return
+     */
+    StringBuilder sb = new StringBuilder();
+
+    public List<String> letterCombinations(String digits) {
+        if ("".equals(digits)) {
+            return pathString;
+        }
+        String[] strings = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        this.doLetterCombinations(digits, strings, 0);
+        return pathString;
+    }
+
+
+    private void doLetterCombinations(String digits, String[] path,int index) {
+        if (index == digits.length()) {
+            pathString.add(sb.toString());
+            return;
+        }
+        //str 表示当前index对应的字符串
+        String str = path[digits.charAt(index) - '0'];
+        log.info("str=====>{}",str);
+        for (int i = 0; i < str.length(); i++) {
+            sb.append(str.charAt(i));
+            this.doLetterCombinations(digits, path, index + 1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
+
     public static void main(String[] args) {
         int[] ints = new int[]{4,4,4,1,4};
         BackTracking backTracking = new BackTracking();
-        System.out.println(backTracking.solveNQueens(4));
+//        System.out.println(backTracking.solveNQueens(4));
+        String str = "23";
+        System.out.println(backTracking.letterCombinations(str));
     }
 
 
