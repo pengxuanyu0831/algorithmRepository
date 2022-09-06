@@ -1,5 +1,6 @@
 package BackTracking;
 
+import DynamicProgramming.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 
@@ -497,6 +498,37 @@ public class BackTracking {
             this.doLetterCombinations(digits, path, index + 1);
             sb.deleteCharAt(sb.length() - 1);
         }
+    }
+
+
+    /**
+     * #95
+     *
+     * @param n
+     * @return
+     */
+
+    List<TreeNode> pathTree = new ArrayList<>();
+    public List<TreeNode> generateTrees(int n) {
+        return this.doGenerateTrees(n,1);
+    }
+
+
+    private List<TreeNode> doGenerateTrees(int n, int m) {
+        if (m > n) {
+            pathTree.add(null);
+            return pathTree;
+        }
+        for (int i = m; i < n; i++) {
+            List<TreeNode> left = this.doGenerateTrees(i - 1, m);
+            List<TreeNode> right = this.doGenerateTrees(n, i + 1);
+            for (int l = 0; l < left.size(); l++) {
+                for (int r = 0; r < right.size(); r++) {
+                    pathTree.add(new TreeNode(i, left.get(l), right.get(r)));
+                }
+            }
+        }
+        return pathTree;
     }
 
 

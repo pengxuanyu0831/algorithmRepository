@@ -1,11 +1,8 @@
-package com.pengxy.algorithm.array;
+package com.pengxy.algorithm.Array;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
-import apple.laf.JRSUIUtils;
 import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
-import com.sun.tools.classfile.ConstantPool;
 
 /**
  * @program algorithm
