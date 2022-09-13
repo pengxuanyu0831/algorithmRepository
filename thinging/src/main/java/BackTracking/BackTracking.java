@@ -532,6 +532,37 @@ public class BackTracking {
     }
 
 
+    /**
+     * 剑指offer 面试题13
+     *
+     * @param m
+     * @param n
+     * @param k
+     * @return
+     */
+    int count = 0;
+    public int movingCount(int m, int n, int k) {
+        boolean[][] result = new boolean[m][n];
+        this.doMovingCount(result, k, m, n, 0, 0);
+        return count;
+    }
+
+
+    public void doMovingCount(boolean[][] result,int k , int m, int n,int row ,int col) {
+        if (row < 0 || row >= m || col < 0 || col >= n || result[row][col]) {
+            return;
+        }
+        if (row % 10 + row / 10 + col % 10 + col / 10 <= k) {
+            count++;
+            result[row][col] = true;
+            this.doMovingCount(result, k, m, n, row - 1, col);
+            this.doMovingCount(result, k, m, n, row + 1, col);
+            this.doMovingCount(result, k, m, n, row, col - 1);
+            this.doMovingCount(result, k, m, n, row, col + 1);
+        }
+    }
+
+
     public static void main(String[] args) {
         int[] ints = new int[]{4,4,4,1,4};
         BackTracking backTracking = new BackTracking();
