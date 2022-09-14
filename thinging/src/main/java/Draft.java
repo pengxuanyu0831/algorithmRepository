@@ -1,3 +1,5 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
 /**
@@ -6,6 +8,7 @@ import java.util.*;
  * @author: pengxuanyu
  * @create: 2022/04/26 21:57
  */
+@Slf4j
 public class Draft {
     List<String> path;
     List<List<String>> result = new ArrayList<>();
@@ -246,14 +249,73 @@ public class Draft {
     }
 
 
+    /**
+     * #1619
+     * @param arr
+     * @return
+     */
+    public double trimMean(int[] arr) {
+        Arrays.sort(arr);
+        log.info("arr->{}",arr);
+        int index = arr.length / 20;
+        log.info("index->{}", index);
+        int[] result = new int[arr.length - 2 * index];
+        int count = 0;
+        for (int i = index; i < arr.length - index; i++) {
+            result[count] = arr[i];
+            count++;
+        }
+        double sum = 0;
+        for (int k = 0; k < result.length; k++) {
+            sum += result[k];
+        }
+        log.info("sum->{} length->{}",sum,result.length);
+        return sum / result.length;
+    }
+
+    List<Integer> pathInt = new ArrayList<>();
+    List<List<Integer>> resultInt = new ArrayList<>();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        doCombinationSum3(k, n, 0);
+        return resultInt;
+    }
+
+    /**
+     * #216(练习)
+     * @param k
+     * @param n
+     * @param index
+     */
+    public void doCombinationSum3(int k, int n, int index) {
+        int sum = 0;
+        if (pathInt.size() == k) {
+            for (Integer i : pathInt) {
+                sum += i;
+            }
+            if (sum == n) {
+                resultInt.add(new ArrayList<>(pathInt));
+                return;
+            }
+        }
+        for (int i = index; i <= 9; i++) {
+            pathInt.add(i);
+            doCombinationSum3(k, n, index + 1);
+            pathInt.remove(pathInt.size() - 1);
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
         Draft draft = new Draft();
         int[] ints = new int[]{1,1};
         int[] intttt = new int[]{-3,2,-3,4,2};
+        int[] intttt11 = new int[]{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3};
         List<Integer> numbers = draft.findDisappearedNumbers(ints);
         int i = draft.minStartValue(intttt);
-        System.out.println(i);
+        double v = draft.trimMean(intttt11);
+        System.out.println(v);
     }
 
 
