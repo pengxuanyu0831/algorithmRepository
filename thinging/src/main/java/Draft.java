@@ -305,6 +305,33 @@ public class Draft {
     }
 
 
+    /**
+     *
+     * @param nums
+     * @return
+     */
+    public int[] frequencySort(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        for (int i : nums) {
+            list.add(i);
+            if (map.containsKey(i)) {
+                map.put(i, map.get(i) + 1);
+            } else {
+                map.put(i, 1);
+            }
+        }
+        list.sort((a, b) ->{
+            if (map.get(a) == map.get(b)) {
+                return b - a;
+            } else {
+                return map.get(a) - map.get(b);
+            }
+        });
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+
 
 
     public static void main(String[] args) {
