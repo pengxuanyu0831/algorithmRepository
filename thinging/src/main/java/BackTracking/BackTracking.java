@@ -563,6 +563,46 @@ public class BackTracking {
     }
 
 
+    /**
+     * #79
+     *
+     * @param board
+     * @param word
+     * @return
+     */
+    Boolean flag = false;
+    public boolean exist(char[][] board, String word) {
+        Boolean[][] booleans = new Boolean[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int k = 0 ; k < board[0].length; k++) {
+                doExist(board, word, i, k,booleans, 0);
+            }
+        }
+        return flag;
+    }
+
+    private void doExist(char[][] board, String word, int m, int n,Boolean[][] booleans,int pos) {
+        if (m < 0
+                || m >= board.length
+                || n < 0
+                || n >= board[0].length
+                || booleans[m][n] || flag
+                || board[m][n] != word.charAt(pos)) {
+            return;
+        }
+        if (pos == word.length() - 1) {
+            flag = true;
+            return;
+        }
+        booleans[m][n] = true;
+        doExist(board, word, m + 1, n, booleans, pos + 1);
+        doExist(board, word, m - 1, n, booleans, pos + 1);
+        doExist(board, word, m, n + 1, booleans, pos + 1);
+        doExist(board, word, m, n - 1, booleans, pos + 1);
+        booleans[m][n] = false;
+    }
+
+
     public static void main(String[] args) {
         int[] ints = new int[]{4,4,4,1,4};
         BackTracking backTracking = new BackTracking();
