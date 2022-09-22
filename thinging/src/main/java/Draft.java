@@ -370,6 +370,29 @@ public class Draft {
         return root;
     }
 
+    public TreeNode mirrorTree2(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node == null) {
+                continue;
+            }
+            TreeNode left = node.left;
+            TreeNode right = node.right;
+
+            node.left = right;
+            node.right = left;
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return root;
+    }
+
 
 
 
