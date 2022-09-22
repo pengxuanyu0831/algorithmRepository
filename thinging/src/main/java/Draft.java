@@ -1,3 +1,4 @@
+import DynamicProgramming.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -329,6 +330,44 @@ public class Draft {
             }
         });
         return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+
+    /**
+     * Offer offer03
+     * @param nums
+     * @deprecated
+     * @return
+     */
+    public int findRepeatNumber(int[] nums) {
+        int[] result = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            result[nums[i]]++;
+            if (result[nums[i] ]> 1) {
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+
+
+    /**
+     * offer27
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        root.left = right;
+        root.right = left;
+        this.mirrorTree(root.left);
+        this.mirrorTree(root.right);
+        return root;
     }
 
 
