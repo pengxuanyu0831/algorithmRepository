@@ -1,4 +1,5 @@
 import DynamicProgramming.TreeNode;
+import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -391,6 +392,76 @@ public class Draft {
             }
         }
         return root;
+    }
+
+
+    /**
+     * offer04
+     * @param matrix
+     * @param target
+     *
+     * @return
+     */
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0) {
+            return false;
+        }
+        int l = matrix.length;
+        int k = matrix[0].length;
+
+        int row = 0;
+        int col = k-1;
+        // 从右上角开始查找比较--->当比较的基准过多时，要想到取极值，减少比较的基准
+        while (row < l && col >= 0) {
+            if (matrix[row][col] > target) {
+                col--;
+            } else if (matrix[row][col] < target) {
+                row++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 有序数组转为二叉搜索树
+     * @param num
+     * @return
+     */
+    public TreeNode sortedArrayToBst(int[] num) {
+        return this.doSortedArrayToBst(num, 0, num.length - 1);
+    }
+
+    public TreeNode doSortedArrayToBst(int[] num, int start, int end) {
+        int mid = (start + end) >> 1;
+        TreeNode root = new TreeNode(num[mid]);
+        root.left = this.doSortedArrayToBst(num, start, mid - 1);
+        root.right = this.doSortedArrayToBst(num, mid + 1, end);
+        return root;
+    }
+
+
+    /**
+     * offer06
+     * @param head
+     * @return
+     */
+    public int[] reversePrint(ListNode head) {
+        int size = 0;
+        // 这里新建一个变量保存head，只是为了求链表长度而已，求完长度还需要用head，所以head不能变
+        ListNode node = head;
+        while (node != null) {
+            size++;
+            node = node.next;
+        }
+        int[] result = new int[size];
+        while (head != null) {
+            result[--size] = head.val;
+            head = head.next;
+        }
+        return result;
     }
 
 
