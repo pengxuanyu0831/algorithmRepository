@@ -465,6 +465,41 @@ public class Draft {
     }
 
 
+    /**
+     * offer07
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int preLength = preorder.length;
+        int inLength = inorder.length;
+
+        if (preLength == 0 || inLength == 0) {
+            return null;
+        }
+
+        // 前序遍历的首位必是根节点，按照根节点的下标去切分中序遍历的结果数组，切分为左右两个数组
+        TreeNode root = new TreeNode(preorder[0]);
+        int splitIndex = 0;
+        for (int i = 0; i < inLength; i++) {
+            if (inorder[i] == root.val) {
+                splitIndex = i;
+                break;
+            }
+        }
+
+        int[] midLeft = Arrays.copyOfRange(inorder, 0, splitIndex);
+        int[] midBehind = Arrays.copyOfRange(preorder, 1, splitIndex+1);
+        root.left = this.buildTree(midBehind, midLeft);
+
+        int[] midRight = Arrays.copyOfRange(inorder, splitIndex + 1, inLength);
+        int[] midBehind1 = Arrays.copyOfRange(preorder, splitIndex + 1, preLength);
+        root.right = this.buildTree(midBehind1, midRight);
+        return root;
+    }
+
+
 
 
     public static void main(String[] args) {
