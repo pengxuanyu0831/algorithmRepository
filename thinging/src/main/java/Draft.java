@@ -500,17 +500,115 @@ public class Draft {
     }
 
 
+    /**
+     * #788
+     * @param n
+     * @return
+     */
+    public int rotatedDigits(int n) {
+        int result = 0;
+        for (int i = 1; i <= n; i++) {
+            if (this.doRotateDigits(i)) {
+                result += 1;
+            }
+        }
+        return result;
+    }
+
+    public boolean doRotateDigits(int n) {
+        Integer integer = n;
+        String str = integer.toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            log.info("ccccccchar{}",c);
+            if (c != '0' && c != '1' && c != '9' && c != '8' && c != '2' && c != '5' && c != '6' && c != '9') {
+                return false;
+            }
+            int tran = this.doTran(c);
+            log.info("trannnnnnn{}", tran);
+            sb.append(tran);
+        }
+        if (Integer.parseInt(sb.toString()) == n) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int doTran(char c) {
+        switch (c) {
+            case '0':
+                return 0;
+            case '1':
+                return 1;
+            case '2':
+                return 5;
+            case '5':
+                return 2;
+            case '6':
+                return 9;
+            case '8':
+                return 8;
+            case '9':
+                return 0;
+            default:
+                return c;
+        }
+    }
+
+
+    /**
+     * offer10-1 （取模）
+     * @param n
+     * @return
+     */
+    public int fib(int n) {
+        if(n==0) return 0;
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+            dp[i] %= 1000000007;
+        }
+        return dp[n];
+    }
+
+
+    /**
+     * offer10-2
+     * @param n
+     * @return
+     */
+    public int numWays(int n) {
+        int[] dp = new int[n];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[n] = dp[i - 1] + dp[i - 2];
+            dp[n] %=1000000007;
+        }
+        return dp[n];
+
+    }
+
+
+
+
+
 
 
     public static void main(String[] args) {
         Draft draft = new Draft();
-        int[] ints = new int[]{1,1};
+//        int[] ints = new int[]{1,1};
         int[] intttt = new int[]{-3,2,-3,4,2};
         int[] intttt11 = new int[]{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3};
-        List<Integer> numbers = draft.findDisappearedNumbers(ints);
-        int i = draft.minStartValue(intttt);
-        double v = draft.trimMean(intttt11);
-        System.out.println(v);
+//        List<Integer> numbers = draft.findDisappearedNumbers(ints);
+        System.out.println(draft.fib(48));
+//        int i = draft.minStartValue(intttt);
+//        double v = draft.trimMean(intttt11);
+        //System.out.println(v);
     }
 
 
