@@ -594,6 +594,82 @@ public class Draft {
     }
 
 
+    /**
+     * offer09
+     */
+    class CQueue {
+        LinkedList<Integer> list;
+        LinkedList<Integer> list1;
+
+        public CQueue() {
+            list = new LinkedList<>();
+            list1 = new LinkedList<>();
+        }
+
+        public void appendTail(int value) {
+            list.add(value);
+        }
+
+        public int deleteHead() {
+            Integer integer = list.pollFirst();
+            return integer == null ? -1 : integer;
+        }
+    }
+
+
+    /**
+     * offer11
+     * @param numbers
+     * @return
+     */
+    public int minArray(int[] numbers) {
+        Arrays.sort(numbers);
+        return numbers[0];
+    }
+
+
+    /**
+     * offer12
+     * @param board
+     * @param word
+     * 这题一看就是回溯
+     * @return
+     */
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || board[0].length == 0) {
+            return false;
+        }
+        boolean[][] result = new boolean[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (doExist(board, result, word.toCharArray(), 0, i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean doExist(char[][] board, boolean[][] result, char[] wordChar, int index, int i, int j) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || result[i][j] || wordChar[index] != board[i][j]) {
+            return false;
+        }
+
+        if (index == wordChar.length - 1) {
+            return true;
+        }
+
+        result[i][j] = true;
+        boolean answer = false;
+        answer =  doExist(board, result, wordChar, index + 1, i + 1, j)
+                || doExist(board, result, wordChar, index + 1, i - 1, j)
+                || doExist(board, result, wordChar, index + 1, i, j + 1)
+                || doExist(board, result, wordChar, index + 1, i, j - 1);
+        result[i][j] = false;
+        return answer;
+    }
+
+
 
 
 
