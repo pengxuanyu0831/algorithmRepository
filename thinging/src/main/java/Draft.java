@@ -2,6 +2,8 @@ import DynamicProgramming.TreeNode;
 import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -668,6 +670,70 @@ public class Draft {
         result[i][j] = false;
         return answer;
     }
+
+
+    /**
+     * offer14
+     * @param n
+     * @return
+     */
+    public int cuttingRope(int n) {
+        int[] dp = new int[n];
+        dp[1] = 1;
+        dp[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = i - 1; j >= 1; --j) {
+                // 取左边最大和右边最大的乘积
+                dp[i] = Math.max(dp[i], Math.max(dp[j], j) * Math.max(dp[i - j], i - j));
+            }
+        }
+        return dp[n];
+    }
+
+
+    /**
+     * offer15
+     * @param n
+     * @return
+     */
+    public int hammingWeight(int n) {
+        int result = 0;
+        while (n != 0) {
+            n = n & (n - 1);
+            result++;
+        }
+        return result;
+    }
+
+
+    /**
+     * offer16
+     * @param x
+     * @param n
+     * @return
+     */
+    public double myPow(double x, int n) {
+        if (n == 0) {
+            return 1;
+        }
+
+        if (n == 1) {
+            return x;
+        }
+
+        if (n == -1) {
+            return 1 / x;
+        }
+
+        double half = myPow(x, n / 2);
+        double mod = myPow(x, n % 2);
+        return half * half * mod;
+
+
+
+    }
+
+
 
 
 
