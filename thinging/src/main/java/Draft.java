@@ -734,6 +734,23 @@ public class Draft {
     }
 
 
+    /**
+     * offer17
+     * @param n
+     * @return
+     */
+    public int[] printNumbers(int n) {
+        // Math.pow(a,b) --->a的b次方
+        int pow = (int)Math.pow(10, n);
+        log.info("pow--->{}",pow);
+        int[] a = new int[pow - 1];
+        for (int i = 0; i < pow - 1; i++) {
+            a[i] = i + 1;
+        }
+        return a;
+    }
+
+
 
 
 
@@ -747,7 +764,7 @@ public class Draft {
         int[] intttt = new int[]{-3,2,-3,4,2};
         int[] intttt11 = new int[]{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3};
 //        List<Integer> numbers = draft.findDisappearedNumbers(ints);
-        System.out.println(draft.fib(48));
+        log.info("----{}", draft.printNumbers(1));
 //        int i = draft.minStartValue(intttt);
 //        double v = draft.trimMean(intttt11);
         //System.out.println(v);
