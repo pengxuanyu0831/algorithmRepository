@@ -752,6 +752,9 @@ public class Draft {
     }
 
 
+    /**
+     * #1114
+     */
     class Foo {
         CountDownLatch second;
         CountDownLatch third;
