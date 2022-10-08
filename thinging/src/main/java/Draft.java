@@ -789,6 +789,37 @@ public class Draft {
     }
 
 
+    /**
+     * offer21
+     * @param nums
+     * @return
+     */
+    public int[] exchange(int[] nums) {
+
+        int left = 0;
+        int temp;
+        int right = nums.length - 1;
+        while (left <= right) {
+            if (nums[left] % 2 == 1) {
+                left += 1;
+            } else if (nums[right] % 2 == 0) {
+                right -= 1;
+            } else {
+                temp = nums[left];
+                log.info("temp-->{} nums[left]-->{} nums[right]-->{}", temp, nums[left], nums[right]);
+                nums[left] = nums[right];
+                log.info("temp-->{} nums[left]-->{} nums[right]-->{}", temp, nums[left], nums[right]);
+                nums[right] = temp;
+                log.info("temp-->{} nums[left]-->{} nums[right]-->{}", temp, nums[left], nums[right]);
+                left += 1;
+                right -= 1;
+                log.info("left -->{} right -->{}",left,right);
+            }
+        }
+        return nums;
+    }
+
+
 
 
 
@@ -801,8 +832,9 @@ public class Draft {
 //        int[] ints = new int[]{1,1};
         int[] intttt = new int[]{-3,2,-3,4,2};
         int[] intttt11 = new int[]{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3};
+        int[] intttt2222 = new int[]{1,2,3,4,5,6,7};
 //        List<Integer> numbers = draft.findDisappearedNumbers(ints);
-        log.info("----{}", draft.printNumbers(1));
+        log.info("result-->{}", draft.exchange(intttt2222));
 //        int i = draft.minStartValue(intttt);
 //        double v = draft.trimMean(intttt11);
         //System.out.println(v);
