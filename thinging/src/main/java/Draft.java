@@ -820,6 +820,53 @@ public class Draft {
     }
 
 
+    /**
+     * offer22
+     * @param head
+     * @param k
+     * @desc 快慢指针
+     * @return
+     */
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode fast = new ListNode();
+        ListNode slow = new ListNode();
+        fast = head;
+        slow = head;
+        while (null != fast && k > 0) {
+            fast = fast.next;
+            k -= 1;
+        }
+        while (null != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+
+
+    /**
+     * offer24
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode cur = head;
+        ListNode pre = null;
+        ListNode temp = new ListNode();
+        while (null != cur) {
+            // step1 先保存cur的下一位
+            temp = cur.next;
+            // step2 改变cur.next的指向，指向pre
+            cur.next = pre;
+            // step3 移动pre到cur
+            pre = cur;
+            // step4 移动cur 到保存好的下一位继续
+            cur = temp;
+        }
+        return pre;
+    }
+
+
 
 
 
