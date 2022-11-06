@@ -1,7 +1,9 @@
 import DynamicProgramming.TreeNode;
 import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
+import sun.reflect.generics.tree.Tree;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -864,6 +866,67 @@ public class Draft {
             cur = temp;
         }
         return pre;
+    }
+
+
+    /**
+     * offer26
+     * @param root
+     * @param subRoot
+     * @return
+     */
+    public boolean isSubStructure(TreeNode root, TreeNode subRoot) {
+        if (root == null || subRoot == null) {
+            return false;
+        }
+        return this.isSubStructure(root.left, subRoot) || this.dfs(root, subRoot) || this.dfs(root.right, subRoot);
+    }
+
+    private boolean dfs(TreeNode node, TreeNode subNode) {
+        if (subNode == null) {
+            return true;
+        }
+
+        if (node == null) {
+            return false;
+        }
+
+        return node.val == subNode.val && this.dfs(node.left, subNode.left) && dfs(node.right, subNode.right);
+    }
+
+
+    /**
+     * offer28
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        TreeNode mirror = mirrorTreeNew(root);
+        TreeNode node = root;
+        return this.isTheSame(node, mirror);
+
+    }
+
+    public TreeNode mirrorTreeNew(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode newRoot = new TreeNode(root.val);
+
+        newRoot.left = this.mirrorTreeNew(root.right);
+        newRoot.right = this.mirrorTreeNew(root.left);
+        return newRoot;
+    }
+
+    private boolean isTheSame(TreeNode node, TreeNode otherNode) {
+        if (node == null || otherNode == null) {
+            return node == otherNode;
+        }
+
+        return node.val == otherNode.val && this.isTheSame(node.left, otherNode.left) && this.isTheSame(node.right, otherNode.right);
     }
 
 
