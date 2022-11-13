@@ -929,6 +929,26 @@ public class Draft {
         return node.val == otherNode.val && this.isTheSame(node.left, otherNode.left) && this.isTheSame(node.right, otherNode.right);
     }
 
+    /**
+     * offer33
+     * @param postorder
+     * @return
+     */
+    public boolean verifyPostorder(int[] postorder) {
+        Deque<Integer> tree = new LinkedList<>();
+        int parent = Integer.MAX_VALUE;
+        for (int i = postorder.length - 1; i >= 0; i--) {
+            if (parent < postorder[i]) {
+                return false;
+            }
+            while (!tree.isEmpty() && tree.peek() > postorder[i]) {
+                parent = tree.pop();
+            }
+            tree.push(postorder[i]);
+        }
+        return true;
+    }
+
 
 
 
