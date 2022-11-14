@@ -933,6 +933,7 @@ public class Draft {
      * offer33
      * @param postorder
      * @return
+     * @see https://blog.csdn.net/weixin_43954951/article/details/124697359
      */
     public boolean verifyPostorder(int[] postorder) {
         Deque<Integer> tree = new LinkedList<>();
