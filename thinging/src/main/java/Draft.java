@@ -1,6 +1,7 @@
 import DynamicProgramming.TreeNode;
 import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 import sun.reflect.generics.tree.Tree;
 
 import javax.swing.*;
@@ -948,6 +949,79 @@ public class Draft {
             tree.push(postorder[i]);
         }
         return true;
+    }
+
+
+    /**
+     * offer29
+     * @param matrix
+     * @return
+     */
+    public int[] spiralOrder(int[][] matrix) {
+        if (matrix.length == 0) {
+            return matrix[0];
+        }
+
+        List<Integer> result = new ArrayList<>();
+        int loop = Math.min(matrix.length, matrix[0].length) / 2;
+        int startX = 0;
+        int startY = 0;
+
+        // 偏移量
+        int offset = 1;
+        while (loop > 0) {
+            int i = startX;
+            int j = startY;
+            // 上横
+            for (; j < startY + matrix[0].length - offset; ++j) {
+                result.add(matrix[startY][j]);
+            }
+            for (; i < startX + matrix.length - offset; ++i) {
+                result.add(matrix[i][j]);
+            }
+
+            for (; j > startY ; j--) {
+                result.add(matrix[i][j]);
+            }
+
+            for (; i > startX; i--) {
+                result.add(matrix[i][j]);
+            }
+
+            loop--;
+            startX += 1;
+            startY += 1;
+            // 这里偏移量需要画图理解
+            offset += 2;
+        }
+        if (matrix[0].length == matrix.length && matrix[0].length % 2 == 1) {
+            result.add(matrix[matrix.length / 2][matrix[0].length / 2]);
+        }
+        int n = matrix.length;
+        int m = matrix[0].length;
+        //针对列大于行且，行不是偶数的时候；
+        if ((m > n && n % 2 != 0)) {
+            for (int i = n / 2; i < m - n / 2; i++) {
+                result.add(matrix[n / 2][i]);
+            }
+        }
+        //针对行大于列且，列不是偶数的时候；
+        if (m < n && m % 2 != 0) {
+            for (int i = m / 2; i < n - m / 2; i++) {
+                result.add(matrix[i][m / 2]);
+            }
+        }
+
+        if (result.size()<1) {
+            int[] res = new int[0];
+            return res;
+        } else {
+            int[] res = new int[result.size()];
+            for (int i = 0; i < res.length; i++) {
+                res[i] = result.get(i);
+            }
+            return res;
+        }
     }
 
 
