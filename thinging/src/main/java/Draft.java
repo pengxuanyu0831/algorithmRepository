@@ -1032,6 +1032,26 @@ public class Draft {
      * @return
      */
     public int minOperations(String s) {
+        // 正确答案
+//        //定义dp[i][0]为 走到i时 i处不变 的最小操作数
+//        //dp[i][1]为 走到i时 i处变 的最小操作数
+//        int n=s.length();
+//        int dp[][]=new int[n+1][2];
+//        dp[0][1]=1;
+//        for (int i = 1; i < n; i++) {
+//            char cur = s.charAt(i);
+//            char last = s.charAt(i - 1);
+//            if (cur==last){
+//                //当前和前面的一样，要么当前不变，选择上一次变,要么当前变,那就选择上一次
+//                dp[i][0]=dp[i-1][1];
+//                dp[i][1]=dp[i-1][0]+1;
+//            }else { //当前和前面不一样,要么现在不变，选择上一次不变  要么现在变，选择上一次也变的
+//                dp[i][0]=dp[i-1][0];
+//                dp[i][1]=dp[i-1][1]+1;
+//            }
+//        }
+//        return Math.min(dp[n-1][0],dp[n-1][1]);
+
         int size = s.length();
         // 定义 走到第i位，最小的操作数为dp[i]
         int[] dp = new int[size];
