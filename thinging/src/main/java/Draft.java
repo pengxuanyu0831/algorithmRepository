@@ -1025,10 +1025,35 @@ public class Draft {
     }
 
 
-
-
-
-
+    /**
+     * #1758
+     * @param s
+     * @deprecated 这是个错误示范，但是思路很值得记录一下
+     * @return
+     */
+    public int minOperations(String s) {
+        int size = s.length();
+        // 定义 走到第i位，最小的操作数为dp[i]
+        int[] dp = new int[size];
+        dp[0] = 0;
+        for (int i = 1; i < size; i++) {
+            dp[i] = s.charAt(i - 1) == s.charAt(i) ? dp[i - 1] + 1 : dp[i - 1];
+            if (s.charAt(i - 1) == s.charAt(i)) {
+                log.info("i-1 = {} i = {} iiiii= {}",s.charAt(i-1),s.charAt(i),i);
+                if (s.charAt(i) == '1') {
+                    log.info("变更  {}-->{}=={}",s.toCharArray()[i],0,dp[i]);
+                    s = s.substring(0, i) + "0" + s.substring(i+1);
+                    log.info("======{}",s.toCharArray());
+                } else {
+                    log.info("变更  {}-->{}=={}",s.toCharArray()[i],1,dp[i]);
+                    s = s.substring(0, i) + "1" + s.substring(i+1);
+                    log.info("++++++{}",s.toCharArray());
+                }
+            }
+        }
+        log.info("~~~~~~{}",s.toCharArray());
+        return dp[size-1];
+    }
 
 
 
@@ -1039,7 +1064,7 @@ public class Draft {
         int[] intttt11 = new int[]{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3};
         int[] intttt2222 = new int[]{1,2,3,4,5,6,7};
 //        List<Integer> numbers = draft.findDisappearedNumbers(ints);
-        log.info("result-->{}", draft.exchange(intttt2222));
+        log.info("result-->{}", draft.minOperations("10010100"));
 //        int i = draft.minStartValue(intttt);
 //        double v = draft.trimMean(intttt11);
         //System.out.println(v);

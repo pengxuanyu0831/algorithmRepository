@@ -214,7 +214,7 @@ public class DynamicProgramming {
 
     /**
      * #118
-     * @param n
+     * @param numRows
      * @return
      */
     public List<List<Integer>> generate(int numRows) {
