@@ -49,7 +49,7 @@ public class BinaryTree {
      * 迭代实现中序遍历
      * 首先依次将左子节点全部加入栈中，所以第一个while循环后栈顶元素对应一个子树的最左子节点，然后将该元素出栈加入list，并判断该元素的遍历该节点的右子树
      *
-     * @param list
+     * @param root
      * @return
      */
     List<Integer> midOrder(TreeNode root) {
@@ -154,7 +154,7 @@ public class BinaryTree {
     /**
      * 二叉树 -中序遍历-递归
      *
-     * @param args
+     * @param root
      */
     public List<Integer> midOrderTreeNode(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -1019,9 +1019,10 @@ public class BinaryTree {
 
 
     /**
-     * #102
+     * #102 标准版层序遍历
      * @param root
      * @return
+     * 广度优先遍历
      */
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();

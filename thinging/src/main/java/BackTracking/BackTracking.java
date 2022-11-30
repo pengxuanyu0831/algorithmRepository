@@ -503,7 +503,6 @@ public class BackTracking {
 
     /**
      * #95
-     *
      * @param n
      * @return
      */
