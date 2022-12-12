@@ -174,7 +174,7 @@ public class BinaryTree {
 
     /**
      * #107 二叉树层序遍历
-     *
+     * B站视频 ：https://www.bilibili.com/video/BV1GY4y1u7b2/?spm_id_from=333.999.0.0&vd_source=9e70f870291cdea2bd0ead8dd57117fb
      * @param root
      * @return
      */
@@ -187,10 +187,12 @@ public class BinaryTree {
         while (!queue.isEmpty()) {
             List<Integer> list = new ArrayList<>();
             // 每次大循环时，这个值才会变化
+            // 这里的size= 当前层的节点数，需要先记录，同时控制弹窗的元素数量
             int count = queue.size();
             for (int i = 0; i < count; i++) {
                 TreeNode node = queue.poll();
                 list.add(node.val);
+                // 加入每个节点的左右子树
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -333,7 +335,7 @@ public class BinaryTree {
 
     /**
      * #116
-     * @param args
+     * @param root
      * 此题有递归解法
      */
     public PrefectNode connect(PrefectNode root) {
@@ -369,7 +371,7 @@ public class BinaryTree {
      * 翻转二叉树 递归写法
      * 交换每个节点的左右子树即可实现翻转二叉树
      * #226
-     * @param args
+     * @param root
      */
     public TreeNode invertTree(TreeNode root) {
         if (null == root) {
@@ -390,7 +392,7 @@ public class BinaryTree {
     /**
      * 递归写法 翻转二叉树 深度优先遍历
      * 前序遍历
-     * @param args
+     * @param root
      */
     public TreeNode invertTree1(TreeNode root) {
         if (root == null) {
@@ -421,7 +423,7 @@ public class BinaryTree {
     /**
      * 递归写法 广度优先遍历 层序遍历
      *
-     * @param args
+     * @param root
      */
     public TreeNode invertTree2(TreeNode root) {
         if (root == null) {
@@ -455,7 +457,7 @@ public class BinaryTree {
     /**
      * #101
      * 对称的递归写法
-     * @param args
+     * @param root
      */
     public boolean isSymmetric(TreeNode root){
         if (null == root) {
@@ -479,7 +481,7 @@ public class BinaryTree {
     /**
      * #101 的遍历写法
      *
-     * @param args
+     * @param root
      */
     public boolean isSymmetric1(TreeNode root) {
         if (null == root) {
@@ -513,7 +515,7 @@ public class BinaryTree {
     /**
      * #104
      * 递归法
-     * @param args
+     * @param root
      */
     public int maxDepth(TreeNode root) {
         return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;

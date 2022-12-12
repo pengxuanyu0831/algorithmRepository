@@ -607,7 +607,10 @@ public class BackTracking {
         BackTracking backTracking = new BackTracking();
 //        System.out.println(backTracking.solveNQueens(4));
         String str = "23";
-        System.out.println(backTracking.letterCombinations(str));
+//        System.out.println(backTracking.letterCombinations(str));
+
+        List<TreeNode> treeNodes = backTracking.generateTrees(2);
+        log.info("ttttt---> {}", treeNodes);
     }
 
 
