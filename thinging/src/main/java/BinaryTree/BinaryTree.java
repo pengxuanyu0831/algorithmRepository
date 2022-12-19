@@ -422,7 +422,6 @@ public class BinaryTree {
 
     /**
      * 递归写法 广度优先遍历 层序遍历
-     *
      * @param root
      */
     public TreeNode invertTree2(TreeNode root) {
