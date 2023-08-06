@@ -1091,6 +1091,49 @@ public class Draft {
     }
 
 
+    // 二叉树的前序遍历  2023-08-06
+    // mid -> left -> right
+    public List<Integer> preOrder1(TreeNode node) {
+        List<Integer> result = new ArrayList<>();
+        if (node == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+
+        while (stack != null) {
+            TreeNode treeNode = stack.pop();
+            result.add(treeNode.val);
+
+            if (treeNode.right != null) {
+                stack.push(treeNode.right);
+            }
+
+            if (treeNode.left != null) {
+                stack.push(treeNode.left);
+            }
+        }
+        return result;
+    }
+
+    public List<Integer> preOrder12(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+
+        doPreOrder12(node, res);
+        return res;
+    }
+
+    public void doPreOrder12(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+
+        res.add(node.val);
+        doPreOrder12(node.left, res);
+        doPreOrder12(node.right, res);
+    }
+
+
 
 
 }
