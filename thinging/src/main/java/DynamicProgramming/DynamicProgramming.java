@@ -24,6 +24,23 @@ public class DynamicProgramming {
         return dp[n];
     }
 
+    // 时间复杂度 O(n) 空间复杂度O(1)
+    public int fib2(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            int sum = dp[0] + dp[1];
+            dp[0] = dp[1];
+            dp[1] = sum;
+        }
+        return dp[1];
+
+    }
+
     // 递归
     public int fibSolution2(int number) {
         if (number < 2) {
