@@ -6,6 +6,7 @@
     <modules>
         <module>leetcode</module>
         <module>thinging</module>
+        <module>followCarl</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
