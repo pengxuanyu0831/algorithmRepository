@@ -13,6 +13,7 @@ public class Record {
 
     /**
      * Day 1
+     * #704
      * @param nums
      * @param target
      * @return
@@ -34,11 +35,34 @@ public class Record {
         return -1;
     }
 
+    /**
+     * #27
+     * @param nums
+     * @param val
+     * @return
+     */
+    public int removeElement(int[] nums, int val) {
+        int left = 0;
+        int right = 0;
+
+        while (right < nums.length) {
+
+            if (nums[right] != val) {
+
+                nums[left] = nums[right];
+
+                left++;
+            }
+            right++;
+        }
+        return left;
+    }
+
 
     public static void main(String[] args) {
-        int[] nums = new int[]{-1,0,3,5,9,12};
-        int target = 9;
+        int[] nums = new int[]{0,1,2,2,3,0,4,2};
+        int target =2 ;
         Record record = new Record();
-        log.info("res >>>{}", record.search(nums, target));
+        log.info("res >>>{} >>{}", record.removeElement(nums, target),nums);
     }
 }
