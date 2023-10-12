@@ -91,30 +91,28 @@ public class Record {
      */
     public int minSubArrayLen(int target, int[] nums) {
         int left = 0;
-        int right = 1;
-        int sum = nums[0] ;
-        while (right < nums.length && left <= right) {
-            sum = sum + nums[right];
-            if (sum == target) {
-                return right - left + 1;
-            } else if (sum > target) {
-                // 左边动
-                sum = sum - nums[left];
+        int right = 0;
+        int sum = 0;
+        int res = nums.length + 1;
+        while (right < nums.length) {
+            sum += nums[right];
+            right++;
+            while (sum >= target) {
+                res = right - left > res ? res : right - left;
+                sum -= nums[left];
                 left++;
-            } else {
-                right++;
             }
         }
-        return 0;
+        return res > nums.length ? 0 : res;
     }
 
 
     public static void main(String[] args) {
-        int[] nums = new int[]{2,3,1,2,4,3};
+        int[] nums = {1,2,3,4,5};
         int target =2 ;
         Record record = new Record();
 //        log.info("res >>>{} >>{}", record.sortedSquares(nums));
-        log.info("res >>>{}", record.minSubArrayLen(7,nums));
+        log.info("res >>>{}", record.minSubArrayLen(11,nums));
 
     }
 }
