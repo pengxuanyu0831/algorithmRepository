@@ -133,20 +133,20 @@ public class Arraysss {
      * @return
      */
     public int[] sortedSquares(int[] nums) {
-        int slow = 0;
-        int fast = nums.length - 1;
-        int[] result = new int[nums.length];
-        int j = nums.length - 1;
-        while (slow <= fast) {
-            if (nums[slow] * nums[slow] < nums[fast] * nums[fast]) {
-                result[j--] = nums[slow] * nums[slow];
-                slow++;
+        int left = 0;
+        int right = nums.length - 1;
+        int[] copy = new int[nums.length];
+        int k = nums.length-1;
+        while (left <= right) {
+            if (nums[right] * nums[right] > nums[left] * nums[left]) {
+                copy[k--] = nums[right] * nums[right];
+                right--;
             } else {
-                result[j--] = nums[fast] * nums[fast];
-                fast--;
+                copy[k--] = nums[left] * nums[left];
+                left++;
             }
         }
-        return result;
+        return copy;
     }
 
     /**
