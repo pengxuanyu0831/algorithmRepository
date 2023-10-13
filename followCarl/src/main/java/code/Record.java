@@ -1,5 +1,6 @@
 package code;
 
+import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -99,11 +100,64 @@ public class Record {
             right++;
             while (sum >= target) {
                 res = right - left > res ? res : right - left;
+                // 滑动窗口的精髓：左边动的时候，要减掉左边的原值
                 sum -= nums[left];
                 left++;
             }
         }
         return res > nums.length ? 0 : res;
+    }
+
+
+    /**
+     * Day 3 #203
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode node = new ListNode();
+        // 保存头结点
+        node.next = head;
+        ListNode cur = node;
+
+        while (cur.next != null) {
+            if (cur.next.val == val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return node.next;
+    }
+
+
+    /**
+     * #206
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head){
+        if (head == null) {
+            return head;
+        }
+        ListNode beg = null;
+        ListNode mid = head;
+        ListNode end = head.next;
+
+        while (true) {
+            mid.next = beg;
+            if (end == null) {
+                break;
+            }
+
+            beg = mid;
+            mid = end;
+            end = end.next;
+        }
+
+        head = mid;
+        return head;
     }
 
 
