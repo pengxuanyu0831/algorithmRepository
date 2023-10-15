@@ -3,6 +3,8 @@ package code;
 import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Stack;
+
 /**
  * @author xuanyu peng
  * @description:
@@ -158,6 +160,46 @@ public class Record {
 
         head = mid;
         return head;
+    }
+
+
+    /**
+     * Day4 #24
+     * @param head
+     * @return
+     */
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // 利用栈
+        Stack<ListNode> stack = new Stack<ListNode>();
+        ListNode node = new ListNode();
+        ListNode temp = head;
+        // 先保存头结点
+        head = node;
+
+        while (temp != null && temp.next !=null) {
+            stack.add(temp);
+            stack.add(temp.next);
+
+            // 当前节点往前走两步，走到第二组要交换的节点
+            temp = temp.next.next;
+
+            node.next = stack.pop();
+            node = node.next;
+            node.next = stack.pop();
+            node = node.next;
+
+        }
+
+        if (temp != null) {
+            node.next = temp;
+        } else {
+            node.next = null;
+        }
+
+        return head.next;
     }
 
 
