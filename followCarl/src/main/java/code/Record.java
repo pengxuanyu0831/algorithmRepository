@@ -3,7 +3,7 @@ package code;
 import com.pengxy.algorithm.AboutList.ListNode;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author xuanyu peng
@@ -200,6 +200,59 @@ public class Record {
         }
 
         return head.next;
+    }
+
+
+    /**
+     * Day5 #242
+     * @param s
+     * @param t
+     * @return
+     */
+    public boolean isAnagram(String s, String t) {
+
+        Map<Character, Integer> sMap = new HashMap<>();
+        Map<Character, Integer> tMap = new HashMap<>();
+
+        for (char c : s.toCharArray()) {
+            sMap.put(c, sMap.getOrDefault(c, 0) + 1);
+        }
+
+        for (char e : t.toCharArray()) {
+            tMap.put(e, tMap.getOrDefault(e, 0));
+        }
+
+        return Objects.equals(sMap, tMap);
+    }
+
+
+    /**
+     * #349
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] intersection(int[] nums1, int[] nums2) {
+
+        Set<Integer> res = new HashSet<>();
+
+        for (int i = 0; i < nums1.length; i++) {
+            res.add(nums1[i]);
+        }
+
+        for (int k = 0; k < nums2.length; k++) {
+            res.add(nums2[k]);
+        }
+
+        int[] resss = new int[res.size()];
+        int sis = 0;
+        for (Integer i : res) {
+            resss[sis++] = i;
+        }
+
+        return resss;
+
+
     }
 
 
