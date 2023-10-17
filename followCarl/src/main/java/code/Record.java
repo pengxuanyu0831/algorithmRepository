@@ -251,8 +251,60 @@ public class Record {
         }
 
         return resss;
+    }
 
 
+    /**Day7  #15
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i<0&& nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            // 双指针在内循环
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                // 题目条件
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    // 里面要移动指针
+                    // 什么情况要动，就是相等的时候要动
+                    while (j < k && nums[j] == nums[j + 1]) {
+
+                        j++;
+                    }
+
+                    while (j < k && nums[k] == nums[k - 1]) {
+
+                        k--;
+                    }
+                    // 正常移动
+                    j++;
+                    k--;
+                }
+                // 从小到大排序，如果和>0意味着右边太大，k 要往左
+                if (sum > 0) {
+                    k--;
+                }
+
+                if (sum < 0) {
+                    j++;
+                }
+            }
+
+
+        }
+        return res;
     }
 
 
