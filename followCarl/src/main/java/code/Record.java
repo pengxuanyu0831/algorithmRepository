@@ -265,7 +265,7 @@ public class Record {
         List<List<Integer>> res = new ArrayList<>();
 
         for (int i = 0; i < nums.length - 2; i++) {
-            if (i<0&& nums[i] == nums[i - 1]) {
+            if (i>0&& nums[i] == nums[i - 1]) {
                 continue;
             }
 
@@ -305,6 +305,99 @@ public class Record {
 
         }
         return res;
+    }
+
+
+    /**
+     * Day8  #344
+     * @param s
+     */
+    public void reverseString(char[] s) {
+        int left = 0;
+        int right = s.length - 1;
+
+        while (left < right) {
+            char temp;
+
+            temp = s[left];
+
+            s[left] = s[right];
+
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+
+    /**
+     * #541
+     * @param s
+     * @param k
+     * @return
+     */
+    public String reverseStr(String s, int k) {
+        char[] ss = s.toCharArray();
+
+        for (int i = 0; i < s.length(); i = i + 2 * k) {
+            // 右指针
+            int rr = i + k - 1;
+            this.doReverseStr(ss, i, Math.min(rr, ss.length - 1));
+        }
+        return String.valueOf(ss);
+
+    }
+
+    private void doReverseStr(char[] s, int left, int right) {
+        while (left < right) {
+            char temp;
+
+            temp = s[left];
+
+            s[left] = s[right];
+
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+
+    /**
+     * #151
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        String[] words = s.split(" ");
+        int left = 0;
+        int right = words.length - 1;
+
+        while (left < right) {
+            String temp = "";
+
+            temp = words[left];
+
+            words[left] = words[right];
+
+            words[right] = temp;
+
+            left++;
+
+            right--;
+        }
+        StringBuffer sb = new StringBuffer();
+
+        for (String d : words) {
+            if (d.equals("")) {
+                continue;
+            }
+            sb.append(d).append(" ");
+        }
+
+        return sb.toString().substring(0, sb.length() - 1);
     }
 
 
