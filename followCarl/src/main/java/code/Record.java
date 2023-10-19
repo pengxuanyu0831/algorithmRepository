@@ -401,12 +401,35 @@ public class Record {
     }
 
 
+    /**
+     * Day9  #28
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr(String haystack, String needle) {
+        char[] chars = haystack.toCharArray();
+        char[] charss = needle.toCharArray();
+        for (int i = 0; i < Math.max(haystack.length(), needle.length()); i++) {
+            // 如果第一个字符串能对上，则开始匹配，看能否完整匹配
+            haystack.indexOf(needle);
+        }
+
+        return -1;
+    }
+
+
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5};
         int target =2 ;
         Record record = new Record();
 //        log.info("res >>>{} >>{}", record.sortedSquares(nums));
-        log.info("res >>>{}", record.minSubArrayLen(11,nums));
+//        log.info("res >>>{}", record.minSubArrayLen(11,nums));
+
+        String a = "hello";
+        String b = "ll";
+        log.info(  ">>>>>>>{}" ,record.strStr(a, b));
+
 
     }
 }
