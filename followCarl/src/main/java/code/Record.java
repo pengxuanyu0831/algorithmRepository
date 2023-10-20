@@ -419,6 +419,104 @@ public class Record {
     }
 
 
+    /**
+     * Day10 #232  栈>>>先进后出
+     */
+    class MyQueue {
+        Stack<Integer> sa;
+        Stack<Integer> cache;
+
+        public MyQueue() {
+            sa = new Stack<>();
+            cache = new Stack<>();
+        }
+
+        public void push(int x) {
+            sa.push(x);
+        }
+
+        public int pop() {
+            if (cache.isEmpty()) {
+                this.toCache();
+            }
+
+            return cache.pop();
+        }
+
+        public int peek() {
+            if (cache.isEmpty()) {
+                this.toCache();
+            }
+
+            return cache.peek();
+        }
+
+        public boolean empty() {
+            return sa.isEmpty() && cache.isEmpty();
+        }
+
+
+        private void toCache() {
+            while (!sa.isEmpty()) {
+                cache.push(sa.pop());
+            }
+        }
+    }
+
+
+    /**
+     *  #225  X 
+     */
+    class MyStack {
+        // 队列>>>>先进先出
+        Queue<Integer> queue;
+        Queue<Integer> cache;
+
+        public MyStack() {
+            queue = new LinkedList<Integer>();
+            cache = new LinkedList<Integer>();
+        }
+
+        public void push(int x) {
+            queue.offer(x);
+        }
+
+        public int pop() {
+            while (queue.size() != 1) {
+                cache.offer(queue.poll());
+            }
+
+            Integer value = queue.poll();
+
+            while (!cache.isEmpty()) {
+                queue.offer(cache.poll());
+            }
+
+            return value;
+        }
+
+        public int top() {
+            while (queue.size() != 1) {
+                cache.offer(queue.poll());
+            }
+
+            Integer value = queue.peek();
+
+            cache.offer(value);
+
+            while (!cache.isEmpty()) {
+                queue.offer(cache.poll());
+            }
+
+            return value;
+        }
+
+        public boolean empty() {
+            return queue.isEmpty();
+        }
+    }
+
+
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5};
         int target =2 ;
