@@ -465,7 +465,7 @@ public class Record {
 
 
     /**
-     *  #225  X 
+     *  #225  X
      */
     class MyStack {
         // 队列>>>>先进先出
@@ -514,6 +514,74 @@ public class Record {
         public boolean empty() {
             return queue.isEmpty();
         }
+    }
+
+
+    /**
+     * Day.11  #20
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s) {
+        Map<String, Integer> map = new HashMap<>();
+
+        for (char c : s.toCharArray()) {
+
+            switch (c) {
+                case '(':
+                    map.put("(", map.getOrDefault("(", 0) + 1);
+                    break;
+                case '[':
+                    map.put("[", map.getOrDefault("[", 0) + 1);
+                    break;
+                case '{':
+                    map.put("{", map.getOrDefault("{", 0) + 1);
+                    break;
+            }
+
+        }
+
+
+        for (char ar : s.toCharArray()) {
+            if (ar == '(' || ar == '[' || ar == '{') {
+                continue;
+            }
+
+            switch (ar) {
+                case ')':
+                    Integer integer = map.get("(");
+                    if (integer == null || integer < 1) {
+                        return false;
+                    }
+
+                    map.replace("(", integer - 1);
+                    break;
+                case ']':
+                    Integer integer1 = map.get("[");
+                    if (integer1 == null || integer1 < 1) {
+                        return false;
+                    }
+
+                    map.replace("[", integer1 - 1);
+                    break;
+                case '}':
+                    Integer integer2 = map.get("{");
+                    if (integer2 == null || integer2 < 1) {
+                        return false;
+                    }
+
+                    map.replace("{", integer2 - 1);
+                    break;
+            }
+        }
+
+        for (String cc : map.keySet()) {
+            if (map.get(cc) >0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
