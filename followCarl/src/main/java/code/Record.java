@@ -518,7 +518,7 @@ public class Record {
 
 
     /**
-     * Day.11  #20
+     * Day.11  #20   X
      * @param s
      * @return
      */
@@ -585,6 +585,48 @@ public class Record {
     }
 
 
+    /**
+     * #1047
+     * @param s
+     * @return
+     */
+    public String removeDuplicates(String s) {
+        while (!isTheSame(s)) {
+            char[] chars = s.toCharArray();
+
+            for (int k = 0; k < chars.length - 2; k++) {
+
+                if (chars[k] == chars[k + 1]) {
+                    chars[k] = '0';
+                    chars[k + 1] = '0';
+                }
+            }
+            s = String.copyValueOf(chars).replaceAll("00", "");
+            log.info("chars >>>{}", chars);
+        }
+        return s;
+    }
+
+    public boolean isTheSame(String str) {
+
+        char[] chars = str.toCharArray();
+        log.info("chars >>>{}", chars);
+        if (str.length() == 2) {
+            if (chars[0] == chars[1]) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < chars.length - 2; i++) {
+            if (chars[i + 1] == chars[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5};
         int target =2 ;
@@ -592,9 +634,9 @@ public class Record {
 //        log.info("res >>>{} >>{}", record.sortedSquares(nums));
 //        log.info("res >>>{}", record.minSubArrayLen(11,nums));
 
-        String a = "hello";
+        String a = "aaaaaaaa";
         String b = "ll";
-        log.info(  ">>>>>>>{}" ,record.strStr(a, b));
+        log.info(  ">>>>>>>{}" ,record.removeDuplicates(a));
 
 
     }
