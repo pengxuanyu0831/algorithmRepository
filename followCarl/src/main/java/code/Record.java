@@ -627,8 +627,78 @@ public class Record {
     }
 
 
+    /**
+     * Day13 #239   X 暴力解法并不可取
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums.length == 1) {
+            return nums;
+        }
+
+        int[] res = new int[nums.length - k + 1];
+
+        int left = 0;
+        int right = k - 1;
+        while (right < nums.length) {
+            int[] temp = new int[right - left + 1];
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = nums[left + i];
+            }
+
+            Integer max = this.getMax(temp);
+            res[left] = max;
+            left++;
+            right++;
+        }
+        return res;
+    }
+
+
+    private Integer getMax(int[] numss) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < numss.length ; i++) {
+            max = Math.max(max, numss[i]);
+        }
+        return max;
+    }
+
+
+
+    /**
+     * #347  堆排序，关注+1
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+        // 按value排序
+        int[] result = new int[k];
+        // 但是最后取得是key
+        PriorityQueue<Integer> queue = new PriorityQueue<>((o1, o2) -> map.get(o1) - map.get(o2));
+
+        for (Integer j :  map.keySet()) {
+            if (queue.size() < k) {
+                queue.offer(j);
+            } else if (map.get(j) > map.get(queue.peek())) {
+                queue.poll();
+                queue.offer(j);
+            }
+        }
+        for (int i = k - 1; i >= 0; i--) {
+            result[i] = queue.poll();
+        }
+        return result;
+    }
+
+
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4,5};
         int target =2 ;
         Record record = new Record();
 //        log.info("res >>>{} >>{}", record.sortedSquares(nums));
@@ -636,7 +706,7 @@ public class Record {
 
         String a = "aaaaaaaa";
         String b = "ll";
-        log.info(  ">>>>>>>{}" ,record.removeDuplicates(a));
+//        log.info(">>>>>>>{}", record.maxSlidingWindow(nums, 5000));
 
 
     }
