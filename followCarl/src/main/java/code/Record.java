@@ -1,6 +1,7 @@
 package code;
 
 import com.pengxy.algorithm.AboutList.ListNode;
+import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -695,6 +696,53 @@ public class Record {
             result[i] = queue.poll();
         }
         return result;
+    }
+
+
+    /**
+     * Day15  #101
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        // 参见其他#101 的写法
+        return true;
+    }
+
+
+    /**
+     * Day16 #111
+     * @param root
+     * @return
+     */
+    public int minDepth(TreeNode root) {
+        if (null == root) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int depth = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            depth++;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+                // 最小深度---到叶子节点---左右子树都为空就是叶子节点
+                if (node.right == null && node.left == null) {
+                    return depth;
+                }
+            }
+        }
+        return depth;
     }
 
 
