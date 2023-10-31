@@ -778,9 +778,46 @@ public class Record {
 
     /**
      * Day17  #110
-     * @param 
+     * @param
      * @return
      */
+
+
+    /**
+     * Day21 #530
+     *
+     * @param root
+     * @return
+     */
+    TreeNode pre;
+
+    Integer res = Integer.MAX_VALUE;
+    public int getMinimumDifference(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        this.doGetMinimumDiff(root);
+        return res;
+    }
+
+    private void doGetMinimumDiff(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        // 左
+        this.doGetMinimumDiff(node.left);
+
+        // 中
+        if (pre != null) {
+            res = Math.min(res, node.val - pre.val);
+        }
+
+        pre = node;
+
+        // 右
+        this.doGetMinimumDiff(node.right);
+    }
 
 
     public static void main(String[] args) {
