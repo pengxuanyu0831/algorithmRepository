@@ -820,6 +820,28 @@ public class Record {
     }
 
 
+    /**
+     * Day22  #235
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     * @deprecated 二叉搜索树特性：左子节点小于根节点 右节点大于根节点
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // 如果p q 都在右侧
+        if (p.val > root.val && q.val > root.val) {
+            return this.lowestCommonAncestor(root.right, p, q);
+        }
+
+        if (p.val < root.val && q.val < root.val) {
+            return this.lowestCommonAncestor(root.left, p, q);
+        }
+
+        return root;
+    }
+
+
     public static void main(String[] args) {
         int target =2 ;
         Record record = new Record();
