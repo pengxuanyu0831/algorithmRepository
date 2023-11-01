@@ -842,6 +842,29 @@ public class Record {
     }
 
 
+    /**
+     * #701
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) {
+            return new TreeNode(val);
+        }
+
+        if (val < root.val) {
+            // 小于该在根节点左边
+            root.left = insertIntoBST(root.left, val);
+        } else {
+            root.right = insertIntoBST(root.right, val);
+        }
+
+        return root;
+    }
+
+
+
     public static void main(String[] args) {
         int target =2 ;
         Record record = new Record();
