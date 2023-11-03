@@ -864,6 +864,36 @@ public class Record {
     }
 
 
+    /**
+     * Day23 #77
+     * @param n
+     * @param k
+     * @return
+     * @deprecated 回溯第一题，用于掌握思想
+     */
+    List<Integer> combinePath = new ArrayList<>();
+    List<List<Integer>> combineResult = new ArrayList<>();
+    public List<List<Integer>> combine(int n, int k) {
+        this.doCombine(n, k, 1);
+        return combineResult;
+    }
+
+    private void doCombine(int n, int k, int index) {
+        // 1 终止条件
+        if (combinePath.size() == k) {
+            combineResult.add(new ArrayList<>(combinePath));
+            return;
+        }
+
+        for (int i = index; i <= n; i++) {
+            combinePath.add(i);
+            this.doCombine(n, k, i + 1);
+            // 回溯
+            combinePath.remove(combinePath.size() - 1);
+        }
+    }
+
+
 
     public static void main(String[] args) {
         int target =2 ;
