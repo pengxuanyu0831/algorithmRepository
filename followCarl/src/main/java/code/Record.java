@@ -865,6 +865,45 @@ public class Record {
 
 
     /**
+     * Day.23  #216
+     *
+     * @param k
+     * @param n
+     * @return
+     */
+    List<List<Integer>> sumRes = new ArrayList<>();
+    List<Integer> sumResMember = new ArrayList<>();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        this.doCombinationSum3(k, n, 1);
+        return sumRes;
+    }
+
+
+    private void doCombinationSum3(int k, int n, int index) {
+        int sum = 0;
+        // 结束条件
+        if (sumResMember.size() == k) {
+            for (Integer i : sumResMember) {
+                sum += i;
+            }
+            if (sum == n) {
+                sumRes.add(new ArrayList<>(sumResMember));
+                return;
+            }
+        }
+
+        for (int i = index; i <= 9; i++) {
+            sumResMember.add(i);
+            this.doCombinationSum3(k, n, i + 1);
+            sumResMember.remove(sumResMember.size() - 1);
+        }
+    }
+
+
+
+
+
+    /**
      * Day23 #77
      * @param n
      * @param k
