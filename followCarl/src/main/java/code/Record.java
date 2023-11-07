@@ -933,6 +933,44 @@ public class Record {
     }
 
 
+    /**
+     * Day24  #39
+     * @param candidates
+     * @param target
+     * @return
+     */
+    List<Integer> combinationSumPath = new ArrayList<>();
+    List<List<Integer>> combinationSumeResult = new ArrayList<>();
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        this.doCombinationSum(candidates, target, 0, 0);
+        return combinationSumeResult;
+    }
+
+
+    private void doCombinationSum(int[] cans, int target, int sum,int index) {
+        // 停止条件
+        if (sum > target) {
+            return;
+        }
+
+        if (sum == target) {
+            combinationSumeResult.add(new ArrayList<>(combinationSumPath));
+            return;
+        }
+
+        for (int i = index; i < cans.length && cans[i] + sum <= target; i++) {
+            sum += cans[i];
+            combinationSumPath.add(cans[i]);
+            Arrays.sort(cans);
+
+            this.doCombinationSum(cans, target, sum, i);
+            sum -= cans[i];
+            combinationSumPath.remove(combinationSumPath.size() - 1);
+        }
+
+    }
+
+
 
     public static void main(String[] args) {
         int target =2 ;
