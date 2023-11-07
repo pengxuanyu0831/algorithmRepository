@@ -81,6 +81,8 @@ public class BackTracking {
      * @return
      */
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        // 这里没有传i+1，就代表下次进来可以再次使用自己（重复使用）
+        Arrays.sort(candidates);
         this.combinationSumBackTracking(target, candidates, 0, 0);
         return result;
     }
@@ -98,8 +100,7 @@ public class BackTracking {
         for (int i = index; i < candidates.length && sum + candidates[i] <= target; i++) {
             sum += candidates[i];
             path.add(candidates[i]);
-            // 这里没有传i+1，就代表下次进来可以再次使用自己（重复使用）
-            Arrays.sort(candidates);
+
             this.combinationSumBackTracking(target, candidates,sum,i);
             sum -= candidates[i];
             path.remove(path.size() - 1);

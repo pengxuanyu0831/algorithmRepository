@@ -942,6 +942,7 @@ public class Record {
     List<Integer> combinationSumPath = new ArrayList<>();
     List<List<Integer>> combinationSumeResult = new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
         this.doCombinationSum(candidates, target, 0, 0);
         return combinationSumeResult;
     }
@@ -961,7 +962,6 @@ public class Record {
         for (int i = index; i < cans.length && cans[i] + sum <= target; i++) {
             sum += cans[i];
             combinationSumPath.add(cans[i]);
-            Arrays.sort(cans);
 
             this.doCombinationSum(cans, target, sum, i);
             sum -= cans[i];
