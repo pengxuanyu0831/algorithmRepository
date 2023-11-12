@@ -970,6 +970,37 @@ public class Record {
 
     }
 
+    /**
+     * Day33 #90
+     *
+     * @param nums
+     * @return
+     */
+    Set<Integer> users;
+    List<Integer> subsetsWithDupPath = new ArrayList<>();
+    List<List<Integer>> subsetsWithDupRes = new ArrayList<>();
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        nums = Arrays.stream(nums).sorted().toArray();
+        this.doSubsetsWithDub(nums, 0, users);
+        return subsetsWithDupRes;
+    }
+
+    public void doSubsetsWithDub(int[] nums, int index, Set<Integer> users) {
+        subsetsWithDupRes.add(new ArrayList<>(subsetsWithDupPath));
+        users = new HashSet<>();
+        for (int i = index; i < nums.length; i++) {
+            if (users.contains(nums[i])) {
+                continue;
+            }
+            users.add(nums[i]);
+            subsetsWithDupPath.add(nums[i]);
+
+            this.doSubsetsWithDub(nums, i + 1, users);
+
+            subsetsWithDupPath.remove(subsetsWithDupPath.size() - 1);
+        }
+    }
+
 
 
     public static void main(String[] args) {
