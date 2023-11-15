@@ -1008,6 +1008,29 @@ public class Record {
      */
 
 
+    /**
+     * Day36  #455
+     * @param g：饼干
+     * @param s：小孩
+     * @return
+     */
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int index = 0;
+        int count = 0;
+
+        for (int i = 0; i < s.length && index < g.length; i++) {
+            if (s[i] >= g[index]) {
+                index++;
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+
 
     public static void main(String[] args) {
         int target =2 ;
