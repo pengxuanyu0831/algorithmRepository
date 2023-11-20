@@ -1031,6 +1031,26 @@ public class Record {
     }
 
 
+    /**
+     * Day37 #738
+     * 贪心！ 当发现当前数字 > 下一个数字时，就把当前数字 - 1，后面的所有数字都设置成 9。
+     * @param n
+     * @return
+     */
+    public int monotoneIncreasingDigits(int n) {
+        char[] nums = String.valueOf(n).toCharArray();
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] > nums[i + 1]) {
+                nums[i]--;
+                for (int j = i + 1; j < nums.length; ++j) {
+                    nums[j] = '9';
+                }
+            }
+        }
+        return Integer.parseInt(new String(nums));
+    }
+
+
 
     public static void main(String[] args) {
         int target =2 ;
