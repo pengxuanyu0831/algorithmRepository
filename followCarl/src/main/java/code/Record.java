@@ -1051,6 +1051,39 @@ public class Record {
     }
 
 
+    /**
+     * Day43 #416
+     * @param nums
+     * @return
+     */
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        int[] dp = new int[10001];
+        // 先算出总和
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        // 取余
+        if (sum % 2 == 1) {
+            return false;
+        }
+        int target = sum / 2;
+
+        // dp[i]  i-重量  dp[i]-重量为i的最大价值
+        // 0-1背包问题
+        // 先遍历物品
+        for (int i = 0; i < nums.length; i++) {
+            // 根据目标值，从数组里面一个个找
+            // 再遍历背包，每个物品只能用一次，所以导过来遍历
+            for (int j = target; j >= nums[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i] - nums[i]]);
+            }
+        }
+        // 本题重量=价值
+        return dp[target] == target;
+    }
+
+
 
     public static void main(String[] args) {
         int target =2 ;
