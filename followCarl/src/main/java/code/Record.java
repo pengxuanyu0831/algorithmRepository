@@ -24,12 +24,11 @@ public class Record {
      */
     public int search(int[] nums, int target) {
         int left = 0;
-        int right = nums.length -1;
+        int right = nums.length - 1;
         while (left <= right) {
             int idx = (left + right) / 2 ;
-
             if (target < nums[idx]) {
-                right = idx -1  ;
+                right = idx - 1;
             } else if (target > nums[idx]) {
                 left = idx + 1;
             } else {
