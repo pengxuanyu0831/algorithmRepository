@@ -56,7 +56,7 @@ public class Arraysss {
 
 
     /**
-     * #26
+     * #26 快慢指针 返回慢指针的索引位置+1即是长度
      * @param nums
      * @return
      */
