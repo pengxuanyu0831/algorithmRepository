@@ -3,6 +3,7 @@ package com.pengxy.algorithm.Array;
 import java.util.*;
 
 import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program algorithm
@@ -10,6 +11,7 @@ import com.pengxy.algorithm.Tree.LeetCode.TreeNode;
  * @author: pengxuanyu
  * @create: 2021/11/14 15:39
  */
+@Slf4j
 public class array {
     public static Integer[] twoSum(Integer[] ints, Integer target) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -144,6 +146,108 @@ public class array {
             j--;
         }
     }
+
+
+    /**
+     * #80
+     * @param nums
+     * @deprecated 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使得出现次数超过两次的元素只出现两次 ，返回删除后数组的新长度。
+     * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+     * @return
+     */
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (i < 2 || nums[j] != nums[i - 2]) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+
+
+    /**
+     * #169
+     * @param nums
+     * @return
+     */
+    public int majorityElement(int[] nums) {
+        int count = 1;
+        int major = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == major) {
+                count++;
+            }else{
+                count--;
+            }
+            if (count == 0) {
+                major = nums[i];
+                count = 1;
+            }
+        }
+        return major;
+    }
+
+
+
+
+    /**
+     * #189
+     * @param nums
+     * @param k
+     */
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+        int count = 0;
+        for (int start = 0; count < n; start++) {
+            int current = start;
+            int prev = nums[start];
+            do {
+                int next = (current + k) % n;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                current = next;
+                count++;
+            } while (start != current);
+        }
+    }
+
+    public void rotate1(int[] nums, int k) {
+        if (nums.length == 1) {
+            return;
+        }
+        int kTemp = k;
+        int[] temp = new int[nums.length + k];
+        for (int i = 0; i < nums.length; i++) {
+            temp[k] = nums[i];
+            k++;
+        }
+        log.info("-------{}", temp);
+
+        for (int f = 0; f < kTemp; f++) {
+            int fff = temp[f + nums.length];
+            temp[f] = fff;
+        }
+        log.info("temp >>>> {}", temp);
+
+        for (int o = 0; o < nums.length; o++) {
+            nums[o] = temp[o];
+        }
+        log.info("========{}", nums);
+
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{1, 2};
+        array array = new array();
+        array.rotate1(nums, 3);
+    }
+
+
+
 
 
     /**
