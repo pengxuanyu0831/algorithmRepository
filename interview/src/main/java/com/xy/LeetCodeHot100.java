@@ -1,5 +1,7 @@
 package com.xy;
 
+import java.util.*;
+
 /**
  * @program algorithmRepository
  * @description: https://leetcode.cn/problems/two-sum/?envType=study-plan-v2&envId=top-100-liked
@@ -10,6 +12,12 @@ package com.xy;
 public class LeetCodeHot100 {
 
 
+    /**
+     * #1
+     * @param nums
+     * @param target
+     * @return
+     */
     public int[] twoSum(int[] nums, int target) {
 
         int[] res = new int[2];
@@ -32,5 +40,33 @@ public class LeetCodeHot100 {
         }
         return res;
 
+    }
+
+
+    /**
+     * #49
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+
+        Map<String, ArrayList<String>> res = new HashMap<>();
+
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String s1 = String.valueOf(chars);
+
+            if (res.containsKey(s1)) {
+                res.get(s1).add(s);
+            } else {
+                ArrayList<String> values = new ArrayList<>();
+                values.add(s);
+
+                res.put(s1, values);
+            }
+        }
+
+        return new ArrayList<>(res.values());
     }
 }

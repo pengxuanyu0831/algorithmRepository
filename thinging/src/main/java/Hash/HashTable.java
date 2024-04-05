@@ -50,7 +50,10 @@ public class HashTable {
             if (map.containsKey(String.valueOf(chars))) {
                 map.get(String.valueOf(chars)).add(s);
             } else {
-                map.put(String.valueOf(chars), new ArrayList<>());
+                ArrayList<String> values = new ArrayList<>();
+                values.add(s);
+
+                map.put(String.valueOf(chars), values);
             }
         }
         return new ArrayList<>(map.values());
