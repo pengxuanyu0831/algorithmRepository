@@ -69,4 +69,14 @@ public class LeetCodeHot100 {
 
         return new ArrayList<>(res.values());
     }
+
+
+    /**
+     * #11
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+
+    }
 }
