@@ -129,14 +129,36 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #283
+     * @param nums
+     */
+    public void moveZeroes(int[] nums) {
+        int slow = 0;
+
+        for (int fast = 0; fast < nums.length; fast++) {
+            if (nums[fast] != 0) {
+                int temp = nums[fast];
+                nums[fast] = nums[slow];
+                nums[slow++] = temp;
+            }
+//            log.info("nums >>>>{}", nums);
+        }
+
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
         int[] ints1 = {9,1,4,7,3,-1,0,5,8,-1,6}; // 3 4 5 6 7 8 9
         int[] ints2 = {100,4,200,1,3,2};
+        int[] ints3 = {0,1,0,3,12};
 
-        int longested = leetCodeHot100.longestConsecutive(ints1);
-        System.out.println(longested);
+//        int longested = leetCodeHot100.longestConsecutive(ints1);
+        leetCodeHot100.moveZeroes(ints3);
+
+//        System.out.println(longested);
     }
 
 
@@ -150,11 +172,5 @@ public class LeetCodeHot100 {
 //    }
 
 
-    /**
-     * #283
-     * @param nums
-     */
-//    public void moveZeroes(int[] nums) {
-//
-//    }
+
 }
