@@ -147,6 +147,32 @@ public class LeetCodeHot100 {
 
     }
 
+    /**
+     * #11
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+        int res = 0;
+        int left = 0;
+        int right = height.length - 1;
+
+        for (int i = 0; i < height.length; i++) {
+            int temp = Math.min(height[left], height[right]) * (right - left);
+            log.info("temp >>>{}", temp);
+            res = Math.max(res, temp);
+            log.info("res >>>>{}", res);
+
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return res;
+    }
+
 
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
@@ -154,22 +180,14 @@ public class LeetCodeHot100 {
         int[] ints1 = {9,1,4,7,3,-1,0,5,8,-1,6}; // 3 4 5 6 7 8 9
         int[] ints2 = {100,4,200,1,3,2};
         int[] ints3 = {0,1,0,3,12};
+        int[] ints4 = {1,1};
 
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
-        leetCodeHot100.moveZeroes(ints3);
+//        leetCodeHot100.moveZeroes(ints3);
+        leetCodeHot100.maxArea(ints4);
 
 //        System.out.println(longested);
     }
-
-
-    /**
-     * #11
-     * @param height
-     * @return
-     */
-//    public int maxArea(int[] height) {
-//
-//    }
 
 
 
