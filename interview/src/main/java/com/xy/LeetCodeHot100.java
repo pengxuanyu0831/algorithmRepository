@@ -173,6 +173,41 @@ public class LeetCodeHot100 {
         return res;
     }
 
+    /**
+     * #42
+     * @param height
+     * @deprecated 双重遍历，从左至右
+     * https://www.bilibili.com/video/BV1Qg411q7ia/?vd_source=9e70f870291cdea2bd0ead8dd57117fb
+     * @return
+     */
+    public int trap1(int[] height) {
+        // 左至右
+        int n = height.length;
+        int[] leftMaxs = new int[n];
+        leftMaxs[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            // 当前值和前一个最大值取较大值
+            leftMaxs[i] = Math.max(height[i], leftMaxs[i - 1]);
+        }
+
+        // 从右边开始
+        int[] rightMaxs = new int[n];
+        rightMaxs[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMaxs[i] = Math.max(height[i], rightMaxs[i + 1]);
+        }
+        int res = 0;
+
+        for (int i = 0; i < n; i++) {
+            // Math.min(leftMaxs[i], rightMaxs[i])  >>>> 意思是水桶的高度取决于较短的那块
+            // - height[i] 减去高度，就是减去木桶下边的底的高度，就是可以装水的大小
+            res += Math.min(leftMaxs[i], rightMaxs[i]) - height[i];
+        }
+
+        return res;
+
+    }
+
 
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
@@ -180,7 +215,8 @@ public class LeetCodeHot100 {
         int[] ints1 = {9,1,4,7,3,-1,0,5,8,-1,6}; // 3 4 5 6 7 8 9
         int[] ints2 = {100,4,200,1,3,2};
         int[] ints3 = {0,1,0,3,12};
-        int[] ints4 = {1,1};
+        int[] ints4 = {1, 1};
+        int[] ints5 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
 
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
 //        leetCodeHot100.moveZeroes(ints3);
