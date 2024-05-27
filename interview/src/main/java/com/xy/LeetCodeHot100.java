@@ -209,6 +209,38 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #3
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int res = 0;
+
+//        char[] charss = s.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                // 如果当前字符 ch 包含在 map中，此时有2类情况：
+                //             1）当前字符包含在当前有效的子段中，如：abca，当我们遍历到第二个a，当前有效最长子段是 abc，我们又遍历到a，
+                //             那么此时更新 left 为 map.get(a)+1=1，当前有效子段更新为 bca；
+                //             2）当前字符不包含在当前最长有效子段中，如：abba，我们先添加a,b进map，此时left=0，我们再添加b，发现map中包含b，
+                //             而且b包含在最长有效子段中，就是1）的情况，我们更新 left=map.get(b)+1=2，此时子段更新为 b，而且map中仍然包含a，map.get(a)=0；
+                //             随后，我们遍历到a，发现a包含在map中，且map.get(a)=0，如果我们像1）一样处理，就会发现 left=map.get(a)+1=1，实际上，left此时
+                //             应该不变，left始终为2，子段变成 ba才对。
+                left = Math.max(left, map.get(s.charAt(i)) + 1);
+            }
+
+            map.put(s.charAt(i), i);
+            res = Math.max(res, i - left + 1);
+            log.info("i >>>> {} map >>>>>{} res >>>>>{}", i, map, res);
+        }
+        log.info("res >>>>{}", res);
+        return res;
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
@@ -217,10 +249,13 @@ public class LeetCodeHot100 {
         int[] ints3 = {0,1,0,3,12};
         int[] ints4 = {1, 1};
         int[] ints5 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        String test = "abcabcbb";
 
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
 //        leetCodeHot100.moveZeroes(ints3);
-        leetCodeHot100.maxArea(ints4);
+//        leetCodeHot100.maxArea(ints4);
+        int i = leetCodeHot100.lengthOfLongestSubstring(test);
+//        System.out.printf(">>>>>>>" + i);
 
 //        System.out.println(longested);
     }
