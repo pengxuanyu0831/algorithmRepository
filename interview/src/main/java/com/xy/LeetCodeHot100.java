@@ -241,6 +241,59 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #15
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i>0&& nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            // 双指针在内循环
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                // 题目条件
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    // 里面要移动指针
+                    // 什么情况要动，就是相等的时候要动
+                    while (j < k && nums[j] == nums[j + 1]) {
+
+                        j++;
+                    }
+
+                    while (j < k && nums[k] == nums[k - 1]) {
+
+                        k--;
+                    }
+                    // 正常移动
+                    j++;
+                    k--;
+                }
+                // 从小到大排序，如果和>0意味着右边太大，k 要往左
+                if (sum > 0) {
+                    k--;
+                }
+
+                if (sum < 0) {
+                    j++;
+                }
+            }
+        }
+        log.info("res >>>>>>{}",res);
+        return res;
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
@@ -249,13 +302,15 @@ public class LeetCodeHot100 {
         int[] ints3 = {0,1,0,3,12};
         int[] ints4 = {1, 1};
         int[] ints5 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int[] ints6 = {-1, 0, 1, 2, -1, -4};
         String test = "abcabcbb";
 
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
 //        leetCodeHot100.moveZeroes(ints3);
 //        leetCodeHot100.maxArea(ints4);
-        int i = leetCodeHot100.lengthOfLongestSubstring(test);
+//        int i = leetCodeHot100.lengthOfLongestSubstring(test);
 //        System.out.printf(">>>>>>>" + i);
+        List<List<Integer>> lists = leetCodeHot100.threeSum(ints6);
 
 //        System.out.println(longested);
     }
