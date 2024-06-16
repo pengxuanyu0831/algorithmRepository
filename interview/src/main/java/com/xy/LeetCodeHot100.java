@@ -344,6 +344,30 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #560
+     * @param nums
+     * @param k
+     * @return https://leetcode.cn/problems/subarray-sum-equals-k/solutions/238572/he-wei-kde-zi-shu-zu-by-leetcode-solution/
+     * @deprecated 这题不会
+     */
+    public int subarraySum(int[] nums, int k) {
+
+        int count = 0;
+
+        for (int start = 0; start < nums.length; ++start) {
+            int sum = 0;
+            for (int end = start; end >= 0; --end) {
+                sum += nums[end];
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
