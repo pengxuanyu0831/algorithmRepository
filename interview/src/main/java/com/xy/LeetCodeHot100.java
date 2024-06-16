@@ -294,6 +294,56 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #483
+     * @param s
+     * @param p
+     * @return
+     */
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+
+        if (s == null || p == null || s.length() < p.length()) return res;
+
+        int[] sCount = new int[26];
+        int[] pCount = new int[26];
+
+        for (int i = 0; i < p.length(); i++) {
+            sCount[s.charAt(i) - 'a']++;
+            pCount[p.charAt(i) - 'a']++;
+        }
+        log.info("sCount >>{} pCount>>{}", sCount, pCount);
+
+        if (Arrays.equals(sCount, pCount)) {
+            res.add(0);
+        }
+
+
+        // 构建滑动窗口
+        int left = 0;
+        int right = p.length() - 1;
+
+        while (true) {
+
+            sCount[s.charAt(left) - 'a']--;
+
+            // 滑动开始/**/
+            left++;
+            right++;
+
+            if (right >= s.length()) {
+                break;
+            }
+            sCount[s.charAt(right) - 'a']++;
+
+            if (Arrays.equals(sCount, pCount)) {
+                res.add(left);
+            }
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
@@ -303,14 +353,19 @@ public class LeetCodeHot100 {
         int[] ints4 = {1, 1};
         int[] ints5 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         int[] ints6 = {-1, 0, 1, 2, -1, -4};
+
         String test = "abcabcbb";
+
+        String s = "cbaebabacd";
+        String p = "abc";
 
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
 //        leetCodeHot100.moveZeroes(ints3);
 //        leetCodeHot100.maxArea(ints4);
 //        int i = leetCodeHot100.lengthOfLongestSubstring(test);
 //        System.out.printf(">>>>>>>" + i);
-        List<List<Integer>> lists = leetCodeHot100.threeSum(ints6);
+        List<Integer> anagrams = leetCodeHot100.findAnagrams(s, p);
+        log.info("res >>>>>>{}", anagrams);
 
 //        System.out.println(longested);
     }
