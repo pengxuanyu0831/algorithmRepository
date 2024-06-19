@@ -368,6 +368,65 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #560
+     * @param nums
+     * @param k
+     * @return 这是错误的 x
+     */
+    public int subarraySum1(int[] nums, int k) {
+
+        int left = 0;
+        int right = 1;
+
+        while (right < nums.length) {
+            int sum = 0;
+
+            for (int i = left; i < right; i++) {
+                sum+=nums[i];
+            }
+
+            if (sum == k) {
+                return right - left;
+            }
+
+            if (sum > k) {
+                left++;
+            }
+
+            if (sum < k) {
+                right++;
+            }
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * #53
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+
+        int[] res = new int[nums.length];
+        res[0] = nums[0];
+        int ress = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = Math.max(res[i - 1] + nums[i], nums[i]);
+            ress = Math.max(ress, res[i]);
+        }
+
+
+        return ress;
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
