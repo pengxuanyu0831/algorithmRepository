@@ -1,5 +1,6 @@
 package com.xy;
 
+import com.sun.xml.internal.org.jvnet.mimepull.CleanUpExecutorFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -427,6 +428,27 @@ public class LeetCodeHot100 {
     }
 
 
+    /**
+     * #56
+     * @param intervals
+     * @return
+     * @deprecated x
+     */
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+//        log.info("intervals >>>{}", intervals);
+        List<int[]> ans = new ArrayList<>();
+        for (int i = 0; i < intervals.length; ++i) {
+            if (ans.size() == 0 || intervals[i][0] > ans.get(ans.size() - 1)[1]) {
+                ans.add(intervals[i]);
+            } else {
+                ans.get(ans.size() - 1)[1] = Math.max(intervals[i][1], ans.get(ans.size() - 1)[1]);
+            }
+        }
+        return ans.toArray(new int[ans.size()][2]);
+    }
+
+
     public static void main(String[] args) {
         LeetCodeHot100 leetCodeHot100 = new LeetCodeHot100();
 
@@ -442,13 +464,17 @@ public class LeetCodeHot100 {
         String s = "cbaebabacd";
         String p = "abc";
 
+        int[][] t = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+
+        int[][] merge = leetCodeHot100.merge(t);
+        log.info("merge >>>>>>>{}", merge);
+
 //        int longested = leetCodeHot100.longestConsecutive(ints1);
 //        leetCodeHot100.moveZeroes(ints3);
 //        leetCodeHot100.maxArea(ints4);
 //        int i = leetCodeHot100.lengthOfLongestSubstring(test);
 //        System.out.printf(">>>>>>>" + i);
-        List<Integer> anagrams = leetCodeHot100.findAnagrams(s, p);
-        log.info("res >>>>>>{}", anagrams);
+
 
 //        System.out.println(longested);
     }
